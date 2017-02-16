@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "874862391573",
+    "firebase_url": "https://timetable-generation-system.firebaseio.com",
+    "project_id": "timetable-generation-system",
+    "storage_bucket": "timetable-generation-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874862391573:android:236bda5b7053f57c",
+        "android_client_info": {
+          "package_name": "com.example.rajatiit.admin_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874862391573-41nt8u2b2h7hpmplave3o4c4pq3sddfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARkCwBwJ7LfMBU-DlM9BDXdWZUy_U_W1U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874862391573-41nt8u2b2h7hpmplave3o4c4pq3sddfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
