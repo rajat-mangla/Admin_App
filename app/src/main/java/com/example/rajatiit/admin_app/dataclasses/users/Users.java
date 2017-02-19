@@ -55,7 +55,6 @@ public class Users {
     /*
     Getter and Setter Methods ....
      */
-
     public static ArrayList<TeacherDetail> getTeacherDetails() {
         return teacherDetails;
     }

@@ -19,7 +19,7 @@ public class FirebaseClass {
     }
 
     public static void updateUsers(Users users){
-        DatabaseReference reference = database.getReference(Users.class.getName());
+        DatabaseReference reference = database.getReference("Users");
         reference.setValue(users);
     }
 

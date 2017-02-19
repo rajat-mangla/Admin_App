@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
         buttonClicks(this);
-
+        getAllUsersData();
     }
 
     private void buttonClicks(final Context context){
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAllUsersData(){
-        DatabaseReference reference = FirebaseClass.getDatabase().getReference(Users.class.getName());
+        DatabaseReference reference = FirebaseClass.getDatabase().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
