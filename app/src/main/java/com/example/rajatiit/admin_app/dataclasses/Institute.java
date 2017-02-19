@@ -43,10 +43,6 @@ public class Institute {
         Institute.departmentDetails.add(departmentDetail);
     }
 
-    public static void removeDepartmentDetail(int index) {
-        Institute.departmentDetails.remove(index);
-    }
-
     public static DepartmentDetail getDepartmentDetail(int index) {
         return Institute.departmentDetails.get(index);
     }

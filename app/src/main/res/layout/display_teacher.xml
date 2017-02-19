@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="10dp">
+
+        <TextView
+            android:text="Name :"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.75"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:gravity="right|center"
+            android:padding="10dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/teacherFirstName"
+            android:layout_weight="0.42"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:gravity="left|center"
+            android:padding="10dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/teacherlastName"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="department :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_weight="0.54"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:gravity="right|center"
+            android:padding="10dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacherDepartment"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="left|center_vertical" />
+    </LinearLayout>
+</LinearLayout>

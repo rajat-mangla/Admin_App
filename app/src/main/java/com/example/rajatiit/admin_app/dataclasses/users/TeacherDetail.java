@@ -1,18 +1,17 @@
-package com.example.rajatiit.admin_app.dataclasses;
+package com.example.rajatiit.admin_app.dataclasses.users;
 
-import android.content.Context;
-import android.widget.Toast;
+import java.io.Serializable;
 
 /**
  * Created by RajatIIT on 09-02-2017.
  */
 
-public class TeacherDetail {
+public class TeacherDetail implements Serializable{
     private String firstName;
     private String lastName;
     private String password;
-    private String lite;
-
+    private String departmentName;
+    private String uniqueCode;
     public TeacherDetail(){
 
     }
@@ -29,8 +28,8 @@ public class TeacherDetail {
         this.password = password;
     }
 
-    public void setLite(String lite) {
-        this.lite = lite;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getPassword() {
@@ -46,7 +45,19 @@ public class TeacherDetail {
         return lastName;
     }
 
-    public String getLite() {
-        return lite;
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public String getUniqueCode() {
+        return uniqueCode;
+    }
+
+    public void setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
+    }
+
+    public void generateUniqueCode(){
+        uniqueCode = firstName+lastName+departmentName+password;
     }
 }

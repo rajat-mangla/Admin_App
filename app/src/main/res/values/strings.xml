@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Admin_App</string>
+    <string name="view_item">View Details</string>
+    <string name="edit_item">Edit Details</string>
+    <string name="delete_item">Delete</string>
+    <string name="delete_teacher">do you really want to delete the teacher ?</string>
 </resources>

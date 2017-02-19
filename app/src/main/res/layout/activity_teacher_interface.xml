@@ -5,14 +5,13 @@
     android:id="@+id/activity_teacher_interface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rajatiit.admin_app.teacherInterface.TeacherInterface">
+    tools:context="com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface">
 
 
-    <ExpandableListView
-        android:id="@+id/teacherList"
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="8dp" />
+        android:id="@+id/teacherList" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addTeacher"
