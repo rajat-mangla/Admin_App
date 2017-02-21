@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
+import com.example.rajatiit.admin_app.intefaces.batchInterface.BatchInterface;
 import com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -28,11 +29,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buttonClicks(final Context context){
-        Button button = (Button) findViewById(R.id.teachers);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button teacherButton = (Button) findViewById(R.id.teachers);
+        teacherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,TeacherInterface.class);
+                startActivity(intent);
+            }
+        });
+        Button batchButton = (Button) findViewById(R.id.batches);
+        batchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,BatchInterface.class);
                 startActivity(intent);
             }
         });

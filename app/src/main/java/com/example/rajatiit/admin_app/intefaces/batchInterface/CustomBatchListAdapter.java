@@ -31,8 +31,8 @@ public class CustomBatchListAdapter extends ArrayAdapter<BatchDetail> {
         }
         TextView department = (TextView) convertView.findViewById(R.id.batchDepartment);
         TextView year = (TextView) convertView.findViewById(R.id.batchYear);
-
-
+        department.setText(getItem(position).getDepartmentName());
+        year.setText(getItem(position).getYear());
         return convertView;
     }
 }

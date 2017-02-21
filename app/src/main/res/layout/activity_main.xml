@@ -18,4 +18,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp" />
+
+    <Button
+        android:text="BATCHES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/batches"
+        android:layout_below="@+id/teachers"
+        android:layout_alignRight="@+id/teachers"
+        android:layout_alignEnd="@+id/teachers"
+        android:layout_marginTop="26dp" />
 </RelativeLayout>

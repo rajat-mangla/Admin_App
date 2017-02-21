@@ -6,19 +6,21 @@ package com.example.rajatiit.admin_app.dataclasses.users;
 
 public class BatchDetail {
     private String userName;
-    private int year;
-    private String department;
+    private String year;
+    private String departmentName;
     private String password;
     private int numStudents;
 
     public BatchDetail(){
 
     }
-    public BatchDetail(int year,String department,String password){
-        setDepartment(department);
-        setYear(year);
-        setPassword(password);
-        userName = department + Integer.toString(year);
+
+    public BatchDetail(String year, String departmentName, String password, int numStudents) {
+        this.year = year;
+        this.departmentName = departmentName;
+        this.password = password;
+        this.numStudents = numStudents;
+        userName = departmentName +year+ Integer.toString(numStudents);
     }
 
     public String getPassword() {
@@ -37,20 +39,20 @@ public class BatchDetail {
         this.userName = userName;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public int getNumStudents() {
