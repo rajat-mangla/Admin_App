@@ -1,18 +1,16 @@
 package com.example.rajatiit.admin_app.dataclasses.users;
 
-import android.app.AlertDialog;
-
 import java.util.ArrayList;
 
 /**
  * Created by rajat on 19/2/17.
  */
 
-public class Users {
+public class UserStorage {
     private static ArrayList<TeacherDetail> teacherDetails;
     private static ArrayList<BatchDetail> batchDetails;
 
-    public Users() {
+    public UserStorage() {
         if (teacherDetails == null){
             teacherDetails = new ArrayList<>();
         }
@@ -55,19 +53,19 @@ public class Users {
     /*
     Getter and Setter Methods ....
      */
-    public static ArrayList<TeacherDetail> getTeacherDetails() {
+    public ArrayList<TeacherDetail> getTeacherDetails() {
         return teacherDetails;
     }
 
-    public static void setTeacherDetails(ArrayList<TeacherDetail> teacherDetails) {
-        Users.teacherDetails = teacherDetails;
+    public void setTeacherDetails(ArrayList<TeacherDetail> teacherDetails) {
+        UserStorage.teacherDetails = teacherDetails;
     }
 
-    public static ArrayList<BatchDetail> getBatchDetails() {
+    public ArrayList<BatchDetail> getBatchDetails() {
         return batchDetails;
     }
 
-    public static void setBatchDetails(ArrayList<BatchDetail> batchDetails) {
-        Users.batchDetails = batchDetails;
+    public void setBatchDetails(ArrayList<BatchDetail> batchDetails) {
+        UserStorage.batchDetails = batchDetails;
     }
 }

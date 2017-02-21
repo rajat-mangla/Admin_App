@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.rajatiit.admin_app.dataclasses.users.Users;
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
-
         buttonClicks(this);
         getAllUsersData();
     }
@@ -40,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAllUsersData(){
-        DatabaseReference reference = FirebaseClass.getDatabase().getReference("Users");
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference reference = FirebaseClass.getDatabase().getReference("UserStorage");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Users users = dataSnapshot.getValue(Users.class);
+                UserStorage userStorage = dataSnapshot.getValue(UserStorage.class);
+                Toast.makeText(getBaseContext(),"connecting ",Toast.LENGTH_SHORT).show();
             }
 
             @Override

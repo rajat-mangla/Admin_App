@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
@@ -42,19 +43,17 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     // Department Name For Teacher getting from spinner ...
     String departmentName;
 
-    /*
-        Interface For Passing Values to Teacher Interface ...
-    */
+
+    // Interface For Passing Values to Teacher Interface ...
     public interface TeacherDetailsPasser {
-        public void passAddDialogDetail(TeacherDetail teacherDetail);
-        public void passEditDialogDetail(TeacherDetail teacherDetail,String uniqueCode);
+        void passAddDialogDetail(TeacherDetail teacherDetail);
+        void passEditDialogDetail(TeacherDetail teacherDetail,String uniqueCode);
     }
     private TeacherDetailsPasser detailsPasser;
 
 
-    /*
-    Method For Creating the Dialog using AlertDialog.Builder
-     */
+
+    // Method For Creating the Dialog using AlertDialog.Builder
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -73,10 +72,12 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     }
 
 
-    /*
-     Builder For Add Dialog
-     */
+    // Builder For Add Dialog
     private Dialog addDialogBuilder(AlertDialog.Builder builder){
+
+        TextView departmentName = (TextView) view.findViewById(R.id.departmentName);
+        departmentName.setVisibility(View.GONE);
+
         builder.setView(view)
                 .setTitle("Add Teacher")
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -98,11 +99,12 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         return builder.create();
     }
 
-
-    /*
-    Builder For Edit Dialog
-     */
+    // Builder For Edit Dialog
     private Dialog editDialogBuilder(AlertDialog.Builder builder){
+
+        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.departments);
+        departmentSpinner.setVisibility(View.GONE);
+
         builder.setView(view)
                 .setTitle("Edit Teacher")
                 .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
@@ -120,21 +122,21 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
         teacherDetail = (TeacherDetail) getArguments().getSerializable(TEACHER_DATA);
         showDetails();
-        // Method for Setting the Department Spinner
-        setDepartmentSpinner();
+
         return builder.create();
     }
 
-    /*
-      Method to show existing details in for a teacher In Edit Dialog
-    */
+
+    // Method to show existing details in for a teacher In  @Edit Dialog
     private void showDetails(){
         EditText firstNameText = (EditText) view.findViewById(R.id.firstname);
         EditText lastNameText = (EditText) view.findViewById(R.id.lastname);
+        TextView departmentName = (TextView) view.findViewById(R.id.departmentName);
         EditText passwordText = (EditText) view.findViewById(R.id.teacherPassword);
         EditText confirmPasswordText = (EditText) view.findViewById(R.id.teacherConfirmPassword);
         firstNameText.setText(teacherDetail.getFirstName());
         lastNameText.setText(teacherDetail.getLastName());
+        departmentName.setText(teacherDetail.getDepartmentName());
         passwordText.setText(teacherDetail.getPassword());
         confirmPasswordText.setText(teacherDetail.getPassword());
     }
@@ -159,13 +161,19 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                     detailsPasser = (TeacherDetailsPasser) getActivity();
                     if (isEditView){
                         String uniqueIdentifier = teacherDetail.getUniqueCode();
+                        // getting details
                         getDetails();
+                        teacherDetail.generateUniqueCode();
+
                         dismiss();
                         detailsPasser.passEditDialogDetail(teacherDetail,uniqueIdentifier);
                     }
                     else {
                         teacherDetail = new TeacherDetail();
                         getDetails();
+                        teacherDetail.setDepartmentName(departmentName);
+                        teacherDetail.generateUniqueCode();
+
                         dismiss();
                         detailsPasser.passAddDialogDetail(teacherDetail);
                     }
@@ -175,9 +183,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     }
 
-    /*
-      Handles all the errors Related to adding information
-    */
+    // Handles all the errors Related to adding information
     private boolean isError(){
         EditText firstNameText = (EditText) view.findViewById(R.id.firstname);
         EditText lastNameText = (EditText) view.findViewById(R.id.lastname);
@@ -190,14 +196,13 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
             return false;
         }
     }
+
+    // METHODD to check empty edit_texts
     private boolean editTextEmpty(EditText editText){
         return editText.getText().toString().equals("");
     }
 
-
-    /*
-     Method to add the Teacher Details TO A Teacher object from a Dialog
-     */
+    // Method to add the Teacher Details TO A Teacher object from a Dialog
     private void getDetails(){
         EditText firstNameText = (EditText) view.findViewById(R.id.firstname);
         EditText lastNameText = (EditText) view.findViewById(R.id.lastname);
@@ -206,14 +211,9 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         teacherDetail.setFirstName(firstNameText.getEditableText().toString());
         teacherDetail.setLastName(lastNameText.getEditableText().toString());
         teacherDetail.setPassword(passwordText.getEditableText().toString());
-        teacherDetail.setDepartmentName(departmentName);
-        teacherDetail.generateUniqueCode();
     }
 
-    /*
-    Below Are Spinner Related Methods ...
-     */
-
+    // Below Are Spinner Related Methods ...
     private void setDepartmentSpinner(){
         Spinner departmentSpinner = (Spinner) view.findViewById(R.id.departments);
         departmentSpinner.setOnItemSelectedListener(this);

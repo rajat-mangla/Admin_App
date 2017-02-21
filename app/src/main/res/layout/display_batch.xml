@@ -8,35 +8,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <TextView
-            android:text="TextView"
+            android:text="Department :"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/teacherFirstName"
-            android:layout_weight="0.42"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:gravity="right|center"
-            android:padding="10dp" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/teacherlastName"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left|center"
+            android:gravity="right|center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:padding="10dp" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/teacherDepartment"
-            android:layout_weight="0.42"
+            android:id="@+id/batchDepartment"
+            android:layout_weight="1"
             android:padding="10dp"
-            android:gravity="right|center_vertical" />
+            android:gravity="left|center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:text="First Year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/batchYear"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="right|center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 
 </LinearLayout>

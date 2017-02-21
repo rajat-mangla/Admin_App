@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intefaces.teacherInterface.TeacherInterface"></activity>
+        <activity android:name=".intefaces.teacherInterface.TeacherInterface" />
+        <activity android:name=".intefaces.batchInterface.BatchInterface"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.example.rajatiit.admin_app.dataclasses;
 
 
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.ArrayList;
@@ -13,42 +12,30 @@ import java.util.ArrayList;
 @JsonSerialize()
 public class Institute {
     private static String name = "Indian Institute Of Technology Jodhpur";
-    private static ArrayList<DepartmentDetail> departmentDetails;
+    private static ArrayList<String> departments;
 
     public Institute() {
-        if (departmentDetails == null) {
-            departmentDetails = new ArrayList<DepartmentDetail>();
-
-            DepartmentDetail departmentDetail1 = new DepartmentDetail("CSE");
-            departmentDetails.add(departmentDetail1);
-
-            DepartmentDetail departmentDetail2 = new DepartmentDetail("ME");
-            departmentDetails.add(departmentDetail2);
-
-            DepartmentDetail departmentDetail3 = new DepartmentDetail("EE");
-            departmentDetails.add(departmentDetail3);
-
+        if (departments == null) {
+            departments = new ArrayList<>();
+            departments.add("CSE");
+            departments.add("ME");
+            departments.add("EE");
         }
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
-    public static ArrayList<DepartmentDetail> getDepartmentDetails() {
-        return departmentDetails;
+    public void setName(String name) {
+        Institute.name = name;
     }
 
-    public static void setDepartmentDetail(DepartmentDetail departmentDetail) {
-        Institute.departmentDetails.add(departmentDetail);
+    public ArrayList<String> getDepartments() {
+        return departments;
     }
 
-    public static DepartmentDetail getDepartmentDetail(int index) {
-        return Institute.departmentDetails.get(index);
+    public void setDepartments(ArrayList<String> departments) {
+        Institute.departments = departments;
     }
-
-    public static int getTotalDepartments() {
-        return departmentDetails.size();
-    }
-
 }

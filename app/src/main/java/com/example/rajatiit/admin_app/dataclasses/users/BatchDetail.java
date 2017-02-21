@@ -9,6 +9,7 @@ public class BatchDetail {
     private int year;
     private String department;
     private String password;
+    private int numStudents;
 
     public BatchDetail(){
 
@@ -50,5 +51,13 @@ public class BatchDetail {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public int getNumStudents() {
+        return numStudents;
+    }
+
+    public void setNumStudents(int numStudents) {
+        this.numStudents = numStudents;
     }
 }

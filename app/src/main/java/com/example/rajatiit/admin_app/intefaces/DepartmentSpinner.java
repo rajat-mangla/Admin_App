@@ -31,14 +31,14 @@ public class DepartmentSpinner {
 
         departments = new ArrayList<String>();
 
-        for (int i=0;i<institute.getDepartmentDetails().size();i++){
+        for (int i = 0; i<institute.getDepartments().size(); i++){
             // Adding Name of the Departments ...
-            departments.add(institute.getDepartmentDetail(i).getName());
+            departments.add(institute.getDepartments().get(i));
         }
 
-        spinnerAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,departments);
-
+        spinnerAdapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,departments);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         departmentSpinner.setAdapter(spinnerAdapter);
     }
 
