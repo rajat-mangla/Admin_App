@@ -59,7 +59,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        view = layoutInflater.inflate(R.layout.layout_teacher_add_edit,null);
+        view = layoutInflater.inflate(R.layout.teacher_add_edit,null);
 
         if (getFragmentManager().findFragmentByTag(ADD_DIALOG)!=null){
             isEditView=false;
@@ -75,7 +75,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     // Builder For Add Dialog
     private Dialog addDialogBuilder(AlertDialog.Builder builder){
 
-        TextView departmentName = (TextView) view.findViewById(R.id.departmentName);
+        TextView departmentName = (TextView) view.findViewById(R.id.teacher_add_edit_departmentName);
         departmentName.setVisibility(View.GONE);
 
         builder.setView(view)
@@ -102,7 +102,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     // Builder For Edit Dialog
     private Dialog editDialogBuilder(AlertDialog.Builder builder){
 
-        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.departments);
+        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.teacher_add_edit_SelectDepartment);
         departmentSpinner.setVisibility(View.GONE);
 
         builder.setView(view)
@@ -129,11 +129,11 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     // Method to show existing details in for a teacher In  @Edit Dialog
     private void showDetails(){
-        EditText firstNameText = (EditText) view.findViewById(R.id.firstname);
-        EditText lastNameText = (EditText) view.findViewById(R.id.lastname);
-        TextView departmentName = (TextView) view.findViewById(R.id.departmentName);
-        EditText passwordText = (EditText) view.findViewById(R.id.password);
-        EditText confirmPasswordText = (EditText) view.findViewById(R.id.confirmPassword);
+        EditText firstNameText = (EditText) view.findViewById(R.id.teacher_add_edit_firstname);
+        EditText lastNameText = (EditText) view.findViewById(R.id.teacher_add_edit_lastname);
+        TextView departmentName = (TextView) view.findViewById(R.id.teacher_add_edit_departmentName);
+        EditText passwordText = (EditText) view.findViewById(R.id.teacher_add_edit_password);
+        EditText confirmPasswordText = (EditText) view.findViewById(R.id.teacher_add_edit_confirmPassword);
         firstNameText.setText(teacherDetail.getFirstName());
         lastNameText.setText(teacherDetail.getLastName());
         departmentName.setText(teacherDetail.getDepartment());
@@ -185,9 +185,9 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     // Handles all the errors Related to adding information
     private boolean isError(){
-        EditText firstNameText = (EditText) view.findViewById(R.id.firstname);
-        EditText lastNameText = (EditText) view.findViewById(R.id.lastname);
-        EditText passwordText = (EditText) view.findViewById(R.id.password);
+        EditText firstNameText = (EditText) view.findViewById(R.id.teacher_add_edit_firstname);
+        EditText lastNameText = (EditText) view.findViewById(R.id.teacher_add_edit_lastname);
+        EditText passwordText = (EditText) view.findViewById(R.id.teacher_add_edit_password);
         if (editTextEmpty(firstNameText) || editTextEmpty(lastNameText) || editTextEmpty(passwordText)){
             // ToDo : Handle Remaining Errors
             return true;
@@ -204,9 +204,9 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     // Method to add the Teacher Details TO A Teacher object from a Dialog
     private void getDetails(){
-        EditText firstNameText = (EditText) view.findViewById(R.id.firstname);
-        EditText lastNameText = (EditText) view.findViewById(R.id.lastname);
-        EditText passwordText = (EditText) view.findViewById(R.id.password);
+        EditText firstNameText = (EditText) view.findViewById(R.id.teacher_add_edit_firstname);
+        EditText lastNameText = (EditText) view.findViewById(R.id.teacher_add_edit_lastname);
+        EditText passwordText = (EditText) view.findViewById(R.id.teacher_add_edit_password);
 
         teacherDetail.setFirstName(firstNameText.getEditableText().toString());
         teacherDetail.setLastName(lastNameText.getEditableText().toString());
@@ -215,7 +215,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     // Below Are Spinner Related Methods ...
     private void setDepartmentSpinner(){
-        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.departments);
+        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.teacher_add_edit_SelectDepartment);
         departmentSpinner.setOnItemSelectedListener(this);
         SpinnerHandler departmentSpiner = new SpinnerHandler();
         departmentSpiner.setDepartmentSpinner(getActivity(),departmentSpinner);

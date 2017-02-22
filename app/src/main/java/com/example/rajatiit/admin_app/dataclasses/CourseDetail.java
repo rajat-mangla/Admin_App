@@ -10,6 +10,9 @@ public class CourseDetail {
     private String department;
     private Integer numLectures;
 
+    public CourseDetail() {
+    }
+
     public String getName() {
         return name;
     }

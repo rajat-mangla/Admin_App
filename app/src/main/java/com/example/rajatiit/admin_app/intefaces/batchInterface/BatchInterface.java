@@ -3,12 +3,10 @@ package com.example.rajatiit.admin_app.intefaces.batchInterface;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ForwardingListener;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +19,6 @@ import com.example.rajatiit.admin_app.FirebaseClass;
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
-import com.example.rajatiit.admin_app.intefaces.teacherInterface.CustomTeacherListAdapter;
 
 public class BatchInterface extends AppCompatActivity implements AddEditBatchDialog.BatchDetailsPasser{
 
@@ -49,14 +46,14 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Batch Data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_batch_interface);
+        setContentView(R.layout.display_data_interface);
 
         userStorage = new UserStorage();
 
         // displaying the listview ...
-        final ListView listView = (ListView) findViewById(R.id.batchList);
+        final ListView listView = (ListView) findViewById(R.id.displayDataList);
         customBatchListAdapter = new CustomBatchListAdapter
-                (getBaseContext(),R.layout.activity_batch_interface,userStorage.getBatchDetails());
+                (getBaseContext(),R.layout.display_data_interface,userStorage.getBatchDetails());
         listView.setAdapter(customBatchListAdapter);
 
         //  handling add dialog button
@@ -102,6 +99,8 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
     }
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        Log.e("tag",item.getTitle().toString());
+
         switch(item.getItemId()){
             case R.id.viewItem:
                 Toast.makeText(this,"View Details",Toast.LENGTH_SHORT).show();

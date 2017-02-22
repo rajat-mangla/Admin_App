@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.intefaces.batchInterface.BatchInterface;
+import com.example.rajatiit.admin_app.intefaces.classroomInterface.ClassroomInterface;
 import com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,BatchInterface.class);
+                startActivity(intent);
+            }
+        });
+        Button courseButton = (Button)findViewById(R.id.courses);
+        courseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ClassroomInterface.class);
                 startActivity(intent);
             }
         });

@@ -59,23 +59,24 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.layout_batch_add_edit, null);
+        view = inflater.inflate(R.layout.batch_add_edit, null);
 
         if (getFragmentManager().findFragmentByTag(ADD_DIALOG)!=null){
             isEditView=false;
-            return addDialogBuilder(builder);
+
         }
-        else {
+        /*else {
             isEditView=true;
             return editDialogBuilder(builder);
-        }
+        }*/
+        return addDialogBuilder(builder);
     }
 
     // method to create ADD_DIALOG BUILDER
     private Dialog addDialogBuilder(AlertDialog.Builder builder) {
-        TextView textView = (TextView) view.findViewById(R.id.batchYear);
+        TextView textView = (TextView) view.findViewById(R.id.batch_add_edit_batchYear);
         textView.setVisibility(View.GONE);
-        textView = (TextView) view.findViewById(R.id.departmentName);
+        textView = (TextView) view.findViewById(R.id.batch_add_edit_departmentName);
         textView.setVisibility(View.GONE);
 
         builder.setView(view)
@@ -99,9 +100,9 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // Builder For Edit Dialog
     private Dialog editDialogBuilder(AlertDialog.Builder builder) {
-        Spinner spinner = (Spinner) view.findViewById(R.id.selectYear);
+        Spinner spinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectYear);
         spinner.setVisibility(View.GONE);
-        spinner = (Spinner) view.findViewById(R.id.departments);
+        spinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectDepartment);
         spinner.setVisibility(View.GONE);
 
         builder.setView(view)
@@ -126,11 +127,11 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // Method to show existing details in for a teacher In  @Edit Dialog
     private void showDetails(){
-        TextView batchYear = (TextView) view.findViewById(R.id.batchYear);
-        TextView departmentName = (TextView) view.findViewById(R.id.departmentName);
-        EditText numStudents = (EditText) view.findViewById(R.id.batchCapacity);
-        EditText passwordText = (EditText) view.findViewById(R.id.password);
-        EditText confirmPasswordText = (EditText) view.findViewById(R.id.confirmPassword);
+        TextView batchYear = (TextView) view.findViewById(R.id.batch_add_edit_batchYear);
+        TextView departmentName = (TextView) view.findViewById(R.id.batch_add_edit_departmentName);
+        EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
+        EditText passwordText = (EditText) view.findViewById(R.id.batch_add_edit_password);
+        EditText confirmPasswordText = (EditText) view.findViewById(R.id.batch_add_edit_confirmPassword);
         // showing the details ...
         batchYear.setText(batchDetail.getYear());
         departmentName.setText(batchDetail.getDepartment());
@@ -169,9 +170,9 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // method to handle all the errors ...
     private boolean handleErrors() {
-        EditText password = (EditText) view.findViewById(R.id.password);
-        EditText confirmPassword = (EditText) view.findViewById(R.id.confirmPassword);
-        EditText numStudents = (EditText) view.findViewById(R.id.batchCapacity);
+        EditText password = (EditText) view.findViewById(R.id.batch_add_edit_password);
+        EditText confirmPassword = (EditText) view.findViewById(R.id.batch_add_edit_confirmPassword);
+        EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
         if (editTextEmpty(password) || editTextEmpty(confirmPassword) || editTextEmpty(numStudents)) {
             Toast.makeText(getActivity(), "Please Enter Full Details", Toast.LENGTH_SHORT).show();
             return false;
@@ -192,8 +193,8 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // getting all the details from the dialog front end ...
     private void getDetails() {
-        EditText password = (EditText) view.findViewById(R.id.password);
-        EditText numStudents = (EditText) view.findViewById(R.id.batchCapacity);
+        EditText password = (EditText) view.findViewById(R.id.batch_add_edit_password);
+        EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
         int totalStudents = Integer.parseInt(numStudents.getText().toString());
         batchDetail.setPassword(password.getEditableText().toString());
         batchDetail.setNumStudents(totalStudents);
@@ -202,8 +203,8 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // Method for setting up the spinners ....
     public void setSpinners() {
-        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.departments);
-        Spinner yearSpinner = (Spinner) view.findViewById(R.id.selectYear);
+        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectDepartment);
+        Spinner yearSpinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectYear);
 
         departmentSpinner.setOnItemSelectedListener(this);
         yearSpinner.setOnItemSelectedListener(this);
@@ -217,7 +218,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner) parent;
-        if (spinner.getId() == R.id.departments) {
+        if (spinner.getId() == R.id.batch_add_edit_selectDepartment) {
             departmentName = (String) parent.getItemAtPosition(position);
         } else {
             batchYear = (String) parent.getItemAtPosition(position);

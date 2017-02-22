@@ -29,8 +29,8 @@ public class CustomBatchListAdapter extends ArrayAdapter<BatchDetail> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.display_batch,null);
         }
-        TextView department = (TextView) convertView.findViewById(R.id.batchDepartment);
-        TextView year = (TextView) convertView.findViewById(R.id.batchYear);
+        TextView department = (TextView) convertView.findViewById(R.id.display_batch_departmentName);
+        TextView year = (TextView) convertView.findViewById(R.id.display_batch_batchYear);
         department.setText(getItem(position).getDepartment());
         year.setText(getItem(position).getYear());
         return convertView;

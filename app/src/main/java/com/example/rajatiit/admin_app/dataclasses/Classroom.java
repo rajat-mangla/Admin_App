@@ -14,7 +14,7 @@ public class Classroom {
     private int teacherId;
 
     public Classroom() {
-
+        courseDetail = new CourseDetail();
     }
 
     public CourseDetail getCourseDetail() {

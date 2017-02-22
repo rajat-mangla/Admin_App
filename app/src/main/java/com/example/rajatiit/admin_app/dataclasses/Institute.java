@@ -22,6 +22,9 @@ public class Institute {
             departments.add("ME");
             departments.add("EE");
         }
+        if (classrooms==null){
+            classrooms = new ArrayList<>();
+        }
     }
 
     public String getName() {
@@ -40,11 +43,11 @@ public class Institute {
         Institute.departments = departments;
     }
 
-    public static ArrayList<Classroom> getClassrooms() {
+    public ArrayList<Classroom> getClassrooms() {
         return classrooms;
     }
 
-    public static void setClassrooms(ArrayList<Classroom> classrooms) {
+    public void setClassrooms(ArrayList<Classroom> classrooms) {
         Institute.classrooms = classrooms;
     }
 }

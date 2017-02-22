@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_edit_course"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.rajatiit.admin_app.intefaces.classroomInterface.add_edit_course">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:text="Department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.49"
+            android:padding="5dp"
+            android:gravity="right|center_vertical"
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="CSE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_edit_course_departmentName"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:text="Course Name :"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:gravity="right|center_vertical"
+            android:textSize="18sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/add_edit_course_courseName"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:text="No teacher assigned"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
+        <Button
+            android:text="Assign Teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_edit_course_assignTeacher"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textStyle="normal|italic" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:text="No Batch assigned"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
+        <Button
+            android:text="Assign Batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_edit_course_assignBatch"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textStyle="normal|italic" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:text="No of Lectures per week :"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.10"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="right|center_vertical"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
+        <Spinner
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_edit_course_numLectureSpinner"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_weight="0.07" />
+
+    </LinearLayout>
+</LinearLayout>

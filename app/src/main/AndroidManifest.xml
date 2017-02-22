@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".intefaces.teacherInterface.TeacherInterface" />
-        <activity android:name=".intefaces.batchInterface.BatchInterface"></activity>
+        <activity android:name=".intefaces.batchInterface.BatchInterface" />
+        <activity android:name=".intefaces.classroomInterface.ClassroomInterface" />
+        <activity android:name=".intefaces.classroomInterface.add_edit_course"></activity>
     </application>
 
 </manifest>

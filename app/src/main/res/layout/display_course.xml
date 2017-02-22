@@ -7,37 +7,27 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:padding="5dp">
 
         <TextView
-            android:text="Department :"
+            android:text="Course Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right|center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:padding="10dp" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/display_batch_departmentName"
+            android:id="@+id/display_course_Name"
             android:layout_weight="1"
             android:padding="10dp"
-            android:gravity="left|center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:gravity="right|center_vertical" />
 
         <TextView
-            android:text="First Year"
+            android:text="CS212"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/display_batch_batchYear"
+            android:id="@+id/display_course_courseId"
             android:layout_weight="1"
             android:padding="10dp"
             android:gravity="right|center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat" />
     </LinearLayout>
-
 </LinearLayout>
