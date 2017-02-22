@@ -33,7 +33,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/departmentName"
+            android:id="@+id/department"
             android:layout_weight="0.42"
             android:padding="10dp"
             android:gravity="right|center_vertical" />

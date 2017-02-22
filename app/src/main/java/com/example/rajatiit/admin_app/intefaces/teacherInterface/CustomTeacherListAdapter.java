@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.rajatiit.admin_app.R;
@@ -38,7 +37,7 @@ public class CustomTeacherListAdapter extends ArrayAdapter<TeacherDetail> {
 
         firstName.setText(teacherDetail.getFirstName());
         lastName.setText(teacherDetail.getLastName());
-        departmentName.setText(teacherDetail.getDepartmentName());
+        departmentName.setText(teacherDetail.getDepartment());
 
         return convertView;
     }

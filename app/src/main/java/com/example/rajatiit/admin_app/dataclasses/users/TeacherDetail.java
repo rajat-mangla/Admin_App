@@ -1,6 +1,7 @@
 package com.example.rajatiit.admin_app.dataclasses.users;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by RajatIIT on 09-02-2017.
@@ -10,10 +11,11 @@ public class TeacherDetail implements Serializable{
     private String firstName;
     private String lastName;
     private String password;
-    private String departmentName;
+    private String department;
     private String uniqueCode;
+    private ArrayList<Integer> classroomIds;
     public TeacherDetail(){
-
+        classroomIds = new ArrayList<>();
     }
 
     public void setFirstName(String firstName) {
@@ -28,8 +30,8 @@ public class TeacherDetail implements Serializable{
         this.password = password;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getPassword() {
@@ -45,8 +47,8 @@ public class TeacherDetail implements Serializable{
         return lastName;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getDepartment() {
+        return department;
     }
 
     public String getUniqueCode() {
@@ -58,6 +60,14 @@ public class TeacherDetail implements Serializable{
     }
 
     public void generateUniqueCode(){
-        uniqueCode = firstName+lastName+departmentName+password;
+        uniqueCode = firstName+lastName+ department;
+    }
+
+    public ArrayList<Integer> getClassroomIds() {
+        return classroomIds;
+    }
+
+    public void setClassroomIds(ArrayList<Integer> classroomIds) {
+        this.classroomIds = classroomIds;
     }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Institute {
     private static String name = "Indian Institute Of Technology Jodhpur";
     private static ArrayList<String> departments;
+    private static ArrayList<Classroom> classrooms;
 
     public Institute() {
         if (departments == null) {
@@ -37,5 +38,13 @@ public class Institute {
 
     public void setDepartments(ArrayList<String> departments) {
         Institute.departments = departments;
+    }
+
+    public static ArrayList<Classroom> getClassrooms() {
+        return classrooms;
+    }
+
+    public static void setClassrooms(ArrayList<Classroom> classrooms) {
+        Institute.classrooms = classrooms;
     }
 }

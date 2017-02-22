@@ -136,7 +136,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         EditText confirmPasswordText = (EditText) view.findViewById(R.id.confirmPassword);
         firstNameText.setText(teacherDetail.getFirstName());
         lastNameText.setText(teacherDetail.getLastName());
-        departmentName.setText(teacherDetail.getDepartmentName());
+        departmentName.setText(teacherDetail.getDepartment());
         passwordText.setText(teacherDetail.getPassword());
         confirmPasswordText.setText(teacherDetail.getPassword());
     }
@@ -171,7 +171,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                     else {
                         teacherDetail = new TeacherDetail();
                         getDetails();
-                        teacherDetail.setDepartmentName(departmentName);
+                        teacherDetail.setDepartment(departmentName);
                         teacherDetail.generateUniqueCode();
 
                         dismiss();

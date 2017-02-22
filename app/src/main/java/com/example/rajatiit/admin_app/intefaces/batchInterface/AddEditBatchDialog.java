@@ -16,11 +16,7 @@ import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
-import com.example.rajatiit.admin_app.dataclasses.users.TeacherDetail;
 import com.example.rajatiit.admin_app.intefaces.SpinnerHandler;
-import com.example.rajatiit.admin_app.intefaces.teacherInterface.AddEditTeacherDialog;
-
-import javax.net.ssl.SSLPeerUnverifiedException;
 
 /**
  * Created by rajat on 22/2/17.
@@ -137,7 +133,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         EditText confirmPasswordText = (EditText) view.findViewById(R.id.confirmPassword);
         // showing the details ...
         batchYear.setText(batchDetail.getYear());
-        departmentName.setText(batchDetail.getDepartmentName());
+        departmentName.setText(batchDetail.getDepartment());
         numStudents.setText(Integer.toString(batchDetail.getNumStudents()));
         passwordText.setText(batchDetail.getPassword());
         confirmPasswordText.setText(batchDetail.getPassword());
@@ -160,7 +156,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                     }
                     else {
                         batchDetail = new BatchDetail();
-                        batchDetail.setDepartmentName(departmentName);
+                        batchDetail.setDepartment(departmentName);
                         batchDetail.setYear(batchYear);
                         getDetails();
                         dismiss();
