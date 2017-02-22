@@ -1,10 +1,12 @@
 package com.example.rajatiit.admin_app.dataclasses.users;
 
+import java.io.Serializable;
+
 /**
  * Created by rajat on 16/2/17.
  */
 
-public class BatchDetail {
+public class BatchDetail implements Serializable{
     private String userName;
     private String year;
     private String departmentName;

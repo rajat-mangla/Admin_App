@@ -32,9 +32,9 @@ public class CustomTeacherListAdapter extends ArrayAdapter<TeacherDetail> {
             convertView = layoutInflater.inflate(R.layout.display_teacher,null);
         }
         TeacherDetail teacherDetail = getItem(position);
-        TextView firstName = (TextView) convertView.findViewById(R.id.teacherFirstName);
-        TextView lastName = (TextView) convertView.findViewById(R.id.teacherlastName);
-        TextView departmentName = (TextView) convertView.findViewById(R.id.teacherDepartment);
+        TextView firstName = (TextView) convertView.findViewById(R.id.firstName);
+        TextView lastName = (TextView) convertView.findViewById(R.id.lastName);
+        TextView departmentName = (TextView) convertView.findViewById(R.id.departmentName);
 
         firstName.setText(teacherDetail.getFirstName());
         lastName.setText(teacherDetail.getLastName());

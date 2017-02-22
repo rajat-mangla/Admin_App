@@ -199,7 +199,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     // METHODD to check empty edit_texts
     private boolean editTextEmpty(EditText editText){
-        return editText.getText().toString().equals("");
+        return editText.getEditableText().toString().equals("");
     }
 
     // Method to add the Teacher Details TO A Teacher object from a Dialog

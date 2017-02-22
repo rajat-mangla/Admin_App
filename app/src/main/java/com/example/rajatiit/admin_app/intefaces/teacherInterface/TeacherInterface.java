@@ -43,6 +43,8 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Teachers Data");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_teacher_interface);
 
         userStorage = new UserStorage();
@@ -76,6 +78,16 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home :
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

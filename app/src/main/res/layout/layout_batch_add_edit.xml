@@ -14,13 +14,23 @@
         android:layout_marginBottom="2dp">
 
         <TextView
-            android:text="SelectYear"
+            android:text="Year"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:padding="5dp"
             android:gravity="right|center_vertical" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/batchYear"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:padding="5dp"
+            android:gravity="left|center_vertical" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -44,10 +54,19 @@
             android:text="Department"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.61"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:padding="5dp"
             android:gravity="right|center_vertical" />
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/departmentName"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:padding="5dp"
+            android:gravity="left|center_vertical" />
 
         <Spinner
             android:layout_width="wrap_content"

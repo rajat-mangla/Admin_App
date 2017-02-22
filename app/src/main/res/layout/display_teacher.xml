@@ -14,7 +14,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/teacherFirstName"
+            android:id="@+id/firstName"
             android:layout_weight="0.42"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:gravity="right|center"
@@ -24,7 +24,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/teacherlastName"
+            android:id="@+id/lastName"
             android:layout_weight="1"
             android:gravity="left|center"
             android:padding="10dp" />
@@ -33,7 +33,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/teacherDepartment"
+            android:id="@+id/departmentName"
             android:layout_weight="0.42"
             android:padding="10dp"
             android:gravity="right|center_vertical" />
