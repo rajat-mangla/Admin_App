@@ -1,10 +1,12 @@
 package com.example.rajatiit.admin_app.dataclasses;
 
+import java.io.Serializable;
+
 /**
  * Created by rajat on 22/2/17.
  */
 
-public class Classroom {
+public class Classroom implements Serializable{
     private CourseDetail courseDetail;
 
     // Used to get the Batch in array of batches ...

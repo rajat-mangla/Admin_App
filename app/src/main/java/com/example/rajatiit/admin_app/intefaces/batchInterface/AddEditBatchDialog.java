@@ -134,7 +134,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         EditText confirmPasswordText = (EditText) view.findViewById(R.id.batch_add_edit_confirmPassword);
         // showing the details ...
         batchYear.setText(batchDetail.getYear());
-        departmentName.setText(batchDetail.getDepartment());
+        departmentName.setText(batchDetail.getDepartmentName());
         numStudents.setText(Integer.toString(batchDetail.getNumStudents()));
         passwordText.setText(batchDetail.getPassword());
         confirmPasswordText.setText(batchDetail.getPassword());
@@ -157,7 +157,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                     }
                     else {
                         batchDetail = new BatchDetail();
-                        batchDetail.setDepartment(departmentName);
+                        batchDetail.setDepartmentName(departmentName);
                         batchDetail.setYear(batchYear);
                         getDetails();
                         dismiss();

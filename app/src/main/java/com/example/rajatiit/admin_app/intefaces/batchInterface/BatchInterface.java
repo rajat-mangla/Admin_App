@@ -46,14 +46,14 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Batch Data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.display_data_interface);
+        setContentView(R.layout.activity_display_data_interface);
 
         userStorage = new UserStorage();
 
         // displaying the listview ...
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
         customBatchListAdapter = new CustomBatchListAdapter
-                (getBaseContext(),R.layout.display_data_interface,userStorage.getBatchDetails());
+                (getBaseContext(),R.layout.activity_display_data_interface,userStorage.getBatchDetails());
         listView.setAdapter(customBatchListAdapter);
 
         //  handling add dialog button
@@ -99,8 +99,6 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
     }
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        Log.e("tag",item.getTitle().toString());
-
         switch(item.getItemId()){
             case R.id.viewItem:
                 Toast.makeText(this,"View Details",Toast.LENGTH_SHORT).show();

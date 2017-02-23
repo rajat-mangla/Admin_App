@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/display_course_Name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="5dp">
+        android:layout_weight="1"
+        android:gravity="right|center_vertical"
+        android:padding="10dp"
+        android:text="Course Name"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
-        <TextView
-            android:text="Course Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/display_course_Name"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:gravity="right|center_vertical" />
-
-        <TextView
-            android:text="CS212"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/display_course_courseId"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:gravity="right|center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/display_course_courseId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right|center_vertical"
+        android:padding="10dp"
+        android:text="CS212"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 </LinearLayout>

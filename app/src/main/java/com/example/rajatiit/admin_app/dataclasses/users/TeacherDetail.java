@@ -11,7 +11,7 @@ public class TeacherDetail implements Serializable{
     private String firstName;
     private String lastName;
     private String password;
-    private String department;
+    private String departmentName;
     private String uniqueCode;
     private ArrayList<Integer> classroomIds;
     public TeacherDetail(){
@@ -30,8 +30,8 @@ public class TeacherDetail implements Serializable{
         this.password = password;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getPassword() {
@@ -47,8 +47,8 @@ public class TeacherDetail implements Serializable{
         return lastName;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
     public String getUniqueCode() {
@@ -60,7 +60,7 @@ public class TeacherDetail implements Serializable{
     }
 
     public void generateUniqueCode(){
-        uniqueCode = firstName+lastName+ department;
+        uniqueCode = firstName+lastName+ departmentName;
     }
 
     public ArrayList<Integer> getClassroomIds() {

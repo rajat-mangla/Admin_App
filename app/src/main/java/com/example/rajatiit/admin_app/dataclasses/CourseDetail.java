@@ -7,7 +7,7 @@ package com.example.rajatiit.admin_app.dataclasses;
 public class CourseDetail {
     private String name;
     private String id;
-    private String department;
+    private String departmentName;
     private Integer numLectures;
 
     public CourseDetail() {
@@ -29,12 +29,12 @@ public class CourseDetail {
         this.id = id;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public Integer getNumLectures() {

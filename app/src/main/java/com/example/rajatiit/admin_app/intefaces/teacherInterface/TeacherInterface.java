@@ -45,7 +45,7 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Teachers Data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.display_data_interface);
+        setContentView(R.layout.activity_display_data_interface);
 
         userStorage = new UserStorage();
         // TODO: WORK WITH THIS USING REALTIME DATABASE
@@ -53,7 +53,7 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
 
         //  ListView for Teachers
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
-        customTeacherListAdapter = new CustomTeacherListAdapter(getBaseContext(),R.layout.display_data_interface, userStorage.getTeacherDetails());
+        customTeacherListAdapter = new CustomTeacherListAdapter(getBaseContext(),R.layout.activity_display_data_interface, userStorage.getTeacherDetails());
         listView.setAdapter(customTeacherListAdapter);
 
         // Handling Floating Add Button

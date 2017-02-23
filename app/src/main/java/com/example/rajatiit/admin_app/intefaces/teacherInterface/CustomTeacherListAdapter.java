@@ -37,7 +37,7 @@ public class CustomTeacherListAdapter extends ArrayAdapter<TeacherDetail> {
 
         firstName.setText(teacherDetail.getFirstName());
         lastName.setText(teacherDetail.getLastName());
-        departmentName.setText(teacherDetail.getDepartment());
+        departmentName.setText(teacherDetail.getDepartmentName());
 
         return convertView;
     }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class BatchDetail implements Serializable{
     private String userName;
     private String year;
-    private String department;
+    private String departmentName;
     private String password;
     private int numStudents;
     private ArrayList<Integer> classroomIds;
@@ -42,12 +42,12 @@ public class BatchDetail implements Serializable{
         this.year = year;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public int getNumStudents() {

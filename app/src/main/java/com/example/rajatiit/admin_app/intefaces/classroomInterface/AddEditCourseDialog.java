@@ -25,7 +25,7 @@ public class AddEditCourseDialog extends DialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.activity_add_edit_course,null);
+        view = inflater.inflate(R.layout.course_add_edit,null);
         builder.setView(view)
                 .setTitle("Add Course")
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -47,11 +47,11 @@ public class AddEditCourseDialog extends DialogFragment{
     public void onStart() {
         super.onStart();
 
-        Button button = (Button) view.findViewById(R.id.add_edit_course_assignTeacher);
+        Button button = (Button) view.findViewById(R.id.course_add_edit_assignTeacher);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),add_edit_course.class);
+                Intent intent = new Intent(getActivity(),AssignTeacherOrBatch.class);
                 startActivity(intent);
             }
         });
