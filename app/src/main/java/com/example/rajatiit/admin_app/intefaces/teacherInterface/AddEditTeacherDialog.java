@@ -59,7 +59,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        view = layoutInflater.inflate(R.layout.teacher_add_edit,null);
+        view = layoutInflater.inflate(R.layout.add_edit_teacher,null);
 
         if (getFragmentManager().findFragmentByTag(ADD_DIALOG)!=null){
             isEditView=false;

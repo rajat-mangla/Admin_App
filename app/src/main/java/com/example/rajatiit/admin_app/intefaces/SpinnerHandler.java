@@ -15,28 +15,21 @@ import java.util.ArrayList;
 
 public class SpinnerHandler {
 
-    private Institute institute;
-
     public SpinnerHandler() {
-        institute = new Institute();
     }
 
-    public void setDepartmentSpinner(Context context,Spinner departmentSpinner){
+    public static void setDepartmentSpinner(Context context,Spinner departmentSpinner){
 
-        ArrayList<String> departments = new ArrayList<>();
-
-        for (int i = 0; i<institute.getDepartments().size(); i++){
-            // Adding Name of the Departments ...
-            departments.add(institute.getDepartments().get(i));
-        }
-
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,departments);
+        Institute institute = new Institute();
+        // setting the aaray adapter for spinner ...
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(context,
+                android.R.layout.simple_spinner_item,institute.getDepartments());
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         departmentSpinner.setAdapter(spinnerAdapter);
     }
 
-    public void setYearSpinner(Context context,Spinner yearSpinner){
+    public static void setYearSpinner(Context context,Spinner yearSpinner){
         ArrayList<String> years = new ArrayList<>();
         years.add("First Year");
         years.add("Second Year");
@@ -45,5 +38,16 @@ public class SpinnerHandler {
         ArrayAdapter<String> yearsAdapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,years);
         yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(yearsAdapter);
+    }
+
+    public static void setNumLecturesSpinner(Context context, Spinner numLecturesSpinner){
+        ArrayList<Integer> numLectures = new ArrayList<>();
+        // adding the num of lectures ...
+        numLectures.add(3);
+        numLectures.add(4);
+        numLectures.add(5);
+        ArrayAdapter<Integer>numLecturesAdapter=new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,numLectures);
+        numLecturesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        numLecturesSpinner.setAdapter(numLecturesAdapter);
     }
 }

@@ -26,7 +26,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/batch_add_edit_batchYear"
+            android:id="@+id/add_edit_batch_batchYear"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:padding="5dp"
@@ -35,7 +35,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/batch_add_edit_selectYear"
+            android:id="@+id/add_edit_batch_selectYear"
             android:layout_weight="1"
             android:gravity="left|center_vertical|start"
             android:padding="5dp"
@@ -62,7 +62,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/batch_add_edit_departmentName"
+            android:id="@+id/add_edit_batch_departmentName"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:padding="5dp"
@@ -71,7 +71,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/batch_add_edit_selectDepartment"
+            android:id="@+id/add_edit_batch_selectDepartment"
             android:layout_weight="1"
             android:gravity="left|center_vertical|start"
             android:padding="5dp"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/batch_add_edit_batchCapacity"
+            android:id="@+id/add_edit_batch_batchCapacity"
             android:layout_weight="1"
             android:layout_marginLeft="5dp" />
 
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberPassword"
             android:ems="10"
-            android:id="@+id/batch_add_edit_password"
+            android:id="@+id/add_edit_batch_password"
             android:layout_weight="1"
             android:layout_marginLeft="5dp" />
     </LinearLayout>
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberPassword"
             android:ems="10"
-            android:id="@+id/batch_add_edit_confirmPassword"
+            android:id="@+id/add_edit_batch_confirmPassword"
             android:layout_weight="1"
             android:layout_marginLeft="5dp" />
     </LinearLayout>

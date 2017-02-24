@@ -16,12 +16,17 @@ import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
-import com.example.rajatiit.admin_app.intefaces.batchInterface.AddEditBatchDialog;
 
 public class ClassroomInterface extends AppCompatActivity {
 
     // Tag for passing course Detail to Edit Dialog
-    private final String CLASSROOM_DATA = "CourseDetail";
+    public static final String CLASSROOM_DATA = "CourseDetail";
+
+    // TAG TO PASS DEPARTMENT NAME TO ADD DIALOG and so on ....
+    public static final String DEPARTMENT_NAME = "DepartmentName";
+
+    // TAG TO IDENTIFY IF IT'S A ADD DIALOG
+    public static final String ADD_DIALOG = "AddDialog";
 
     // Postion in array to get the Specific Classroom
     private int classroomPositon;
@@ -86,7 +91,9 @@ public class ClassroomInterface extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.viewItem:
                 Toast.makeText(this,"View Details",Toast.LENGTH_SHORT).show();
+                // TODO : WORK WITH VIEW DETAILS
                 return true;
+
             case R.id.editItem:
                 Toast.makeText(this,"Edit Details",Toast.LENGTH_SHORT).show();
                 //shows EDIT Dialog
@@ -95,11 +102,10 @@ public class ClassroomInterface extends AppCompatActivity {
                 bundle.putSerializable(CLASSROOM_DATA,institute.getClassrooms().get(classroomPositon));
 
                 editDialog.setArguments(bundle);
-                editDialog.show(getFragmentManager(),"Edit Dialog");
+                editDialog.show(getFragmentManager(),"EditDialog");
                 return true;
 
             case R.id.deleteItem:
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Confirm Delete")
                         .setMessage(R.string.delete_teacher)
@@ -125,10 +131,10 @@ public class ClassroomInterface extends AppCompatActivity {
 
                 DialogFragment addDialog = new AddEditCourseDialog();
                 Bundle bundle = new Bundle();
-                bundle.putString("DepartmentName",item.getTitle().toString());
+                bundle.putString(DEPARTMENT_NAME,item.getTitle().toString());
                 addDialog.setArguments(bundle);
 
-                addDialog.show(getFragmentManager(),"Add_Dialog");
+                addDialog.show(getFragmentManager(),ADD_DIALOG);
 
                 // TODO pass value of department to course display activity
                 return true;

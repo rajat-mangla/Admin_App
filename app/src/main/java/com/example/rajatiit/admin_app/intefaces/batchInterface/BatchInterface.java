@@ -144,13 +144,23 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
 
     @Override
     public void passAddDialogDetail(BatchDetail batchDetail) {
-        userStorage.getBatchDetails().add(batchDetail);
+        /*
+        THE BATCH ID IS USED TO GET BATCH FROM TOTAL BATCHES
+         IT IS STORED IN CLASSROOM OBJECT TO LINK Course and teachers
+         */
+        batchDetail.setBatchId(userStorage.getBatchDetails().size());
+
+        userStorage.addBatchDetail(batchDetail);
         customBatchListAdapter.notifyDataSetChanged();
+
+        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH
         FirebaseClass.updateUsers(userStorage);
     }
     @Override
     public void passEditDialogDetail() {
         customBatchListAdapter.notifyDataSetChanged();
+
+        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH
         FirebaseClass.updateUsers(userStorage);
     }
 }

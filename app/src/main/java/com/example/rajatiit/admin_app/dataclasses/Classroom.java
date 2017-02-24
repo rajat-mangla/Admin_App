@@ -7,6 +7,11 @@ import java.io.Serializable;
  */
 
 public class Classroom implements Serializable{
+
+    // Id to store in teacher and batch
+    private int classroomId;
+
+    // Stores the course data
     private CourseDetail courseDetail;
 
     // Used to get the Batch in array of batches ...
@@ -17,6 +22,16 @@ public class Classroom implements Serializable{
 
     public Classroom() {
         courseDetail = new CourseDetail();
+        batchId = -1;
+        teacherId = -1;
+    }
+
+    public int getClassroomId() {
+        return classroomId;
+    }
+
+    public void setClassroomId(int classroomId) {
+        this.classroomId = classroomId;
     }
 
     public CourseDetail getCourseDetail() {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 
 public class BatchDetail implements Serializable{
+    private int batchId;
     private String userName;
     private String year;
     private String departmentName;
@@ -16,6 +17,14 @@ public class BatchDetail implements Serializable{
     private ArrayList<Integer> classroomIds;
     public BatchDetail(){
         classroomIds = new ArrayList<>();
+    }
+
+    public int getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(int batchId) {
+        this.batchId = batchId;
     }
 
     public String getPassword() {

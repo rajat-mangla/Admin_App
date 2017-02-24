@@ -22,7 +22,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <EditText
-            android:id="@+id/teacher_add_edit_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -30,7 +29,8 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:ems="10"
             android:hint="rajat"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:id="@+id/add_edit_teacher_firstname" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <EditText
-            android:id="@+id/teacher_add_edit_lastname"
+            android:id="@+id/add_edit_teacher_lastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -79,7 +79,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <TextView
-            android:id="@+id/teacher_add_edit_departmentName"
+            android:id="@+id/add_edit_teacher_departmentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".09"
@@ -89,7 +89,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <Spinner
-            android:id="@+id/teacher_add_edit_SelectDepartment"
+            android:id="@+id/add_edit_teacher_SelectDepartment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.28"
@@ -114,7 +114,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <EditText
-            android:id="@+id/teacher_add_edit_password"
+            android:id="@+id/add_edit_teacher_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.27"
@@ -141,7 +141,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <EditText
-            android:id="@+id/teacher_add_edit_confirmPassword"
+            android:id="@+id/add_edit_teacher_confirmPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"

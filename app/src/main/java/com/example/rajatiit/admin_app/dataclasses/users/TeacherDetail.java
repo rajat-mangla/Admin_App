@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 
 public class TeacherDetail implements Serializable{
+    private int teacherId;
     private String firstName;
     private String lastName;
     private String password;
@@ -16,6 +17,14 @@ public class TeacherDetail implements Serializable{
     private ArrayList<Integer> classroomIds;
     public TeacherDetail(){
         classroomIds = new ArrayList<>();
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 
     public void setFirstName(String firstName) {

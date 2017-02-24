@@ -145,21 +145,26 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
     //Methods for getting Add and Edit Dialog Data ...
     @Override
     public void passAddDialogDetail(TeacherDetail teacherDetail) {
+        /*
+        THE BATCH ID IS USED TO GET BATCH FROM TOTAL BATCHES
+         IT IS STORED IN CLASSROOM OBJECT TO LINK Course and teachers
+         */
+        teacherDetail.setTeacherId(userStorage.getTeacherDetails().size());
 
-        // TODO : NOW HERE YOU HAVE TO UPDATE IN OTHER CLASSES ALSO
-        userStorage.getTeacherDetails().add(teacherDetail);
+        userStorage.addTeacherDetail(teacherDetail);
         customTeacherListAdapter.notifyDataSetChanged();
 
+        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR TEACHER
         FirebaseClass.updateUsers(userStorage);
     }
 
 
     @Override
     public void passEditDialogDetail(TeacherDetail teacherDetail,String teacherUniqueCode) {
-        Toast.makeText(this,"Details Passed",Toast.LENGTH_SHORT).show();
-
         // TODO Use unique key to update data in other Classes
-
         customTeacherListAdapter.notifyDataSetChanged();
+
+        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR TEACHER
+        FirebaseClass.updateUsers(userStorage);
     }
 }

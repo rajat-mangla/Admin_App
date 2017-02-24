@@ -59,17 +59,16 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.batch_add_edit, null);
+        view = inflater.inflate(R.layout.add_edit_batch, null);
 
         if (getFragmentManager().findFragmentByTag(ADD_DIALOG)!=null){
             isEditView=false;
-
+            return addDialogBuilder(builder);
         }
-        /*else {
+        else {
             isEditView=true;
             return editDialogBuilder(builder);
-        }*/
-        return addDialogBuilder(builder);
+        }
     }
 
     // method to create ADD_DIALOG BUILDER
@@ -80,6 +79,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         textView.setVisibility(View.GONE);
 
         builder.setView(view)
+                .setTitle("Add Batch")
                 .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -106,7 +106,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         spinner.setVisibility(View.GONE);
 
         builder.setView(view)
-                .setTitle("Edit Teacher")
+                .setTitle("Edit Batch")
                 .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -156,9 +156,11 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                         batchDetailsPasser.passEditDialogDetail();
                     }
                     else {
+                        // storing the details entered by User for add dialog
                         batchDetail = new BatchDetail();
                         batchDetail.setDepartmentName(departmentName);
                         batchDetail.setYear(batchYear);
+                        batchDetail.setUserName(batchYear+" "+departmentName);
                         getDetails();
                         dismiss();
                         batchDetailsPasser.passAddDialogDetail(batchDetail);
@@ -191,7 +193,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         return editText.getText().toString().equals("");
     }
 
-    // getting all the details from the dialog front end ...
+    // GETTING all the details from the dialog front end ...
     private void getDetails() {
         EditText password = (EditText) view.findViewById(R.id.batch_add_edit_password);
         EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
@@ -209,9 +211,8 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         departmentSpinner.setOnItemSelectedListener(this);
         yearSpinner.setOnItemSelectedListener(this);
 
-        SpinnerHandler spinnerHandler = new SpinnerHandler();
-        spinnerHandler.setDepartmentSpinner(getActivity(), departmentSpinner);
-        spinnerHandler.setYearSpinner(getActivity(), yearSpinner);
+        SpinnerHandler.setDepartmentSpinner(getActivity(), departmentSpinner);
+        SpinnerHandler.setYearSpinner(getActivity(), yearSpinner);
     }
 
 
