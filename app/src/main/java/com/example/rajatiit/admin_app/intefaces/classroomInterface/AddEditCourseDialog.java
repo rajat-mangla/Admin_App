@@ -1,5 +1,6 @@
 package com.example.rajatiit.admin_app.intefaces.classroomInterface;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -21,6 +22,8 @@ import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.intefaces.SpinnerHandler;
 
+import java.util.ArrayList;
+
 /**
  * Created by rajat on 23/2/17.
  */
@@ -29,7 +32,7 @@ import com.example.rajatiit.admin_app.intefaces.SpinnerHandler;
     **** IMPORTANT  WE HAVE ASSUMED THAT LECTURES SHOULD BE BETWEEN  3 TO 5 IN A WEEK
  */
 
-public class AddEditCourseDialog extends DialogFragment implements AdapterView.OnItemSelectedListener{
+public class AddEditCourseDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
     // Flag to check if its a editDialog
     private boolean isEditView;
@@ -43,31 +46,44 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     // Tag to identify if ASSIGN_TEACHER_BUTTON is clicked
     public static final String ASSIGN_TEACHER = "ASSIGN_TEACHER";
 
+    // To get the no. of lectures ...
     private Integer numOfLectures;
 
-    View view;
+    // to store in classroom class ...
+    private Integer teacherId;
+    private Integer batchId;
+
+    private View view;
+
+
+    public interface classroomDetailspasser {
+        void passAddDialogDetails(Classroom classroom);
+
+        void passEditDialogDetails(Classroom classroom);
+    }
+    public classroomDetailspasser detailsPasser;
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.add_edit_course,null);
+        view = inflater.inflate(R.layout.add_edit_course, null);
         builder.setView(view);
         setSpinners();
 
-        if (getFragmentManager().findFragmentByTag(ClassroomInterface.ADD_DIALOG)!=null){
+        if (getFragmentManager().findFragmentByTag(ClassroomInterface.ADD_DIALOG) != null) {
             isEditView = false;
             return addDialogBuilder(builder);
-        }
-        else {
+        } else {
             isEditView = true;
             return editDialogBuilder(builder);
         }
     }
 
     // Builder For Add Dialog
-    private Dialog addDialogBuilder(AlertDialog.Builder builder){
+    private Dialog addDialogBuilder(AlertDialog.Builder builder) {
         builder.setTitle("Add Course")
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
@@ -81,6 +97,9 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                         // DO Nothing
                     }
                 });
+        showDetails();
+        teacherId = -1;
+        batchId = -1;
         return builder.create();
     }
 
@@ -100,76 +119,97 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                     }
                 });
         classroom = (Classroom) getArguments().getSerializable(ClassroomInterface.CLASSROOM_DATA);
+        teacherId = classroom.getTeacherId();
+        batchId = classroom.getBatchId();
         showDetails();
-
         return builder.create();
     }
 
-    private void showDetails(){
+    private void showDetails() {
         TextView courseDepartmentName = (TextView) view.findViewById(R.id.add_edit_course_departmentName);
-        EditText courseName = (EditText) view.findViewById(R.id.add_edit_course_courseName);
-        TextView teacherAssigned = (TextView) view.findViewById(R.id.add_edit_course_assignTeacher);
-        TextView batchAssigned = (TextView) view.findViewById(R.id.add_edit_course_assignBatch);
-        Spinner numLecturesSpinner = (Spinner) view.findViewById(R.id.add_edit_course_numLectureSpinner);
+        if (isEditView) {
+            EditText courseName = (EditText) view.findViewById(R.id.add_edit_course_courseName);
+            Spinner numLecturesSpinner = (Spinner) view.findViewById(R.id.add_edit_course_numLectureSpinner);
 
-        if (isEditView){
             courseDepartmentName.setText(classroom.getCourseDetail().getDepartmentName());
-        }
-        else {
+            courseName.setText(classroom.getCourseDetail().getName());
+            showTeacherName(teacherId);
+            showBatchName(batchId);
+            numLecturesSpinner.setSelection(classroom.getCourseDetail().getNumLectures() - 3);
+        } else {
             courseDepartmentName.setText(getArguments().getCharSequence(ClassroomInterface.DEPARTMENT_NAME));
         }
-        courseName.setText(classroom.getCourseDetail().getName());
-
-        // getting the teacher and batch name through id's
-        String teacherName = UserStorage.getTeacherDetail(classroom.getTeacherId()).getFirstName();
-        teacherName += UserStorage.getTeacherDetail(classroom.getTeacherId()).getLastName();
-        String batchName = UserStorage.getBatchDetail(classroom.getBatchId()).getUserName();
-
+    }
+    private void showTeacherName(int teacherId) {
+        TextView teacherAssigned = (TextView) view.findViewById(R.id.add_edit_course_showTeacher);
+        String teacherName = UserStorage.getTeacherDetail(teacherId).getFirstName();
+        teacherName += UserStorage.getTeacherDetail(teacherId).getLastName();
         teacherAssigned.setText(teacherName);
+    }
+
+    private void showBatchName(int batchId) {
+        TextView batchAssigned = (TextView) view.findViewById(R.id.add_edit_course_showBatch);
+        String batchName = UserStorage.getBatchDetail(batchId).getUserName();
         batchAssigned.setText(batchName);
-        numLecturesSpinner.setSelection(classroom.getCourseDetail().getNumLectures()-3);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        // methods when assignButtons are Clicked ....
         assignButtonClicked();
 
+        AlertDialog dialog = (AlertDialog) getDialog();
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (areErrorsHandled()) {
+                    detailsPasser = (classroomDetailspasser) getActivity();
+                    getEnteredDetails();
+                    if (isEditView){
+                        detailsPasser.passEditDialogDetails(classroom);
+                    }else {
+                        detailsPasser.passAddDialogDetails(classroom);
+                    }
+                }
+            }
+        });
     }
 
-    private void assignButtonClicked(){
-        Button assignTeacherButton = (Button) view.findViewById(R.id.course_add_edit_assignTeacher);
+    private void assignButtonClicked() {
+        Button assignTeacherButton = (Button) view.findViewById(R.id.add_edit_course_assignTeacher);
+
         assignTeacherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),AssignTeacherOrBatch.class);
-                if (isEditView){
-                    intent.putExtra(ClassroomInterface.DEPARTMENT_NAME,classroom.getCourseDetail().getDepartmentName());
-                }
-                else {
+                Intent intent = new Intent(getActivity(), AssignTeacherOrBatch.class);
+                if (isEditView) {
+                    intent.putExtra(ClassroomInterface.DEPARTMENT_NAME, classroom.getCourseDetail().getDepartmentName());
+                } else {
                     intent.putExtra(ClassroomInterface.DEPARTMENT_NAME,
                             getArguments().getCharSequence(ClassroomInterface.DEPARTMENT_NAME));
                 }
                 // to identify assign teacher button clicked
-                intent.putExtra(ASSIGN_TEACHER,true);
-                startActivityForResult(intent,ASSIGN_TEACHER_REQUESTCODE);
+                intent.putExtra(ASSIGN_TEACHER, true);
+                startActivityForResult(intent, ASSIGN_TEACHER_REQUESTCODE);
             }
         });
 
         Button assignBatchButton = (Button) view.findViewById(R.id.add_edit_course_assignBatch);
+
         assignBatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),AssignTeacherOrBatch.class);
-                if (isEditView){
-                    intent.putExtra(ClassroomInterface.DEPARTMENT_NAME,classroom.getCourseDetail().getDepartmentName());
-                }
-                else {
+                Intent intent = new Intent(getActivity(), AssignTeacherOrBatch.class);
+                if (isEditView) {
+                    intent.putExtra(ClassroomInterface.DEPARTMENT_NAME, classroom.getCourseDetail().getDepartmentName());
+                } else {
                     intent.putExtra(ClassroomInterface.DEPARTMENT_NAME,
                             getArguments().getCharSequence(ClassroomInterface.DEPARTMENT_NAME));
                 }
-                intent.putExtra(ASSIGN_TEACHER,false);
-                startActivityForResult(intent,ASSIGN_TEACHER_REQUESTCODE-1);
+                intent.putExtra(ASSIGN_TEACHER, false);
+                startActivityForResult(intent, ASSIGN_TEACHER_REQUESTCODE - 1);
             }
         });
     }
@@ -177,33 +217,72 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ASSIGN_TEACHER_REQUESTCODE){
-            if (isEditView){
-                Integer perviousTeacherId = classroom.getTeacherId();
-                Integer newTeacherId = data.getExtras().getInt(AssignTeacherOrBatch.TEACHER_ID);
+        if (resultCode == Activity.RESULT_OK) {
+            // Assign teacher button clicked
+            if (requestCode == ASSIGN_TEACHER_REQUESTCODE) {
+                teacherId = data.getExtras().getInt(AssignTeacherOrBatch.TEACHER_ID);
+                showTeacherName(teacherId);
             }
+            // Assign Batch button clicked
             else {
-                Integer teacherId = data.getExtras().getInt(AssignTeacherOrBatch.TEACHER_ID);
+                batchId = data.getExtras().getInt(AssignTeacherOrBatch.BATCH_ID);
+                showBatchName(batchId);
             }
         }
-        else {
-            if (isEditView){
-                Integer perviousBatchId = classroom.getBatchId();
-                Integer newBatchId = data.getExtras().getInt(AssignTeacherOrBatch.BATCH_ID);
+    }
+
+    // checks if all the errors are Handled ....
+    private boolean areErrorsHandled() {
+        EditText courseNameText = (EditText) view.findViewById(R.id.add_edit_course_courseName);
+        if (teacherId == -1 || batchId == -1 || courseNameText.getText().equals("")) {
+            Toast.makeText(getActivity(), "Enter Full Details", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    // getting the entered details ..
+    private void getEnteredDetails() {
+        TextView courseDepartmentName = (TextView) view.findViewById(R.id.add_edit_course_departmentName);
+        EditText courseName = (EditText) view.findViewById(R.id.add_edit_course_courseName);
+        if (isEditView) {
+            handleIds();
+        } else {
+            classroom = new Classroom();
+        }
+        classroom.getCourseDetail().setDepartmentName(courseDepartmentName.getText().toString());
+        classroom.getCourseDetail().setName(courseName.getText().toString());
+        classroom.getCourseDetail().setNumLectures(numOfLectures);
+        classroom.setTeacherId(teacherId);
+        classroom.setBatchId(batchId);
+    }
+
+    private void handleIds() {
+        {
+            ArrayList<Integer> classroomIds = UserStorage.getTeacherDetail(classroom.getTeacherId()).getClassroomIds();
+            for (int i = 0; i < classroomIds.size(); i++) {
+                if (classroom.getClassroomId() == classroomIds.get(i)) {
+                    UserStorage.getTeacherDetail(classroom.getTeacherId()).getClassroomIds().remove(i);
+                }
             }
-            else {
-                Integer batchId = data.getExtras().getInt(AssignTeacherOrBatch.BATCH_ID);
+        }
+        {
+            ArrayList<Integer> classroomIds = UserStorage.getBatchDetail(classroom.getBatchId()).getClassroomIds();
+            for (int i = 0; i < classroomIds.size(); i++) {
+                if (classroom.getClassroomId() == classroomIds.get(i)) {
+                    UserStorage.getBatchDetail(classroom.getBatchId()).getClassroomIds().remove(i);
+                }
             }
         }
     }
 
     /*
-            * setting the spinners
-        */
-    public void setSpinners(){
+      * setting the spinners
+     */
+    public void setSpinners() {
         Spinner numLecturesSpinner = (Spinner) view.findViewById(R.id.add_edit_course_numLectureSpinner);
         numLecturesSpinner.setOnItemSelectedListener(this);
-        SpinnerHandler.setNumLecturesSpinner(getActivity(),numLecturesSpinner);
+        SpinnerHandler.setNumLecturesSpinner(getActivity(), numLecturesSpinner);
     }
 
     @Override

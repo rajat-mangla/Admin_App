@@ -1,5 +1,6 @@
 package com.example.rajatiit.admin_app;
 
+import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,8 +19,11 @@ public class FirebaseClass {
     }
 
     public static void updateUsers(UserStorage userStorage){
-        DatabaseReference reference = database.getReference("UserStorage");
+        DatabaseReference reference = database.getReference(UserStorage.USER_STORAGE_REF);
         reference.setValue(userStorage);
     }
-
+    public static void updateInstitute(Institute institute){
+        DatabaseReference reference = database.getReference(Institute.INSTITUTE_REF);
+        reference.setValue(institute);
+    }
 }

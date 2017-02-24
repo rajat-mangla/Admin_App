@@ -73,9 +73,9 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // method to create ADD_DIALOG BUILDER
     private Dialog addDialogBuilder(AlertDialog.Builder builder) {
-        TextView textView = (TextView) view.findViewById(R.id.batch_add_edit_batchYear);
+        TextView textView = (TextView) view.findViewById(R.id.add_edit_batch_batchYear);
         textView.setVisibility(View.GONE);
-        textView = (TextView) view.findViewById(R.id.batch_add_edit_departmentName);
+        textView = (TextView) view.findViewById(R.id.add_edit_batch_departmentName);
         textView.setVisibility(View.GONE);
 
         builder.setView(view)
@@ -100,9 +100,9 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // Builder For Edit Dialog
     private Dialog editDialogBuilder(AlertDialog.Builder builder) {
-        Spinner spinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectYear);
+        Spinner spinner = (Spinner) view.findViewById(R.id.add_edit_batch_selectYear);
         spinner.setVisibility(View.GONE);
-        spinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectDepartment);
+        spinner = (Spinner) view.findViewById(R.id.add_edit_batch_selectDepartment);
         spinner.setVisibility(View.GONE);
 
         builder.setView(view)
@@ -127,11 +127,11 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // Method to show existing details in for a teacher In  @Edit Dialog
     private void showDetails(){
-        TextView batchYear = (TextView) view.findViewById(R.id.batch_add_edit_batchYear);
-        TextView departmentName = (TextView) view.findViewById(R.id.batch_add_edit_departmentName);
-        EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
-        EditText passwordText = (EditText) view.findViewById(R.id.batch_add_edit_password);
-        EditText confirmPasswordText = (EditText) view.findViewById(R.id.batch_add_edit_confirmPassword);
+        TextView batchYear = (TextView) view.findViewById(R.id.add_edit_batch_batchYear);
+        TextView departmentName = (TextView) view.findViewById(R.id.add_edit_batch_departmentName);
+        EditText numStudents = (EditText) view.findViewById(R.id.add_edit_batch_batchCapacity);
+        EditText passwordText = (EditText) view.findViewById(R.id.add_edit_batch_password);
+        EditText confirmPasswordText = (EditText) view.findViewById(R.id.add_edit_batch_confirmPassword);
         // showing the details ...
         batchYear.setText(batchDetail.getYear());
         departmentName.setText(batchDetail.getDepartmentName());
@@ -172,9 +172,9 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // method to handle all the errors ...
     private boolean handleErrors() {
-        EditText password = (EditText) view.findViewById(R.id.batch_add_edit_password);
-        EditText confirmPassword = (EditText) view.findViewById(R.id.batch_add_edit_confirmPassword);
-        EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
+        EditText password = (EditText) view.findViewById(R.id.add_edit_batch_password);
+        EditText confirmPassword = (EditText) view.findViewById(R.id.add_edit_batch_confirmPassword);
+        EditText numStudents = (EditText) view.findViewById(R.id.add_edit_batch_batchCapacity);
         if (editTextEmpty(password) || editTextEmpty(confirmPassword) || editTextEmpty(numStudents)) {
             Toast.makeText(getActivity(), "Please Enter Full Details", Toast.LENGTH_SHORT).show();
             return false;
@@ -195,8 +195,8 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // GETTING all the details from the dialog front end ...
     private void getDetails() {
-        EditText password = (EditText) view.findViewById(R.id.batch_add_edit_password);
-        EditText numStudents = (EditText) view.findViewById(R.id.batch_add_edit_batchCapacity);
+        EditText password = (EditText) view.findViewById(R.id.add_edit_batch_password);
+        EditText numStudents = (EditText) view.findViewById(R.id.add_edit_batch_batchCapacity);
         int totalStudents = Integer.parseInt(numStudents.getText().toString());
         batchDetail.setPassword(password.getEditableText().toString());
         batchDetail.setNumStudents(totalStudents);
@@ -205,8 +205,8 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
 
     // Method for setting up the spinners ....
     public void setSpinners() {
-        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectDepartment);
-        Spinner yearSpinner = (Spinner) view.findViewById(R.id.batch_add_edit_selectYear);
+        Spinner departmentSpinner = (Spinner) view.findViewById(R.id.add_edit_batch_selectDepartment);
+        Spinner yearSpinner = (Spinner) view.findViewById(R.id.add_edit_batch_selectYear);
 
         departmentSpinner.setOnItemSelectedListener(this);
         yearSpinner.setOnItemSelectedListener(this);
@@ -219,7 +219,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner) parent;
-        if (spinner.getId() == R.id.batch_add_edit_selectDepartment) {
+        if (spinner.getId() == R.id.add_edit_batch_selectDepartment) {
             departmentName = (String) parent.getItemAtPosition(position);
         } else {
             batchYear = (String) parent.getItemAtPosition(position);

@@ -80,7 +80,8 @@
                 android:padding="5dp"
                 android:gravity="left|center_vertical"
                 android:textSize="14sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:id="@+id/add_edit_course_showTeacher" />
 
             <Button
                 android:text="Assign Teacher"
@@ -107,7 +108,8 @@
                 android:padding="5dp"
                 android:gravity="left|center_vertical"
                 android:textSize="14sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:id="@+id/add_edit_course_showBatch" />
 
             <Button
                 android:text="Assign Batch"

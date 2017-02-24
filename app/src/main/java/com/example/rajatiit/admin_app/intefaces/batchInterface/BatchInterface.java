@@ -150,7 +150,7 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
          */
         batchDetail.setBatchId(userStorage.getBatchDetails().size());
 
-        userStorage.addBatchDetail(batchDetail);
+        UserStorage.addBatchDetail(batchDetail);
         customBatchListAdapter.notifyDataSetChanged();
 
         // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH

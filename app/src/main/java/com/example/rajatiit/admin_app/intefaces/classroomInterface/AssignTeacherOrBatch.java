@@ -1,12 +1,18 @@
 package com.example.rajatiit.admin_app.intefaces.classroomInterface;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
@@ -64,13 +70,45 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
                     R.layout.activity_display_data_interface,batchDetails);
             listView.setAdapter(customBatchListAdapter);
         }
+
+        onClick(listView);
     }
 
     private void onClick(ListView listView){
-        listView.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO : PASS DETAILS BACK TO DIALOG .
+            public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+                // Fixing the maximum courses attented or taught by a teacher
+                // TODO : FIX THE MAX COURSES
+                AlertDialog.Builder builder = new AlertDialog.Builder(AssignTeacherOrBatch.this);
+                builder.setTitle("ADD INFORMATION")
+                        .setMessage("Are You Sure ?")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO : PASS DETAILS BACK TO DIALOG
+                                Intent resultIntent = new Intent();
+                                if (isAssignTeacher){
+                                    TeacherDetail teacherDetail = (TeacherDetail) parent.getItemAtPosition(position);
+                                    resultIntent.putExtra(TEACHER_ID,teacherDetail.getTeacherId());
+                                    setResult(Activity.RESULT_OK, resultIntent);
+                                    finish();
+                                }
+                                else {
+                                    BatchDetail batchDetail = (BatchDetail) parent.getItemAtPosition(position);
+                                    resultIntent.putExtra(BATCH_ID,batchDetail.getBatchId());
+                                    setResult(Activity.RESULT_OK, resultIntent);
+                                    finish();
+                                }
+                            }
+                        });
+                builder.show();
             }
         });
     }

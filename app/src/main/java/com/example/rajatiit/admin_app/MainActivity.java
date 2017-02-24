@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.intefaces.batchInterface.BatchInterface;
 import com.example.rajatiit.admin_app.intefaces.classroomInterface.ClassroomInterface;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         buttonClicks(this);
         getAllUsersData();
+        getInstituteData();
     }
 
     private void buttonClicks(final Context context){
@@ -57,12 +59,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAllUsersData(){
-        DatabaseReference reference = FirebaseClass.getDatabase().getReference("UserStorage");
+        DatabaseReference reference = FirebaseClass.getDatabase().getReference(UserStorage.USER_STORAGE_REF);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserStorage userStorage = dataSnapshot.getValue(UserStorage.class);
-                Toast.makeText(getBaseContext(),"connecting ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),"Getting Users Data",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getBaseContext(),"Error in connecting ",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getInstituteData(){
+        DatabaseReference reference = FirebaseClass.getDatabase().getReference(Institute.INSTITUTE_REF);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Institute institute = dataSnapshot.getValue(Institute.class);
+                Toast.makeText(getBaseContext(),"Getting Institute Data",Toast.LENGTH_SHORT).show();
             }
 
             @Override

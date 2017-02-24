@@ -1,5 +1,7 @@
 package com.example.rajatiit.admin_app.dataclasses.users;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +9,9 @@ import java.util.ArrayList;
  */
 
 public class UserStorage {
+    @Exclude
+    public static String USER_STORAGE_REF = "UserStorage";
+
     private static ArrayList<TeacherDetail> teacherDetails;
     private static ArrayList<BatchDetail> batchDetails;
 
