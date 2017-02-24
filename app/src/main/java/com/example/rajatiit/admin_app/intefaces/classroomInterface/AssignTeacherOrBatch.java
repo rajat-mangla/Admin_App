@@ -70,7 +70,7 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
         listView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO : PASS DETAILS BACK TO DIALOG
+                // TODO : PASS DETAILS BACK TO DIALOG .
             }
         });
     }
