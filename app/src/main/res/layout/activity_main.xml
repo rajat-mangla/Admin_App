@@ -38,4 +38,13 @@
         android:layout_alignLeft="@+id/batches"
         android:layout_alignStart="@+id/batches"
         android:layout_marginTop="59dp" />
+
+    <Button
+        android:text="Rooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomDetails"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

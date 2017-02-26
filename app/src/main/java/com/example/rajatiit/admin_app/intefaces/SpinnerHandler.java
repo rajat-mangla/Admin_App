@@ -50,4 +50,16 @@ public class SpinnerHandler {
         numLecturesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         numLecturesSpinner.setAdapter(numLecturesAdapter);
     }
+
+    public static void setRoomCapacitySpinner(Context context, Spinner roomCapacitySpinner){
+        ArrayList<Integer> roomCapacity = new ArrayList<>();
+        // adding the num of lectures ...
+        roomCapacity.add(40);
+        roomCapacity.add(80);
+        roomCapacity.add(120);
+        ArrayAdapter<Integer>roomCapacityAdapter=new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,roomCapacity);
+        roomCapacityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roomCapacitySpinner.setAdapter(roomCapacityAdapter);
+    }
+
 }

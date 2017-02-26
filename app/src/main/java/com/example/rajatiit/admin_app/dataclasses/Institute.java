@@ -1,6 +1,7 @@
 package com.example.rajatiit.admin_app.dataclasses;
 
 
+import com.example.rajatiit.admin_app.intefaces.classroomInterface.AddEditCourseDialog;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.firebase.database.Exclude;
 
@@ -14,11 +15,19 @@ import java.util.ArrayList;
 public class Institute {
     @Exclude
     public static String INSTITUTE_REF = "Institute";
+
     @Exclude
     private static String name = "Indian Institute Of Technology Jodhpur";
+
     @Exclude
     private static ArrayList<String> departments;
+
     private static ArrayList<Classroom> classrooms;
+    private static ArrayList<RoomDetail> roomDetails;
+
+    public static void setRoomDetail(RoomDetail roomDetail){
+        roomDetails.add(roomDetail);
+    }
 
     public static int totalNoOfClassrooms(){
         return classrooms.size();
@@ -33,6 +42,9 @@ public class Institute {
         }
         if (classrooms==null){
             classrooms = new ArrayList<>();
+        }
+        if (roomDetails == null){
+            roomDetails = new ArrayList<>();
         }
     }
 
@@ -51,4 +63,8 @@ public class Institute {
     /*public void setClassrooms(ArrayList<Classroom> classrooms) {
         Institute.classrooms = classrooms;
     }*/
+
+    public ArrayList<RoomDetail> getRoomDetails() {
+        return roomDetails;
+    }
 }

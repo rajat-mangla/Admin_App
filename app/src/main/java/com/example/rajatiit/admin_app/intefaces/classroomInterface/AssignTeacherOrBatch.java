@@ -102,9 +102,14 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
                                 }
                                 else {
                                     BatchDetail batchDetail = (BatchDetail) parent.getItemAtPosition(position);
-                                    resultIntent.putExtra(BATCH_ID,batchDetail.getBatchId());
-                                    setResult(Activity.RESULT_OK, resultIntent);
-                                    finish();
+                                    if (batchDetail.getClassroomIds().size()==6){
+                                        Toast.makeText(getBaseContext(),"Reached Maximum Courses",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        resultIntent.putExtra(BATCH_ID,batchDetail.getBatchId());
+                                        setResult(Activity.RESULT_OK, resultIntent);
+                                        finish();
+                                    }
                                 }
                             }
                         });

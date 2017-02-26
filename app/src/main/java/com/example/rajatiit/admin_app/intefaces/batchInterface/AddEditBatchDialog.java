@@ -24,12 +24,6 @@ import com.example.rajatiit.admin_app.intefaces.SpinnerHandler;
 
 public class AddEditBatchDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
-    // fragment tag for finding if its a ADD DIALOG
-    private final String ADD_DIALOG = "Add_Dialog";
-
-    // Tag for finding arguements when its a EDIT DIALOG
-    private final String BATCH_DATA = "BatchDetails";
-
     // Flag to check if its a editDialog
     private boolean isEditView;
 
@@ -61,7 +55,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.add_edit_batch, null);
 
-        if (getFragmentManager().findFragmentByTag(ADD_DIALOG)!=null){
+        if (getFragmentManager().findFragmentByTag(BatchInterface.ADD_DIALOG)!=null){
             isEditView=false;
             return addDialogBuilder(builder);
         }
@@ -119,7 +113,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                         Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
-        batchDetail = (BatchDetail) getArguments().getSerializable(BATCH_DATA);
+        batchDetail = (BatchDetail) getArguments().getSerializable(BatchInterface.BATCH_DATA);
         showDetails();
 
         return builder.create();

@@ -1,4 +1,4 @@
-package com.example.rajatiit.admin_app.intefaces.batchInterface;
+package com.example.rajatiit.admin_app.intefaces.roomInterface;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,48 +16,41 @@ import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.FirebaseClass;
 import com.example.rajatiit.admin_app.R;
-import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
-import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
+import com.example.rajatiit.admin_app.dataclasses.Institute;
+import com.example.rajatiit.admin_app.dataclasses.RoomDetail;
+import com.example.rajatiit.admin_app.intefaces.batchInterface.AddEditBatchDialog;
+import com.example.rajatiit.admin_app.intefaces.batchInterface.CustomBatchListAdapter;
 
-public class BatchInterface extends AppCompatActivity implements AddEditBatchDialog.BatchDetailsPasser{
-
-    // Fragment TAG Passed to DIALOG FRAGMENT to identify ADD DIALOG
+public class RoomInterface extends AppCompatActivity implements AddEditRoomDialog.RoomDetailsPasser{
+    // fragment tag for finding if its a ADD DIALOG
     public static final String ADD_DIALOG = "Add_Dialog";
 
     // Tag for finding arguements when its a EDIT DIALOG
-    public static final String BATCH_DATA = "BatchDetails";
+    public static final String ROOM_DATA = "RoomDetails";
 
-    // For getting the position of teacher under department for displaying data for edit dialog
-    int batchPosition;
+    CustomRoomListAdapter customRoomListAdapter;
 
-    // Institute class object
-    UserStorage userStorage;
-    // TODO : SOLVE THE CONFLICT WITH THIS
-
-    // Custom Adapter for batchlist
-    CustomBatchListAdapter customBatchListAdapter;
+    private int roomPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Batch Data");
+        getSupportActionBar().setTitle("Room Data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_display_data_interface);
 
-        userStorage = new UserStorage();
-
         // displaying the listview ...
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
-        customBatchListAdapter = new CustomBatchListAdapter
-                (getBaseContext(),R.layout.activity_display_data_interface,userStorage.getBatchDetails());
-        listView.setAdapter(customBatchListAdapter);
+        customRoomListAdapter = new CustomRoomListAdapter
+                (getBaseContext(),R.layout.activity_display_data_interface, new Institute().getRoomDetails());
+        listView.setAdapter(customRoomListAdapter);
 
         //  handling add dialog button
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.addDetail);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new AddEditBatchDialog();
+                DialogFragment dialogFragment = new AddEditRoomDialog();
                 dialogFragment.show(getFragmentManager(),ADD_DIALOG);
             }
         });
@@ -69,10 +61,10 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 registerForContextMenu(listView);
+
+                roomPosition = position;
+
                 openContextMenu(listView);
-
-                batchPosition =position;
-
                 return true;
             }
         });
@@ -94,6 +86,7 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.context_menu,menu);
     }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()){
@@ -105,9 +98,9 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
                 Toast.makeText(this,"Edit Details",Toast.LENGTH_SHORT).show();
 
                 //shows EDIT Dialog
-                DialogFragment editDialog = new AddEditBatchDialog();
+                DialogFragment editDialog = new AddEditRoomDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(BATCH_DATA , userStorage.getBatchDetail(batchPosition));
+                bundle.putSerializable(ROOM_DATA,new Institute().getRoomDetails().get(roomPosition));
 
                 editDialog.setArguments(bundle);
                 editDialog.show(getFragmentManager(),"anything");
@@ -129,7 +122,7 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(getBaseContext(),"Confirmed",Toast.LENGTH_SHORT).show();
 
-                                // TODO :HANDLE DELETE TEACHER EVENT HERE
+                                // TODO :HANDLE DELETE EVENT HERE
                             }
                         });
                 builder.show();
@@ -139,25 +132,18 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
         }
     }
 
+
     @Override
-    public void passAddDialogDetail(BatchDetail batchDetail) {
-        /*
-        THE BATCH ID IS USED TO GET BATCH FROM TOTAL BATCHES
-         IT IS STORED IN CLASSROOM OBJECT TO LINK Course and teachers
-         */
-        batchDetail.setBatchId(userStorage.getBatchDetails().size());
+    public void passAddDialogDetail(RoomDetail roomDetail) {
+        Institute.setRoomDetail(roomDetail);
+        customRoomListAdapter.notifyDataSetChanged();
 
-        UserStorage.addBatchDetail(batchDetail);
-        customBatchListAdapter.notifyDataSetChanged();
-
-        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH
-        FirebaseClass.updateUsers(userStorage);
+        FirebaseClass.updateInstitute(new Institute());
     }
+
     @Override
     public void passEditDialogDetail() {
-        customBatchListAdapter.notifyDataSetChanged();
-
-        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH
-        FirebaseClass.updateUsers(userStorage);
+        customRoomListAdapter.notifyDataSetChanged();
+        FirebaseClass.updateInstitute(new Institute());
     }
 }

@@ -12,6 +12,7 @@ import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.intefaces.batchInterface.BatchInterface;
 import com.example.rajatiit.admin_app.intefaces.classroomInterface.ClassroomInterface;
+import com.example.rajatiit.admin_app.intefaces.roomInterface.RoomInterface;
 import com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ClassroomInterface.class);
+                startActivity(intent);
+            }
+        });
+        Button roomButton = (Button)findViewById(R.id.roomDetails);
+        roomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RoomInterface.class);
                 startActivity(intent);
             }
         });

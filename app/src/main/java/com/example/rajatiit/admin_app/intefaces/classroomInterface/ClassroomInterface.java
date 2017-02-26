@@ -155,6 +155,7 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         UserStorage.getTeacherDetail(classroom.getTeacherId()).getClassroomIds().add(classroomId);
         UserStorage.getBatchDetail(classroom.getBatchId()).getClassroomIds().add(classroomId);
         FirebaseClass.updateInstitute(institute);
+        FirebaseClass.updateUsers(new UserStorage());
     }
 
     @Override

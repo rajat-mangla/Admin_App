@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     private Classroom classroom;
 
     // REQUEST CODE TO IDENTIFY IF IT'S A ASSIGN TEACHER OR BATCH CALLBACK FOR  onActivityResult  METHOD
-    private final Integer ASSIGN_TEACHER_REQUESTCODE = 0;
+    private final Integer ASSIGN_TEACHER_REQUESTCODE = 2;
 
     // Tag to identify if ASSIGN_TEACHER_BUTTON is clicked
     public static final String ASSIGN_TEACHER = "ASSIGN_TEACHER";
@@ -172,6 +173,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                     }else {
                         detailsPasser.passAddDialogDetails(classroom);
                     }
+                    dismiss();
                 }
             }
         });
@@ -209,7 +211,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                             getArguments().getCharSequence(ClassroomInterface.DEPARTMENT_NAME));
                 }
                 intent.putExtra(ASSIGN_TEACHER, false);
-                startActivityForResult(intent, ASSIGN_TEACHER_REQUESTCODE - 1);
+                startActivityForResult(intent, ASSIGN_TEACHER_REQUESTCODE-2);
             }
         });
     }
@@ -219,6 +221,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             // Assign teacher button clicked
+            Log.i("checking the app : ","the result code" + Integer.toString(requestCode));
             if (requestCode == ASSIGN_TEACHER_REQUESTCODE) {
                 teacherId = data.getExtras().getInt(AssignTeacherOrBatch.TEACHER_ID);
                 showTeacherName(teacherId);
@@ -226,6 +229,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
             // Assign Batch button clicked
             else {
                 batchId = data.getExtras().getInt(AssignTeacherOrBatch.BATCH_ID);
+                Log.i("checking the app : ","the batch_id" + Integer.toString(batchId));
                 showBatchName(batchId);
             }
         }
@@ -234,7 +238,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     // checks if all the errors are Handled ....
     private boolean areErrorsHandled() {
         EditText courseNameText = (EditText) view.findViewById(R.id.add_edit_course_courseName);
-        if (teacherId == -1 || batchId == -1 || courseNameText.getText().equals("")) {
+        if (teacherId == -1 || batchId == -1 || courseNameText.getText().toString().equals("")) {
             Toast.makeText(getActivity(), "Enter Full Details", Toast.LENGTH_SHORT).show();
             return false;
         }

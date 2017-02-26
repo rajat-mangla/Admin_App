@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="center">
+
+    <TextView
+        android:text="Room no :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_weight="0"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:padding="16dp"
+        android:gravity="right|center_vertical"
+        android:layout_marginLeft="50dp" />
+
+    <TextView
+        android:text="2102"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/display_room_roomNo"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:gravity="start" />
+</LinearLayout>

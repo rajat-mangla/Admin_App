@@ -1,4 +1,4 @@
-package com.example.rajatiit.admin_app.intefaces.batchInterface;
+package com.example.rajatiit.admin_app.intefaces.roomInterface;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,16 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.rajatiit.admin_app.R;
+import com.example.rajatiit.admin_app.dataclasses.RoomDetail;
 import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
 
 import java.util.List;
 
 /**
- * Created by rajat on 20/2/17.
+ * Created by rajat on 25/2/17.
  */
 
-public class CustomBatchListAdapter extends ArrayAdapter<BatchDetail> {
-    public CustomBatchListAdapter(Context context, int resource, List<BatchDetail> objects) {
+public class CustomRoomListAdapter extends ArrayAdapter<RoomDetail> {
+    public CustomRoomListAdapter(Context context, int resource, List<RoomDetail> objects) {
         super(context, resource, objects);
     }
 
@@ -27,13 +28,10 @@ public class CustomBatchListAdapter extends ArrayAdapter<BatchDetail> {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.display_batch,null);
+            convertView = inflater.inflate(R.layout.display_room,null);
         }
-        TextView department = (TextView) convertView.findViewById(R.id.display_batch_departmentName);
-        TextView year = (TextView) convertView.findViewById(R.id.display_batch_batchYear);
-        department.setText(getItem(position).getDepartmentName());
-        year.setText(getItem(position).getYear());
-
+        TextView roomNo = (TextView) convertView.findViewById(R.id.display_room_roomNo);
+        roomNo.setText(Integer.toString(getItem(position).getRoomNo()));
         return convertView;
     }
 }

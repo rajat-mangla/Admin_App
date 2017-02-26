@@ -71,7 +71,4 @@ public class BatchDetail implements Serializable{
         return classroomIds;
     }
 
-    public void setClassroomIds(ArrayList<Integer> classroomIds) {
-        this.classroomIds = classroomIds;
-    }
 }
