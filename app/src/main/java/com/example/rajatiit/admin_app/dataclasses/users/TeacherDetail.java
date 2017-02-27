@@ -15,6 +15,7 @@ public class TeacherDetail implements Serializable{
     private String departmentName;
     private String uniqueCode;
     private ArrayList<Integer> classroomIds;
+
     public TeacherDetail(){
         classroomIds = new ArrayList<>();
     }
@@ -64,10 +65,6 @@ public class TeacherDetail implements Serializable{
         return uniqueCode;
     }
 
-    public void setUniqueCode(String uniqueCode) {
-        this.uniqueCode = uniqueCode;
-    }
-
     public void generateUniqueCode(){
         uniqueCode = firstName+lastName+ departmentName;
     }
@@ -76,7 +73,4 @@ public class TeacherDetail implements Serializable{
         return classroomIds;
     }
 
-    public void setClassroomIds(ArrayList<Integer> classroomIds) {
-        this.classroomIds = classroomIds;
-    }
 }

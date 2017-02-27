@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
-import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.RoomDetail;
-import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
 import com.example.rajatiit.admin_app.intefaces.SpinnerHandler;
-import com.example.rajatiit.admin_app.intefaces.batchInterface.AddEditBatchDialog;
-import com.google.firebase.database.Exclude;
+
 
 /**
  * Created by rajat on 25/2/17.
@@ -43,7 +38,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
     public interface RoomDetailsPasser {
         void passAddDialogDetail(RoomDetail roomDetail);
 
-        void passEditDialogDetail();
+        void passEditDialogDetail(RoomDetail roomDetail);
     }
     private RoomDetailsPasser roomDetailsPasser;
 
@@ -53,7 +48,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.add_edit_room, null);
 
-        if (getFragmentManager().findFragmentByTag(RoomInterface.ADD_DIALOG)!=null){
+        if (getFragmentManager().findFragmentByTag(Integer.toString(R.string.ADD_DIALOG))!=null){
             isEditView=false;
             return addDialogBuilder(builder);
         }
@@ -103,7 +98,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
                 });
         // setting the spinners for the add dialog
         setSpinners();
-        roomDetail = (RoomDetail) getArguments().getSerializable(RoomInterface.ROOM_DATA);
+        roomDetail = (RoomDetail) getArguments().getSerializable(Integer.toString(R.string.ROOM_DATA));
         showDetails();
 
         return builder.create();
@@ -145,7 +140,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
                     if (isEditView){
                         getDetails();
                         dismiss();
-                        roomDetailsPasser.passEditDialogDetail();
+                        roomDetailsPasser.passEditDialogDetail(roomDetail);
                     }
                     else {
                         // storing the details entered by User for add dialog

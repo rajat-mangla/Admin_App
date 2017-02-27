@@ -2,10 +2,21 @@ package com.example.rajatiit.admin_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.dataclasses.Institute;
@@ -20,55 +31,93 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Arrays;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final List<String> WeekDays = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY","THURSDAY","FRIDAY");
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity_1);
         Firebase.setAndroidContext(this);
-        buttonClicks(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
+        setSupportActionBar(toolbar);
+
+        setViewPager();
+        setTabLayout();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.main_activity_1_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
         getAllUsersData();
         getInstituteData();
     }
 
-    private void buttonClicks(final Context context){
-        Button teacherButton = (Button) findViewById(R.id.teachers);
-        teacherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,TeacherInterface.class);
+    private void setViewPager(){
+        viewPager = (ViewPager)findViewById(R.id.main_app_bar_content_viewpager);
+        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+    }
+    private void setTabLayout(){
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.main_app_bar_content_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.activity_main_drawer_courses :
+                intent = new Intent(this, ClassroomInterface.class);
                 startActivity(intent);
-            }
-        });
-        Button batchButton = (Button) findViewById(R.id.batches);
-        batchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,BatchInterface.class);
+                break;
+            case R.id.activity_main_drawer_teachers:
+                intent = new Intent(this, TeacherInterface.class);
                 startActivity(intent);
-            }
-        });
-        Button courseButton = (Button)findViewById(R.id.courses);
-        courseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ClassroomInterface.class);
+                break;
+            case R.id.activity_main_drawer_batches :
+                intent = new Intent(this,BatchInterface.class);
                 startActivity(intent);
-            }
-        });
-        Button roomButton = (Button)findViewById(R.id.roomDetails);
-        roomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, RoomInterface.class);
+                break;
+            case R.id.activity_main_drawer_rooms :
+                intent = new Intent(this,RoomInterface.class);
                 startActivity(intent);
-            }
-        });
+                break;
+            case R.id.activity_main_drawer_about :
+                Toast.makeText(this,"IN PROGRESS",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void getAllUsersData(){
-        DatabaseReference reference = FirebaseClass.getDatabase().getReference(UserStorage.USER_STORAGE_REF);
+        DatabaseReference reference = Database.database.getReference(UserStorage.USER_STORAGE_REF);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getInstituteData(){
-        DatabaseReference reference = FirebaseClass.getDatabase().getReference(Institute.INSTITUTE_REF);
+        DatabaseReference reference = Database.database.getReference(Institute.INSTITUTE_REF);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,4 +147,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    /**
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * sequence.
+     */
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            return new ShowItemsFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return WeekDays.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:
+                    return WeekDays.get(0);
+                case 1:
+                    return WeekDays.get(1);
+                case 2:
+                    return WeekDays.get(2);
+                case 3:
+                    return WeekDays.get(3);
+                case 4:
+                    return WeekDays.get(4);
+                case 5:
+                    return WeekDays.get(5);
+                default:
+                    return WeekDays.get(0);
+            }
+        }
+    }
+
+
 }

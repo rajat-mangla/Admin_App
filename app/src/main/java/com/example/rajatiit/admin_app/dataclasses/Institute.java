@@ -17,6 +17,12 @@ public class Institute {
     public static String INSTITUTE_REF = "Institute";
 
     @Exclude
+    public static String ROOM_DATA_REF = "roomDetails";
+
+    @Exclude
+    public static String CLASSROOM_DATA_REF = "classrooms";
+
+    @Exclude
     private static String name = "Indian Institute Of Technology Jodhpur";
 
     @Exclude
@@ -24,14 +30,6 @@ public class Institute {
 
     private static ArrayList<Classroom> classrooms;
     private static ArrayList<RoomDetail> roomDetails;
-
-    public static void setRoomDetail(RoomDetail roomDetail){
-        roomDetails.add(roomDetail);
-    }
-
-    public static int totalNoOfClassrooms(){
-        return classrooms.size();
-    }
 
     public Institute() {
         if (departments == null) {
@@ -48,21 +46,37 @@ public class Institute {
         }
     }
 
+    public static void addClassroomDetail(Classroom classroom){
+        classrooms.add(classroom);
+    }
+
+    public static Classroom getClassroomDetail(int index){
+        return classrooms.get(index);
+    }
+
+    public static void deleteClassroomDetail(int classroomPosition){
+        classrooms.remove(classroomPosition);
+    }
+
+    public static int totalNoOfClassrooms(){return classrooms.size();}
+
+    public static void addRoomDetail(RoomDetail roomDetail){
+        roomDetails.add(roomDetail);
+    }
+
+    public static void deleteRoomDetail(int roomPosition){
+        roomDetails.remove(roomPosition);
+    }
+
+    public static int totalNoOfRooms(){return roomDetails.size();}
+
     public ArrayList<String> getDepartments() {
         return departments;
     }
 
-    /*public void setDepartments(ArrayList<String> departments) {
-        Institute.departments = departments;
-    }*/
-
     public ArrayList<Classroom> getClassrooms() {
         return classrooms;
     }
-
-    /*public void setClassrooms(ArrayList<Classroom> classrooms) {
-        Institute.classrooms = classrooms;
-    }*/
 
     public ArrayList<RoomDetail> getRoomDetails() {
         return roomDetails;

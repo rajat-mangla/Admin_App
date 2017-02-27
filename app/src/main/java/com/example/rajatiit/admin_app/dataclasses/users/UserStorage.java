@@ -12,6 +12,13 @@ public class UserStorage {
     @Exclude
     public static String USER_STORAGE_REF = "UserStorage";
 
+    @Exclude
+    public static String TEACHER_DATA_REF = "teacherDetails";
+
+    @Exclude
+    public static String BATCH_DATA_REF = "batchDetails";
+
+
     private static ArrayList<TeacherDetail> teacherDetails;
     private static ArrayList<BatchDetail> batchDetails;
 
@@ -24,11 +31,12 @@ public class UserStorage {
         }
     }
 
-    public static boolean addTeacherDetail(TeacherDetail teacherDetail){
+    public static void addTeacherDetail(TeacherDetail teacherDetail){
         teacherDetails.add(teacherDetail);
+    }
 
-        // TODO : UPDATE IN DATABASE ALSO
-        return true;
+    public static void deleteTeacherDetail(int teacherPosition){
+        teacherDetails.remove(teacherPosition);
     }
 
     public static TeacherDetail getTeacherDetail(int index){
@@ -39,15 +47,16 @@ public class UserStorage {
         return teacherDetails.size();
     }
 
-    public static boolean addBatchDetail(BatchDetail batchDetail){
+    public static void addBatchDetail(BatchDetail batchDetail){
         batchDetails.add(batchDetail);
-
-        // TODO : UPDATE IN DATABASE ALSO
-        return true;
     }
 
     public static BatchDetail getBatchDetail(int index){
         return batchDetails.get(index);
+    }
+
+    public static void deleteBatchDetail(int batchPosition){
+        batchDetails.remove(batchPosition);
     }
 
     public static int noOfBatches(){

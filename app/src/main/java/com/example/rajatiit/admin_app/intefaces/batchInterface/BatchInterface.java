@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,18 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.rajatiit.admin_app.FirebaseClass;
+import com.example.rajatiit.admin_app.Database;
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 public class BatchInterface extends AppCompatActivity implements AddEditBatchDialog.BatchDetailsPasser{
-
-    // Fragment TAG Passed to DIALOG FRAGMENT to identify ADD DIALOG
-    public static final String ADD_DIALOG = "Add_Dialog";
-
-    // Tag for finding arguements when its a EDIT DIALOG
-    public static final String BATCH_DATA = "BatchDetails";
 
     // For getting the position of teacher under department for displaying data for edit dialog
     int batchPosition;
@@ -59,7 +52,7 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
             @Override
             public void onClick(View v) {
                 DialogFragment dialogFragment = new AddEditBatchDialog();
-                dialogFragment.show(getFragmentManager(),ADD_DIALOG);
+                dialogFragment.show(getFragmentManager(),Integer.toString(R.string.ADD_DIALOG));
             }
         });
 
@@ -107,7 +100,7 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
                 //shows EDIT Dialog
                 DialogFragment editDialog = new AddEditBatchDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(BATCH_DATA , userStorage.getBatchDetail(batchPosition));
+                bundle.putSerializable(Integer.toString(R.string.BATCH_DATA), userStorage.getBatchDetail(batchPosition));
 
                 editDialog.setArguments(bundle);
                 editDialog.show(getFragmentManager(),"anything");
@@ -127,9 +120,8 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getBaseContext(),"Confirmed",Toast.LENGTH_SHORT).show();
 
-                                // TODO :HANDLE DELETE TEACHER EVENT HERE
+                                deleteBatch();
                             }
                         });
                 builder.show();
@@ -139,25 +131,42 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
         }
     }
 
+    private void deleteBatch(){
+        if (UserStorage.getBatchDetail(batchPosition).getClassroomIds().size() == 0){
+            Toast.makeText(getBaseContext(),"Deleted",Toast.LENGTH_SHORT).show();
+
+            UserStorage.deleteBatchDetail(batchPosition);
+
+            // updating in database also
+            Database.deleteBatchInfo();
+
+            customBatchListAdapter.notifyDataSetChanged();
+        }
+        else {
+            Toast.makeText(getBaseContext(),"Cannot Delete :" +
+                    "Batch already Attends some courses",Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void passAddDialogDetail(BatchDetail batchDetail) {
         /*
         THE BATCH ID IS USED TO GET BATCH FROM TOTAL BATCHES
          IT IS STORED IN CLASSROOM OBJECT TO LINK Course and teachers
          */
-        batchDetail.setBatchId(userStorage.getBatchDetails().size());
+        batchDetail.setBatchId(UserStorage.noOfBatches());
 
         UserStorage.addBatchDetail(batchDetail);
-        customBatchListAdapter.notifyDataSetChanged();
 
-        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH
-        FirebaseClass.updateUsers(userStorage);
+        Database.sendBatchInfo(batchDetail);
+
+        customBatchListAdapter.notifyDataSetChanged();
     }
     @Override
-    public void passEditDialogDetail() {
-        customBatchListAdapter.notifyDataSetChanged();
+    public void passEditDialogDetail(BatchDetail batchDetail) {
 
-        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR BATCH
-        FirebaseClass.updateUsers(userStorage);
+        Database.sendBatchInfo(batchDetail);
+
+        customBatchListAdapter.notifyDataSetChanged();
     }
 }

@@ -24,13 +24,6 @@ import com.example.rajatiit.admin_app.intefaces.SpinnerHandler;
 
 public class AddEditTeacherDialog extends DialogFragment implements AdapterView.OnItemSelectedListener{
 
-
-    // fragment tag for finding if its a ADD DIALOG
-    private final String ADD_DIALOG = "Add_Dialog";
-
-    // tag for finding arguements when its a EDIT DIALOG
-    private final String TEACHER_DATA = "TeacherDetails";
-
     // FLAG To check if its a Edit Dialog
     private boolean isEditView;
 
@@ -61,7 +54,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         view = layoutInflater.inflate(R.layout.add_edit_teacher,null);
 
-        if (getFragmentManager().findFragmentByTag(ADD_DIALOG)!=null){
+        if (getFragmentManager().findFragmentByTag(Integer.toString(R.string.ADD_DIALOG))!=null){
             isEditView=false;
             return addDialogBuilder(builder);
         }
@@ -120,7 +113,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                     }
                 });
 
-        teacherDetail = (TeacherDetail) getArguments().getSerializable(TEACHER_DATA);
+        teacherDetail = (TeacherDetail) getArguments().getSerializable(Integer.toString(R.string.TEACHER_DATA));
         showDetails();
 
         return builder.create();

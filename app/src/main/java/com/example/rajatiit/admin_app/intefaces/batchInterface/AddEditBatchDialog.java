@@ -43,7 +43,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
     public interface BatchDetailsPasser {
         void passAddDialogDetail(BatchDetail batchDetail);
 
-        void passEditDialogDetail();
+        void passEditDialogDetail(BatchDetail batchDetail);
     }
 
     private BatchDetailsPasser batchDetailsPasser;
@@ -55,7 +55,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.add_edit_batch, null);
 
-        if (getFragmentManager().findFragmentByTag(BatchInterface.ADD_DIALOG)!=null){
+        if (getFragmentManager().findFragmentByTag(Integer.toString(R.string.ADD_DIALOG))!=null){
             isEditView=false;
             return addDialogBuilder(builder);
         }
@@ -113,7 +113,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                         Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
-        batchDetail = (BatchDetail) getArguments().getSerializable(BatchInterface.BATCH_DATA);
+        batchDetail = (BatchDetail) getArguments().getSerializable(Integer.toString(R.string.BATCH_DATA));
         showDetails();
 
         return builder.create();
@@ -147,7 +147,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                     if (isEditView){
                         getDetails();
                         dismiss();
-                        batchDetailsPasser.passEditDialogDetail();
+                        batchDetailsPasser.passEditDialogDetail(batchDetail);
                     }
                     else {
                         // storing the details entered by User for add dialog

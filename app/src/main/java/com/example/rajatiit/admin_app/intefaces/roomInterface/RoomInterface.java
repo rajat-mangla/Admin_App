@@ -14,19 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.rajatiit.admin_app.FirebaseClass;
+import com.example.rajatiit.admin_app.Database;
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.RoomDetail;
-import com.example.rajatiit.admin_app.intefaces.batchInterface.AddEditBatchDialog;
-import com.example.rajatiit.admin_app.intefaces.batchInterface.CustomBatchListAdapter;
 
 public class RoomInterface extends AppCompatActivity implements AddEditRoomDialog.RoomDetailsPasser{
-    // fragment tag for finding if its a ADD DIALOG
-    public static final String ADD_DIALOG = "Add_Dialog";
-
-    // Tag for finding arguements when its a EDIT DIALOG
-    public static final String ROOM_DATA = "RoomDetails";
 
     CustomRoomListAdapter customRoomListAdapter;
 
@@ -51,7 +44,7 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
             @Override
             public void onClick(View v) {
                 DialogFragment dialogFragment = new AddEditRoomDialog();
-                dialogFragment.show(getFragmentManager(),ADD_DIALOG);
+                dialogFragment.show(getFragmentManager(),Integer.toString(R.string.ADD_DIALOG));
             }
         });
 
@@ -100,7 +93,7 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
                 //shows EDIT Dialog
                 DialogFragment editDialog = new AddEditRoomDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(ROOM_DATA,new Institute().getRoomDetails().get(roomPosition));
+                bundle.putSerializable(Integer.toString(R.string.ROOM_DATA),new Institute().getRoomDetails().get(roomPosition));
 
                 editDialog.setArguments(bundle);
                 editDialog.show(getFragmentManager(),"anything");
@@ -120,9 +113,7 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getBaseContext(),"Confirmed",Toast.LENGTH_SHORT).show();
-
-                                // TODO :HANDLE DELETE EVENT HERE
+                                deleteRoom();
                             }
                         });
                 builder.show();
@@ -132,18 +123,31 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
         }
     }
 
+    private void deleteRoom(){
+            Toast.makeText(getBaseContext(),"Deleted",Toast.LENGTH_SHORT).show();
 
-    @Override
-    public void passAddDialogDetail(RoomDetail roomDetail) {
-        Institute.setRoomDetail(roomDetail);
-        customRoomListAdapter.notifyDataSetChanged();
+            Institute.deleteRoomDetail(roomPosition);
+            // updating in database also
+            Database.deleteRoomInfo();
 
-        FirebaseClass.updateInstitute(new Institute());
+            customRoomListAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void passEditDialogDetail() {
+    public void passAddDialogDetail(RoomDetail roomDetail) {
+        Institute.addRoomDetail(roomDetail);
+
+        Database.sendRoomInfo(roomDetail,Institute.totalNoOfRooms());
+
         customRoomListAdapter.notifyDataSetChanged();
-        FirebaseClass.updateInstitute(new Institute());
+    }
+
+    @Override
+    public void passEditDialogDetail(RoomDetail roomDetail) {
+
+        Database.sendRoomInfo(roomDetail,roomPosition);
+
+        customRoomListAdapter.notifyDataSetChanged();
+
     }
 }

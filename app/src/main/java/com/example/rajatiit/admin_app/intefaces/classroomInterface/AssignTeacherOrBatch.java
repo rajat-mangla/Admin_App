@@ -25,12 +25,6 @@ import java.util.ArrayList;
 
 public class AssignTeacherOrBatch extends AppCompatActivity {
 
-    // Tag to pass and retrieve TEACHER ID
-    public static final String TEACHER_ID = "TEACHER_ID";
-
-    // Tag to pass and retrieve BATCH ID
-    public static final String BATCH_ID = "BATCH_ID";
-
     // to identify if assign teacher clicked or batch
     private boolean isAssignTeacher;
 
@@ -43,8 +37,8 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.addDetail);
         floatingActionButton.setVisibility(View.GONE);
 
-        isAssignTeacher = getIntent().getExtras().getBoolean(AddEditCourseDialog.ASSIGN_TEACHER);
-        String departmentName = getIntent().getExtras().getString(ClassroomInterface.DEPARTMENT_NAME);
+        isAssignTeacher = getIntent().getExtras().getBoolean(Integer.toString(R.string.ASSIGN_TEACHER));
+        String departmentName = getIntent().getExtras().getString(Integer.toString(R.string.DEPARTMENT_NAME));
 
         if (isAssignTeacher){
             ArrayList<TeacherDetail> teacherDetails = new ArrayList<>();
@@ -96,7 +90,7 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
                                 Intent resultIntent = new Intent();
                                 if (isAssignTeacher){
                                     TeacherDetail teacherDetail = (TeacherDetail) parent.getItemAtPosition(position);
-                                    resultIntent.putExtra(TEACHER_ID,teacherDetail.getTeacherId());
+                                    resultIntent.putExtra(Integer.toString(R.string.TEACHER_ID),teacherDetail.getTeacherId());
                                     setResult(Activity.RESULT_OK, resultIntent);
                                     finish();
                                 }
@@ -106,7 +100,7 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
                                         Toast.makeText(getBaseContext(),"Reached Maximum Courses",Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        resultIntent.putExtra(BATCH_ID,batchDetail.getBatchId());
+                                        resultIntent.putExtra(Integer.toString(R.string.BATCH_ID),batchDetail.getBatchId());
                                         setResult(Activity.RESULT_OK, resultIntent);
                                         finish();
                                     }

@@ -14,22 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.rajatiit.admin_app.FirebaseClass;
+import com.example.rajatiit.admin_app.Database;
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.TeacherDetail;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 public class TeacherInterface extends AppCompatActivity implements AddEditTeacherDialog.TeacherDetailsPasser{
-
-    // fragment TAG Passed to DIALOG FRAGMENT to identify ADD DIALOG
-    private final String ADD_DIALOG = "Add_Dialog";
-
-    // fragment TAG Passed to DIALOG FRAGMENT to identify EDIT DIALOG
-    private final String EDIT_DIALOG = "Edit_Dialog";
-
-    // tag for finding arguements when its a EDIT DIALOG
-    private final String TEACHER_DATA = "TeacherDetails";
-
 
     // for getting the position of teacher under department for displaying data for edit dialog
     int teacherPosition;
@@ -62,7 +52,7 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
             @Override
             public void onClick(View v) {
                 DialogFragment addDialog = new AddEditTeacherDialog();
-                addDialog.show(getFragmentManager(),ADD_DIALOG);
+                addDialog.show(getFragmentManager(),Integer.toString(R.string.ADD_DIALOG));
             }
         });
 
@@ -110,10 +100,10 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
                 //shows EDIT Dialog
                 DialogFragment editDialog = new AddEditTeacherDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(TEACHER_DATA , userStorage.getTeacherDetail(teacherPosition));
+                bundle.putSerializable(Integer.toString(R.string.TEACHER_DATA),UserStorage.getTeacherDetail(teacherPosition));
 
                 editDialog.setArguments(bundle);
-                editDialog.show(getFragmentManager(),EDIT_DIALOG);
+                editDialog.show(getFragmentManager(),Integer.toString(R.string.EDIT_DIALOG));
                 return true;
 
             case R.id.deleteItem:
@@ -130,15 +120,31 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getBaseContext(),"Confirmed",Toast.LENGTH_SHORT).show();
 
-                                // TODO :HANDLE DELETE TEACHER EVENT HERE
+                                deleteTeacher();
+
                             }
                         });
                 builder.show();
                 return true;
             default:
                 return true;
+        }
+    }
+
+    private void deleteTeacher(){
+        if (UserStorage.getTeacherDetail(teacherPosition).getClassroomIds().size() == 0){
+            Toast.makeText(getBaseContext(),"Deleted",Toast.LENGTH_SHORT).show();
+
+            UserStorage.deleteTeacherDetail(teacherPosition);
+
+            // updating in database also
+            Database.deleteTeacherInfo();
+            customTeacherListAdapter.notifyDataSetChanged();
+        }
+        else {
+            Toast.makeText(getBaseContext(),"Cannot Delete :" +
+                    "Teacher already teaches some courses",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -149,22 +155,24 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
         THE BATCH ID IS USED TO GET BATCH FROM TOTAL BATCHES
          IT IS STORED IN CLASSROOM OBJECT TO LINK Course and teachers
          */
-        teacherDetail.setTeacherId(userStorage.getTeacherDetails().size());
+        teacherDetail.setTeacherId(UserStorage.noOfTeachers());
 
-        userStorage.addTeacherDetail(teacherDetail);
-        customTeacherListAdapter.notifyDataSetChanged();
+        UserStorage.addTeacherDetail(teacherDetail);
 
         // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR TEACHER
-        FirebaseClass.updateUsers(userStorage);
+        Database.sendTeacherInfo(teacherDetail);
+
+        customTeacherListAdapter.notifyDataSetChanged();
     }
 
 
     @Override
     public void passEditDialogDetail(TeacherDetail teacherDetail,String teacherUniqueCode) {
         // TODO Use unique key to update data in other Classes
-        customTeacherListAdapter.notifyDataSetChanged();
 
         // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR TEACHER
-        FirebaseClass.updateUsers(userStorage);
+        Database.sendTeacherInfo(teacherDetail);
+
+        customTeacherListAdapter.notifyDataSetChanged();
     }
 }
