@@ -1,5 +1,6 @@
 package com.example.rajatiit.admin_app.dataclasses;
 
+import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 import java.io.Serializable;
@@ -42,10 +43,10 @@ public class Classroom implements Serializable{
                 break;
         }
         switch (UserStorage.getBatchDetail(batchId).getYear()){
-            case "First Year" :
+            case Integer.toString(R.string.First_Year):
                 courseId += Integer.toString(1);
                 break;
-            case "Second Year":
+            case Integer.toString(R.string.First_Year):
                 courseId += Integer.toString(2);
 
         }

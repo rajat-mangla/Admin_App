@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 
 import java.util.ArrayList;
@@ -31,10 +32,10 @@ public class SpinnerHandler {
 
     public static void setYearSpinner(Context context,Spinner yearSpinner){
         ArrayList<String> years = new ArrayList<>();
-        years.add("First Year");
-        years.add("Second Year");
-        years.add("Third Year");
-        years.add("Fourth Year");
+        years.add(Integer.toString(R.string.First_Year));
+        years.add(Integer.toString(R.string.Second_Year));
+        years.add(Integer.toString(R.string.Third_Year));
+        years.add(Integer.toString(R.string.Fourth_Year));
         ArrayAdapter<String> yearsAdapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,years);
         yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(yearsAdapter);
