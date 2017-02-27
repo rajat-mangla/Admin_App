@@ -28,7 +28,7 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Room Data");
+        getSupportActionBar().setTitle(R.string.ROOM_DATA);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_display_data_interface);
 

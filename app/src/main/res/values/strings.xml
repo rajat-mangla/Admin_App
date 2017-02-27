@@ -25,8 +25,11 @@
 
     <string name="DEPARTMENT_NAME">DEPARTMENT_NAME</string>
 
-    <string name="CLASSROOM_DATA">CLASSROOM_DATA</string>
-    <string name="BATCH_DATA">BATCH_DATA</string>
-    <string name="ROOM_DATA">ROOM_DATA</string>
-    <string name="TEACHER_DATA">TEACHER_DATA</string>
+    <string name="CLASSROOM_DATA">COURSE DATA</string>
+    <string name="BATCH_DATA">BATCH DATA</string>
+    <string name="ROOM_DATA">ROOM DATA</string>
+    <string name="TEACHER_DATA">TEACHER DATA</string>
+    <string name="ASSIGN_teacher">ASSIGN TEACHER</string>
+    <string name="ASSIGN_BATCH">ASSIGN BATCH</string>
+
 </resources>

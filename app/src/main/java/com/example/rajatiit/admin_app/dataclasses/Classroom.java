@@ -1,5 +1,7 @@
 package com.example.rajatiit.admin_app.dataclasses;
 
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
+
 import java.io.Serializable;
 
 /**
@@ -26,6 +28,28 @@ public class Classroom implements Serializable{
         teacherId = -1;
     }
 
+    public void generateCourseId(){
+        String courseId;
+        switch (courseDetail.getDepartmentName()){
+            case "CSE":
+                courseId = "CS";
+                break;
+            case "ME":
+                courseId = "ME";
+                break;
+            case "EE":
+                courseId = "EE";
+                break;
+        }
+        switch (UserStorage.getBatchDetail(batchId).getYear()){
+            case "First Year" :
+                courseId += Integer.toString(1);
+                break;
+            case "Second Year":
+                courseId += Integer.toString(2);
+
+        }
+    }
     public int getClassroomId() {
         return classroomId;
     }

@@ -31,6 +31,7 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_display_data_interface);
 
         ListView listView = (ListView) findViewById(R.id.displayDataList);
@@ -38,6 +39,14 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
         floatingActionButton.setVisibility(View.GONE);
 
         isAssignTeacher = getIntent().getExtras().getBoolean(Integer.toString(R.string.ASSIGN_TEACHER));
+
+        if (isAssignTeacher){
+            getSupportActionBar().setTitle(R.string.ASSIGN_teacher);
+        }
+        else {
+            getSupportActionBar().setTitle(R.string.ASSIGN_BATCH);
+        }
+
         String departmentName = getIntent().getExtras().getString(Integer.toString(R.string.DEPARTMENT_NAME));
 
         if (isAssignTeacher){

@@ -46,6 +46,10 @@ public class Institute {
         }
     }
 
+    public static ArrayList<String> getDepartments() {
+        return departments;
+    }
+
     public static void addClassroomDetail(Classroom classroom){
         classrooms.add(classroom);
     }
@@ -69,10 +73,6 @@ public class Institute {
     }
 
     public static int totalNoOfRooms(){return roomDetails.size();}
-
-    public ArrayList<String> getDepartments() {
-        return departments;
-    }
 
     public ArrayList<Classroom> getClassrooms() {
         return classrooms;

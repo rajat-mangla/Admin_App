@@ -169,6 +169,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                         detailsPasser.passEditDialogDetails(classroom);
                     }else {
                         detailsPasser.passAddDialogDetails(classroom);
+
                     }
                     dismiss();
                 }

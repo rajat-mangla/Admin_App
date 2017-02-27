@@ -30,7 +30,7 @@ public class ShowItemsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.activity_display_data_interface, container, false);
         ListView listview = (ListView) view.findViewById(R.id.displayDataList);
         CustomTeacherListAdapter customTeacherListAdapter = new CustomTeacherListAdapter(
                 getActivity(),R.layout.activity_display_data_interface, new UserStorage().getTeacherDetails());

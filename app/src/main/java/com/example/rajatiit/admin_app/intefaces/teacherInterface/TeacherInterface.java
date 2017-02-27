@@ -33,7 +33,7 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Teachers Data");
+        getSupportActionBar().setTitle(R.string.TEACHER_DATA);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_display_data_interface);
 

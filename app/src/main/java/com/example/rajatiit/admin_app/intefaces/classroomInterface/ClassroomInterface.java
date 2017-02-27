@@ -36,9 +36,11 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Toast.makeText(getBaseContext(), "In Classroom Interface", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setTitle(R.string.CLASSROOM_DATA);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_display_data_interface);
 
         institute = new Institute();
@@ -69,6 +71,16 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
                 openContextMenu(addDetail);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home :
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

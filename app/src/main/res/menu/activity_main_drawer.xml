@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/menu_top">
         <item
             android:id="@+id/activity_main_drawer_courses"
-            android:title="Courses"
-            android:icon="@android:drawable/ic_input_get" />
+            android:icon="@android:drawable/ic_input_get"
+            android:title="Courses" />
         <item
             android:id="@+id/activity_main_drawer_teachers"
-            android:title="Teachers"
-            android:icon="@android:drawable/ic_menu_my_calendar" />
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Teachers" />
         <item
             android:id="@+id/activity_main_drawer_batches"
-            android:title="Batches"
-            android:icon="@android:drawable/ic_menu_myplaces" />
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Batches" />
         <item
             android:id="@+id/activity_main_drawer_rooms"
-            android:title="Rooms"
-            android:icon="@android:drawable/ic_menu_today" />
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Rooms" />
     </group>
-        <group android:checkableBehavior="single">
-            <item
-                android:id="@+id/activity_main_drawer_about"
-                android:title="About"
-                android:icon="@android:drawable/ic_menu_info_details" />
-        </group>
+
+    <group android:checkableBehavior="none"
+        android:id="@+id/menu_bottom">
+        <item
+            android:id="@+id/activity_main_drawer_about"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="About" />
+    </group>
 </menu>
