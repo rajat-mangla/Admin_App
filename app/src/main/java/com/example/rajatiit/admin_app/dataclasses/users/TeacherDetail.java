@@ -66,7 +66,7 @@ public class TeacherDetail implements Serializable{
     }
 
     public void generateUniqueCode(){
-        uniqueCode = firstName+lastName+ departmentName;
+        uniqueCode = firstName+lastName+departmentName;
     }
 
     public ArrayList<Integer> getClassroomIds() {

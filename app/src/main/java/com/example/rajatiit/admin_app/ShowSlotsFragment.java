@@ -2,6 +2,7 @@ package com.example.rajatiit.admin_app;
 
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -32,9 +33,14 @@ public class ShowSlotsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_display_data_interface, container, false);
         ListView listview = (ListView) view.findViewById(R.id.displayDataList);
-        CustomTeacherListAdapter customTeacherListAdapter = new CustomTeacherListAdapter(
-                getActivity(),R.layout.activity_display_data_interface, new UserStorage().getTeacherDetails());
-        listview.setAdapter(customTeacherListAdapter);
+
+        CustomSlotsListViewAdapter customSlotsListViewAdapter = new CustomSlotsListViewAdapter(getContext(),
+                R.layout.activity_display_data_interface,new TimeTable().getTotalSlots());
+        listview.setAdapter(customSlotsListViewAdapter);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.addDetail);
+        floatingActionButton.setVisibility(View.GONE);
+
         return view;
     }
 

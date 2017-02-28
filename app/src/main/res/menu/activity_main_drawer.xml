@@ -21,6 +21,15 @@
             android:title="Rooms" />
     </group>
 
+    <item android:title="Time Table">
+        <menu>
+            <item
+                android:id="@+id/generate_time_table"
+                android:title="Generate Time Table"
+                android:icon="@android:drawable/ic_menu_recent_history" />
+        </menu>
+    </item>
+
     <group android:checkableBehavior="none"
         android:id="@+id/menu_bottom">
         <item

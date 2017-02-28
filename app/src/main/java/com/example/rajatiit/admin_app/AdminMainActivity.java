@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class AdminMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final List<String> WeekDays = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY","THURSDAY","FRIDAY");
@@ -98,6 +98,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.activity_main_drawer_about :
                 Toast.makeText(this,"IN PROGRESS",Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.generate_time_table :
+
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);

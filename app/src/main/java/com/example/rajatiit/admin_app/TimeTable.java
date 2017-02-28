@@ -3,6 +3,7 @@ package com.example.rajatiit.admin_app;
 import com.example.rajatiit.admin_app.dataclasses.Classroom;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +14,33 @@ import java.util.Comparator;
 
 public class TimeTable {
 
+    public TimeTable() {
+    }
+
+    public void generateTimeSlots(){
+        fillSlots();
+        assignRooms();
+    }
+
+
+    // it will displayed in a listview
+    private static ArrayList<Slot> totalSlots = new ArrayList<Slot>();
+
+    public ArrayList<Slot> getTotalSlots() {
+        return totalSlots;
+    }
+
+
+    // it will be displayed in gridview
     public class Slot {
+        public Slot() {
+        }
+
+        public Slot(String name) {
+
+            this.name = name;
+        }
+
         ArrayList<Classroom> classrooms = new ArrayList<Classroom>();
         int totalClassrooms;
         String name;
@@ -33,19 +60,13 @@ public class TimeTable {
         }
     }
 
-    private static ArrayList<Slot> totalSlots = new ArrayList<Slot>();
-
-    public ArrayList<Slot> getTotalSlots() {
-        return totalSlots;
-    }
-
     public void fillSlots() {
-        totalSlots.add(new Slot());
-        totalSlots.add(new Slot());
-        totalSlots.add(new Slot());
-        totalSlots.add(new Slot());
-        totalSlots.add(new Slot());
-        totalSlots.add(new Slot());
+        totalSlots.add(new Slot("Slot A"));
+        totalSlots.add(new Slot("Slot B"));
+        totalSlots.add(new Slot("Slot C"));
+        totalSlots.add(new Slot("Slot D"));
+        totalSlots.add(new Slot("Slot E"));
+        totalSlots.add(new Slot("Slot F"));
 
         for (int groupIndex = 0; groupIndex < Institute.totalNoOfClassrooms(); groupIndex++) {
             for (int slotIndex = 0; slotIndex < totalSlots.size(); slotIndex++) {
