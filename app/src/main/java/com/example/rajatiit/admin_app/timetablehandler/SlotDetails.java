@@ -1,4 +1,4 @@
-package com.example.rajatiit.admin_app.TimeTableDisplay;
+package com.example.rajatiit.admin_app.timetablehandler;
 
 import com.example.rajatiit.admin_app.dataclasses.Classroom;
 

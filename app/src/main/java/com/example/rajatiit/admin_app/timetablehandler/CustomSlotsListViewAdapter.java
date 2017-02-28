@@ -1,4 +1,4 @@
-package com.example.rajatiit.admin_app.TimeTableDisplay;
+package com.example.rajatiit.admin_app.timetablehandler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

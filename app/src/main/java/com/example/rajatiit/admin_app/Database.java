@@ -1,8 +1,6 @@
 package com.example.rajatiit.admin_app;
 
-import android.app.DialogFragment;
-
-import com.example.rajatiit.admin_app.TimeTableDisplay.TimeTable;
+import com.example.rajatiit.admin_app.timetablehandler.TimeTable;
 import com.example.rajatiit.admin_app.dataclasses.Classroom;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.RoomDetail;

@@ -21,14 +21,10 @@
             android:title="Rooms" />
     </group>
 
-    <item android:title="Time Table">
-        <menu>
-            <item
-                android:id="@+id/generate_time_table"
-                android:title="Generate Time Table"
-                android:icon="@android:drawable/ic_menu_recent_history" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/generate_time_table"
+        android:title="Generate Time Table"
+        android:icon="@android:drawable/ic_menu_recent_history" />
 
     <group android:checkableBehavior="none"
         android:id="@+id/menu_bottom">
@@ -37,4 +33,9 @@
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="About" />
     </group>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
+
 </menu>

@@ -12,20 +12,32 @@
         android:theme="@style/CustomizedAppTheme">
         <activity
             android:name=".AdminMainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".TeacherMainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BatchMainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".intefaces.teacherInterface.TeacherInterface" />
+        <activity android:name=".intefaces.batchInterface.BatchInterface" />
+        <activity android:name=".intefaces.classroomInterface.ClassroomInterface" />
+        <activity android:name=".intefaces.classroomInterface.AssignTeacherOrBatch" />
+        <activity android:name=".intefaces.roomInterface.RoomInterface" />
+        <activity
+            android:name=".timetablehandler.ShowIndividualSlotActivity"
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+        <activity android:name=".Login" />
+        <activity android:name=".Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intefaces.teacherInterface.TeacherInterface" />
-        <activity android:name=".intefaces.batchInterface.BatchInterface" />
-        <activity android:name=".intefaces.classroomInterface.ClassroomInterface" />
-        <activity android:name=".intefaces.classroomInterface.AssignTeacherOrBatch" />
-        <activity android:name=".intefaces.roomInterface.RoomInterface" />
-        <activity android:name=".TimeTableDisplay.ShowIndividualSlotActivity"
-                android:theme="@style/Base.Theme.AppCompat.Dialog"></activity>
+
+
     </application>
 
 </manifest>

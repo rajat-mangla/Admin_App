@@ -1,4 +1,4 @@
-package com.example.rajatiit.admin_app.TimeTableDisplay;
+package com.example.rajatiit.admin_app.timetablehandler;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -3,6 +3,7 @@ package com.example.rajatiit.admin_app;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,7 +17,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,13 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.timetablehandler.ShowSlotsFragment;
-import com.example.rajatiit.admin_app.timetablehandler.TimeTable;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
-import com.example.rajatiit.admin_app.intefaces.batchInterface.BatchInterface;
-import com.example.rajatiit.admin_app.intefaces.classroomInterface.ClassroomInterface;
-import com.example.rajatiit.admin_app.intefaces.roomInterface.RoomInterface;
-import com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class AdminMainActivity extends AppCompatActivity
+public class BatchMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final List<String> WeekDays = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY","THURSDAY","FRIDAY");
@@ -50,22 +45,35 @@ public class AdminMainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_admin);
+        setContentView(R.layout.activity_main_batch);
         Firebase.setAndroidContext(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
+        setSupportActionBar(toolbar);
+        setViewPager();
+        setTabLayout();
 
-        /*
-            Getting Data From DataBase
-         */
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.batchDrawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.batchNav);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View view = getLayoutInflater().inflate(R.layout.main_nav_header, navigationView);
+        TextView user = (TextView) view.findViewById(R.id.main_nav_header_UserName);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        user.setText(sp.getString(Login.NAME, "Noobie"));
+
         final ProgressDialog progressDialog = ProgressDialog.show(this, null,
                 getResources().getString(R.string.UPDATING));
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 getAllUsersData();
                 getInstituteData();
-                getTimeTable();
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -74,26 +82,6 @@ public class AdminMainActivity extends AppCompatActivity
                 progressDialog.dismiss();
             }
         }).start();
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
-        setSupportActionBar(toolbar);
-        setViewPager();
-        setTabLayout();
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_main_admin_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.activity_main_admin_nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        View view = getLayoutInflater().inflate(R.layout.main_nav_header, navigationView);
-        TextView user = (TextView) view.findViewById(R.id.main_nav_header_UserName);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        user.setText(sp.getString(Login.NAME, "Noobie"));
 
     }
 
@@ -107,75 +95,27 @@ public class AdminMainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent;
         switch (item.getItemId()){
-            case R.id.activity_main_drawer_courses :
-                intent = new Intent(this, ClassroomInterface.class);
-                startActivity(intent);
-                break;
-            case R.id.activity_main_drawer_teachers:
-                intent = new Intent(this, TeacherInterface.class);
-                startActivity(intent);
-                break;
-            case R.id.activity_main_drawer_batches :
-                intent = new Intent(this,BatchInterface.class);
-                startActivity(intent);
-                break;
-            case R.id.activity_main_drawer_rooms :
-                intent = new Intent(this,RoomInterface.class);
-                startActivity(intent);
-                break;
-            case R.id.activity_main_drawer_about :
-                Toast.makeText(this,"IN PROGRESS",Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.generate_time_table :
-                final ProgressDialog progressDialog = ProgressDialog.show(this, null, "Generating");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TimeTable timeTable = new TimeTable();
-                        timeTable.generateTimeSlots();
-
-                        Database.sendTimeTable(timeTable);
-
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            Log.e("here","hdakdakda");
-                        }
-                        progressDialog.dismiss();
-                    }
-                }).start();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setViewPager();
-                        setTabLayout();
-                    }
-                });
-                break;
             case R.id.logout:
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putBoolean(Login.ADMIN_LOGIN_CHECK, false);
+                editor.putBoolean(Login.BATCH_LOGIN_CHECK, false);
                 editor.commit();
                 Intent intentLogout = new Intent(this, Login.class);
                 startActivity(intentLogout);
                 finish();
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_main_admin_drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.batchDrawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_main_admin_drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.batchDrawer);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -214,25 +154,6 @@ public class AdminMainActivity extends AppCompatActivity
             }
         });
     }
-
-    private void getTimeTable(){
-        DatabaseReference reference = Database.database.getReference(TimeTable.TIME_TABLE_REF);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                TimeTable timeTable = dataSnapshot.getValue(TimeTable.class);
-                Toast.makeText(getBaseContext(),"Getting Time Table",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
-
 
 
     /**

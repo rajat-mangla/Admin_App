@@ -32,4 +32,15 @@
     <string name="ASSIGN_teacher">ASSIGN TEACHER</string>
     <string name="ASSIGN_BATCH">ASSIGN BATCH</string>
 
+
+    <string name="name_text">Name</string>
+    <string name="username_text">Username</string>
+    <string name="password_text">Password</string>
+    <string name="login_text">LOGIN</string>
+    <string name="logout_text">Log Out</string>
+
+    <string name="admin_text">Admin</string>
+    <string name="teacher_text">Teacher</string>
+    <string name="batch_text">Batch</string>
+
 </resources>
