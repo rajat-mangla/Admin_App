@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 import java.util.ArrayList;
+import java.util.concurrent.RunnableFuture;
 
 public class ClassroomInterface extends AppCompatActivity implements AddEditCourseDialog.classroomDetailpasser {
 
@@ -193,25 +195,31 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         Database.sendBatchInfo(UserStorage.getBatchDetail(batchId));
         Database.deleteClassroomInfo();
 
-        customCourseListAdapter.notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                customCourseListAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
 
     @Override
     public void passAddDialogDetails(final Classroom classroom) {
         final ProgressDialog progressDialog = ProgressDialog.show(ClassroomInterface.this, null,
-                Integer.toString(R.string.UPDATING));
+                getResources().getString(R.string.UPDATING));
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // do the thing that takes a long time
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        addClassroom(classroom);
-                        progressDialog.dismiss();
-                    }
-                });
+                addClassroom(classroom);
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    Log.e("here","hdakdakda");
+                }
+                progressDialog.dismiss();
             }
         }).start();
     }
@@ -228,24 +236,30 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         Database.sendTeacherInfo(UserStorage.getTeacherDetail(classroom.getTeacherId()));
         Database.sendBatchInfo(UserStorage.getBatchDetail(classroom.getBatchId()));
 
-        customCourseListAdapter.notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                customCourseListAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
     public void passEditDialogDetails(final Classroom classroom) {
         final ProgressDialog progressDialog = ProgressDialog.show(ClassroomInterface.this, null,
-                Integer.toString(R.string.UPDATING));
+                getResources().getString(R.string.UPDATING));
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // do the thing that takes a long time
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        editClassroom(classroom);
-                        progressDialog.dismiss();
-                    }
-                });
+                editClassroom(classroom);
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    Log.e("here","hdakdakda");
+                }
+                progressDialog.dismiss();
             }
         }).start();
     }
@@ -259,7 +273,11 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         Database.sendClassroomInfo(classroom);
         Database.sendBatchDetails();
         Database.sendTeacherDetails();
-
-        customCourseListAdapter.notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                customCourseListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }

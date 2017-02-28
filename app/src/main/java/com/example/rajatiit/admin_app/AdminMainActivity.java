@@ -1,5 +1,6 @@
 package com.example.rajatiit.admin_app;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,7 +16,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.dataclasses.Institute;
@@ -47,7 +51,6 @@ public class AdminMainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
         setSupportActionBar(toolbar);
-
         setViewPager();
         setTabLayout();
 
@@ -60,9 +63,22 @@ public class AdminMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_activity_1_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        final ProgressDialog progressDialog = ProgressDialog.show(this, null,
+                getResources().getString(R.string.UPDATING));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getAllUsersData();
+                getInstituteData();
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    Log.e("here","hdakdakda");
+                }
+                progressDialog.dismiss();
+            }
+        }).start();
 
-        getAllUsersData();
-        getInstituteData();
     }
 
     private void setViewPager(){
