@@ -81,8 +81,10 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+
                 // Fixing the maximum courses attented or taught by a teacher
                 // TODO : FIX THE MAX COURSES
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(AssignTeacherOrBatch.this);
                 builder.setTitle("ADD INFORMATION")
                         .setMessage("Are You Sure ?")
@@ -95,7 +97,6 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO : PASS DETAILS BACK TO DIALOG
                                 Intent resultIntent = new Intent();
                                 if (isAssignTeacher){
                                     TeacherDetail teacherDetail = (TeacherDetail) parent.getItemAtPosition(position);

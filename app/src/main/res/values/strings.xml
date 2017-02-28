@@ -31,11 +31,5 @@
     <string name="TEACHER_DATA">TEACHER DATA</string>
     <string name="ASSIGN_teacher">ASSIGN TEACHER</string>
     <string name="ASSIGN_BATCH">ASSIGN BATCH</string>
-    
-    
-    <string name="First_Year">First Year</string>
-    <string name="Second_Year">Second Year</string>
-    <string name="Third_Year">Third Year</string>
-    <string name="Fourth_Year">Fourth Year</string>
 
 </resources>

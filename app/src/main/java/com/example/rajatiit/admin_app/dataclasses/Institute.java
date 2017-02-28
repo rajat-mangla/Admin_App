@@ -28,6 +28,9 @@ public class Institute {
     @Exclude
     private static ArrayList<String> departments;
 
+    @Exclude
+    private static ArrayList<String> batchYears;
+
     private static ArrayList<Classroom> classrooms;
     private static ArrayList<RoomDetail> roomDetails;
 
@@ -38,6 +41,13 @@ public class Institute {
             departments.add("ME");
             departments.add("EE");
         }
+        if (batchYears == null){
+            batchYears = new ArrayList<>();
+            batchYears.add("First Year");
+            batchYears.add("Second Year");
+            batchYears.add("Third Year");
+            batchYears.add("Fourth Year");
+        }
         if (classrooms==null){
             classrooms = new ArrayList<>();
         }
@@ -46,6 +56,7 @@ public class Institute {
         }
     }
 
+    public static ArrayList<String> getBatchYears(){return batchYears;}
     public static ArrayList<String> getDepartments() {
         return departments;
     }
@@ -66,6 +77,10 @@ public class Institute {
 
     public static void addRoomDetail(RoomDetail roomDetail){
         roomDetails.add(roomDetail);
+    }
+
+    public static RoomDetail getRoomDetail(Integer index){
+        return roomDetails.get(index);
     }
 
     public static void deleteRoomDetail(int roomPosition){

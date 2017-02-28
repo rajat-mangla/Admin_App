@@ -1,6 +1,5 @@
 package com.example.rajatiit.admin_app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
 
-            return new ShowItemsFragment();
+            return new ShowSlotsFragment();
         }
 
         @Override

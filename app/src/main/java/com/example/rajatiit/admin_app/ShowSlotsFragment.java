@@ -24,7 +24,7 @@ import com.example.rajatiit.admin_app.intefaces.teacherInterface.CustomTeacherLi
 /*
 Using Catalog Data As The Data To Represent the Food Items ....
  */
-public class ShowItemsFragment extends Fragment {
+public class ShowSlotsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,

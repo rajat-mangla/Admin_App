@@ -10,6 +10,16 @@ public class CourseDetail {
     private String departmentName;
     private Integer numLectures;
 
+    private boolean projectorRequired;
+
+    public boolean isProjectorRequired() {
+        return projectorRequired;
+    }
+
+    public void setProjectorRequired(boolean projectorRequired) {
+        this.projectorRequired = projectorRequired;
+    }
+
     public CourseDetail() {
     }
 

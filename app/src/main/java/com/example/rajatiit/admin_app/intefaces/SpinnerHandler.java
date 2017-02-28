@@ -21,21 +21,17 @@ public class SpinnerHandler {
 
     public static void setDepartmentSpinner(Context context,Spinner departmentSpinner){
 
-        Institute institute = new Institute();
         // setting the aaray adapter for spinner ...
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item,institute.getDepartments());
+                android.R.layout.simple_spinner_item,Institute.getDepartments());
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         departmentSpinner.setAdapter(spinnerAdapter);
     }
 
     public static void setYearSpinner(Context context,Spinner yearSpinner){
-        ArrayList<String> years = new ArrayList<>();
-        years.add(Integer.toString(R.string.First_Year));
-        years.add(Integer.toString(R.string.Second_Year));
-        years.add(Integer.toString(R.string.Third_Year));
-        years.add(Integer.toString(R.string.Fourth_Year));
+        ArrayList<String> years = Institute.getBatchYears();
+
         ArrayAdapter<String> yearsAdapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_item,years);
         yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(yearsAdapter);

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,12 +55,12 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     private View view;
 
 
-    public interface classroomDetailspasser {
+    public interface classroomDetailpasser {
         void passAddDialogDetails(Classroom classroom);
 
         void passEditDialogDetails(Classroom classroom);
     }
-    public classroomDetailspasser detailsPasser;
+    public classroomDetailpasser detailsPasser;
 
 
     @Override
@@ -127,12 +128,14 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         TextView courseDepartmentName = (TextView) view.findViewById(R.id.add_edit_course_departmentName);
         if (isEditView) {
             EditText courseName = (EditText) view.findViewById(R.id.add_edit_course_courseName);
+            CheckBox projectorRequired = (CheckBox) view.findViewById(R.id.add_edit_course_projectorRequired);
             Spinner numLecturesSpinner = (Spinner) view.findViewById(R.id.add_edit_course_numLectureSpinner);
 
             courseDepartmentName.setText(classroom.getCourseDetail().getDepartmentName());
             courseName.setText(classroom.getCourseDetail().getName());
             showTeacherName(teacherId);
             showBatchName(batchId);
+            projectorRequired.setChecked(classroom.getCourseDetail().isProjectorRequired());
             numLecturesSpinner.setSelection(classroom.getCourseDetail().getNumLectures() - 3);
         } else {
             courseDepartmentName.setText(getArguments().getCharSequence(Integer.toString(R.string.DEPARTMENT_NAME)));
@@ -144,7 +147,6 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         teacherName += " "+UserStorage.getTeacherDetail(teacherId).getLastName();
         teacherAssigned.setText(teacherName);
     }
-
     private void showBatchName(int batchId) {
         TextView batchAssigned = (TextView) view.findViewById(R.id.add_edit_course_showBatch);
         String batchName = UserStorage.getBatchDetail(batchId).getUserName();
@@ -163,7 +165,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
             @Override
             public void onClick(View v) {
                 if (areErrorsHandled()) {
-                    detailsPasser = (classroomDetailspasser) getActivity();
+                    detailsPasser = (classroomDetailpasser) getActivity();
                     getEnteredDetails();
                     if (isEditView){
                         detailsPasser.passEditDialogDetails(classroom);
@@ -177,9 +179,9 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         });
     }
 
+    ///   Method called when assign teacher or batch are clicked ....
     private void assignButtonClicked() {
         Button assignTeacherButton = (Button) view.findViewById(R.id.add_edit_course_assignTeacher);
-
         assignTeacherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +199,6 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         });
 
         Button assignBatchButton = (Button) view.findViewById(R.id.add_edit_course_assignBatch);
-
         assignBatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,10 +244,12 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         return true;
     }
 
-    // getting the entered details ..
+    // getting the entered details from the layout and storing in the object classroom ..
     private void getEnteredDetails() {
         TextView courseDepartmentName = (TextView) view.findViewById(R.id.add_edit_course_departmentName);
         EditText courseName = (EditText) view.findViewById(R.id.add_edit_course_courseName);
+        CheckBox projectorRequired = (CheckBox) view.findViewById(R.id.add_edit_course_projectorRequired);
+
         if (isEditView) {
             handleIds();
         } else {
@@ -257,7 +260,11 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         classroom.getCourseDetail().setNumLectures(numOfLectures);
         classroom.setTeacherId(teacherId);
         classroom.setBatchId(batchId);
+        classroom.getCourseDetail().setProjectorRequired(projectorRequired.isChecked());
     }
+
+
+    // method to handle batch and teacher id when edit dialog box is clicked ....
 
     private void handleIds() {
         {

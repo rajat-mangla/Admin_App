@@ -24,7 +24,7 @@ import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 import java.util.ArrayList;
 
-public class ClassroomInterface extends AppCompatActivity implements AddEditCourseDialog.classroomDetailspasser {
+public class ClassroomInterface extends AppCompatActivity implements AddEditCourseDialog.classroomDetailpasser {
 
     // Position in array to get the Specific Classroom
     private int classroomId;
@@ -88,9 +88,9 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         if (v.getId() == R.id.addDetail) {
             super.onCreateContextMenu(menu, v, menuInfo);
             menu.setHeaderTitle("Select Department");
-            int len = institute.getDepartments().size();
+            int len = Institute.getDepartments().size();
             for (int i = 0; i < len; i++) {
-                menu.add(0, v.getId(), 0, institute.getDepartments().get(i));
+                menu.add(0, v.getId(), 0, Institute.getDepartments().get(i));
             }
         } else {
             MenuInflater menuInflater = getMenuInflater();
@@ -151,8 +151,8 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
                 builder.show();
                 return true;
         }
-        for (int i = 0; i < institute.getDepartments().size(); i++) {
-            if (item.getTitle().toString().equals(institute.getDepartments().get(i))) {
+        for (int i = 0; i < Institute.getDepartments().size(); i++) {
+            if (item.getTitle().toString().equals(Institute.getDepartments().get(i))) {
 
                 DialogFragment addDialog = new AddEditCourseDialog();
                 Bundle bundle = new Bundle();
@@ -218,9 +218,11 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
 
     private void addClassroom(Classroom classroom) {
         classroom.setClassroomId(Institute.totalNoOfClassrooms());
-        Institute.addClassroomDetail(classroom);
         UserStorage.getTeacherDetail(classroom.getTeacherId()).getClassroomIds().add(classroomId);
         UserStorage.getBatchDetail(classroom.getBatchId()).getClassroomIds().add(classroomId);
+        classroom.generateCourseId();
+
+        Institute.addClassroomDetail(classroom);
 
         Database.sendClassroomInfo(classroom);
         Database.sendTeacherInfo(UserStorage.getTeacherDetail(classroom.getTeacherId()));
@@ -249,8 +251,10 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
     }
 
     private void editClassroom(Classroom classroom) {
+
         UserStorage.getTeacherDetail(classroom.getTeacherId()).getClassroomIds().add(classroomId);
         UserStorage.getBatchDetail(classroom.getBatchId()).getClassroomIds().add(classroomId);
+        classroom.generateCourseId();
 
         Database.sendClassroomInfo(classroom);
         Database.sendBatchDetails();

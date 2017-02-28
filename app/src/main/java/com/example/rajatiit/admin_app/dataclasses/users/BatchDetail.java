@@ -15,6 +15,7 @@ public class BatchDetail implements Serializable{
     private String password;
     private int numStudents;
     private ArrayList<Integer> classroomIds;
+
     public BatchDetail(){
         classroomIds = new ArrayList<>();
     }
@@ -69,6 +70,10 @@ public class BatchDetail implements Serializable{
 
     public ArrayList<Integer> getClassroomIds() {
         return classroomIds;
+    }
+
+    public int totalNoOfClassrooms(){
+        return classroomIds.size();
     }
 
 }
