@@ -18,10 +18,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.rajatiit.admin_app.TimeTableDisplay.ShowSlotsFragment;
+import com.example.rajatiit.admin_app.TimeTableDisplay.TimeTable;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.intefaces.batchInterface.BatchInterface;
@@ -117,6 +117,28 @@ public class AdminMainActivity extends AppCompatActivity
                 break;
 
             case R.id.generate_time_table :
+                final ProgressDialog progressDialog = ProgressDialog.show(this, null,
+                        getResources().getString(R.string.UPDATING));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TimeTable timeTable = new TimeTable();
+                        timeTable.generateTimeSlots();
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            Log.e("here","hdakdakda");
+                        }
+                        progressDialog.dismiss();
+                    }
+                }).start();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setViewPager();
+                        setTabLayout();
+                    }
+                });
 
                 break;
         }

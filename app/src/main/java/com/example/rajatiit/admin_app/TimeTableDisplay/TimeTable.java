@@ -1,4 +1,7 @@
-package com.example.rajatiit.admin_app;
+package com.example.rajatiit.admin_app.TimeTableDisplay;
+
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.dataclasses.Classroom;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
@@ -13,8 +16,13 @@ import java.util.Comparator;
  */
 
 public class TimeTable {
+    // it will displayed in a listview
+    private static ArrayList<Slot> totalSlots;
 
     public TimeTable() {
+        if (totalSlots == null){
+            totalSlots = new ArrayList<>();
+        }
     }
 
     public void generateTimeSlots(){
@@ -22,42 +30,8 @@ public class TimeTable {
         assignRooms();
     }
 
-
-    // it will displayed in a listview
-    private static ArrayList<Slot> totalSlots = new ArrayList<Slot>();
-
     public ArrayList<Slot> getTotalSlots() {
         return totalSlots;
-    }
-
-
-    // it will be displayed in gridview
-    public class Slot {
-        public Slot() {
-        }
-
-        public Slot(String name) {
-
-            this.name = name;
-        }
-
-        ArrayList<Classroom> classrooms = new ArrayList<Classroom>();
-        int totalClassrooms;
-        String name;
-        public ArrayList<Classroom> getClassrooms() {
-            return classrooms;
-        }
-
-        public int getTotalClassrooms() {
-            return totalClassrooms;
-        }
-
-        public String getName() {
-            return name;
-        }
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 
     public void fillSlots() {
@@ -69,6 +43,9 @@ public class TimeTable {
         totalSlots.add(new Slot("Slot F"));
 
         for (int groupIndex = 0; groupIndex < Institute.totalNoOfClassrooms(); groupIndex++) {
+
+            Log.i("checking ",Integer.toString(Institute.totalNoOfClassrooms()));
+
             for (int slotIndex = 0; slotIndex < totalSlots.size(); slotIndex++) {
 
                 // checking if it is feasible to add the classroom
@@ -128,6 +105,38 @@ public class TimeTable {
                     }
                 }
             }
+        }
+    }
+
+
+
+    // it will be displayed in gridview
+    public class Slot {
+        ArrayList<Classroom> classrooms;
+        int totalClassrooms;
+        String name;
+
+        public Slot() {
+        }
+
+        public Slot(String name) {
+            this.name = name;
+            classrooms = new ArrayList<>();
+        }
+
+        public ArrayList<Classroom> getClassrooms() {
+            return classrooms;
+        }
+
+        public int getTotalClassrooms() {
+            return totalClassrooms;
+        }
+
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
         }
     }
 

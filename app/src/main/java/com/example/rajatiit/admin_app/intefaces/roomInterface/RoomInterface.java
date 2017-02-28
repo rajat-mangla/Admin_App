@@ -137,7 +137,7 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
     public void passAddDialogDetail(RoomDetail roomDetail) {
         Institute.addRoomDetail(roomDetail);
 
-        Database.sendRoomInfo(roomDetail,Institute.totalNoOfRooms());
+        Database.sendRoomInfo(roomDetail,Institute.totalNoOfRooms()-1);
 
         customRoomListAdapter.notifyDataSetChanged();
     }

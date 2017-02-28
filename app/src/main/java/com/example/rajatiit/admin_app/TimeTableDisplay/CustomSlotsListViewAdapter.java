@@ -1,4 +1,4 @@
-package com.example.rajatiit.admin_app;
+package com.example.rajatiit.admin_app.TimeTableDisplay;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,8 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
+
+import com.example.rajatiit.admin_app.R;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,19 +31,12 @@ public class CustomSlotsListViewAdapter extends ArrayAdapter<TimeTable.Slot>{
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.show_custom_slot,null);
-
         }
         TextView timeDisplay = (TextView) convertView.findViewById(R.id.show_custom_slot_time);
         timeDisplay.setText(TimeSlot.get(position));
         TextView slotName = (TextView) convertView.findViewById(R.id.show_custom_slot_name);
         slotName.setText(getItem(position).getName());
 
-
-        GridView slotGrid = (GridView) convertView.findViewById(R.id.show_custom_slot_gridview);
-        CustomSlotGridViewAdapter customSlotGridViewAdapter = new CustomSlotGridViewAdapter(getContext(),
-                                                            R.layout.show_custom_slot,getItem(position).getClassrooms());
-
-        slotGrid.setAdapter(customSlotGridViewAdapter);
         return convertView;
     }
 }
