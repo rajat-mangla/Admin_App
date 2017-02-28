@@ -40,12 +40,11 @@ public class ShowSlotsFragment extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),ShowSlotsFragment.class);
+                Intent intent = new Intent(getActivity(),ShowIndividualSlotActivity.class);
                 intent.putExtra("SLOT_INDEX",position);
                 getActivity().startActivity(intent);
             }
         });
-
 
         return view;
     }

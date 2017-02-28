@@ -9,7 +9,7 @@ import com.example.rajatiit.admin_app.dataclasses.Classroom;
 
 import java.util.ArrayList;
 
-public class ShowIndividualSlot extends AppCompatActivity {
+public class ShowIndividualSlotActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

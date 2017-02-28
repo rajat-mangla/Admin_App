@@ -46,30 +46,22 @@ public class AdminMainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_1);
+        setContentView(R.layout.main_activity_admin);
         Firebase.setAndroidContext(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
-        setSupportActionBar(toolbar);
-        setViewPager();
-        setTabLayout();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.main_activity_1_nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        /*
+            Getting Data From DataBase
+         */
         final ProgressDialog progressDialog = ProgressDialog.show(this, null,
                 getResources().getString(R.string.UPDATING));
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 getAllUsersData();
                 getInstituteData();
+                getTimeTable();
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -78,6 +70,21 @@ public class AdminMainActivity extends AppCompatActivity
                 progressDialog.dismiss();
             }
         }).start();
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
+        setSupportActionBar(toolbar);
+        setViewPager();
+        setTabLayout();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_admin_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.main_activity_admin_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -117,13 +124,15 @@ public class AdminMainActivity extends AppCompatActivity
                 break;
 
             case R.id.generate_time_table :
-                final ProgressDialog progressDialog = ProgressDialog.show(this, null,
-                        getResources().getString(R.string.UPDATING));
+                final ProgressDialog progressDialog = ProgressDialog.show(this, null, "Generating");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         TimeTable timeTable = new TimeTable();
                         timeTable.generateTimeSlots();
+
+                        Database.sendTimeTable(timeTable);
+
                         try {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {
@@ -142,14 +151,14 @@ public class AdminMainActivity extends AppCompatActivity
 
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_admin_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_1_drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity_admin_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -188,6 +197,25 @@ public class AdminMainActivity extends AppCompatActivity
             }
         });
     }
+
+    private void getTimeTable(){
+        DatabaseReference reference = Database.database.getReference(TimeTable.TIME_TABLE_REF);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TimeTable timeTable = dataSnapshot.getValue(TimeTable.class);
+                Toast.makeText(getBaseContext(),"Getting Time Table",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
 
 
     /**
@@ -230,6 +258,4 @@ public class AdminMainActivity extends AppCompatActivity
             }
         }
     }
-
-
 }

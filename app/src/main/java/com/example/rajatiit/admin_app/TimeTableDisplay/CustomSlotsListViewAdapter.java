@@ -17,11 +17,11 @@ import java.util.List;
  * Created by rajat on 28/2/17.
  */
 
-public class CustomSlotsListViewAdapter extends ArrayAdapter<TimeTable.Slot>{
+public class CustomSlotsListViewAdapter extends ArrayAdapter<SlotDetails>{
 
     private List<String> TimeSlot = Arrays.asList("08:00 AM", "09:00 AM", "10:00 AM","11:00 AM","01:00 PM","02:00 AM");
 
-    public CustomSlotsListViewAdapter(Context context, int resource, List<TimeTable.Slot> objects) {
+    public CustomSlotsListViewAdapter(Context context, int resource, List<SlotDetails> objects) {
         super(context, resource, objects);
     }
 

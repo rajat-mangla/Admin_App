@@ -2,6 +2,7 @@ package com.example.rajatiit.admin_app;
 
 import android.app.DialogFragment;
 
+import com.example.rajatiit.admin_app.TimeTableDisplay.TimeTable;
 import com.example.rajatiit.admin_app.dataclasses.Classroom;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.RoomDetail;
@@ -18,6 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Database {
 
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    public static void sendTimeTable(TimeTable timeTable){
+        DatabaseReference reference = database.getReference(TimeTable.TIME_TABLE_REF);
+        reference.setValue(timeTable);
+    }
 
     public static void updateUsers(UserStorage userStorage){
         DatabaseReference reference = database.getReference(UserStorage.USER_STORAGE_REF);

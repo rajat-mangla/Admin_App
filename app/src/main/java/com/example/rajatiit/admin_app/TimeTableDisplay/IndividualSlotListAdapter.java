@@ -45,7 +45,8 @@ public class IndividualSlotListAdapter extends ArrayAdapter<Classroom> {
         teacherName.setText(UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName()
                 + " " + UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getLastName());
         batchName.setText(UserStorage.getBatchDetail(getItem(position).getBatchId()).getUserName());
-        roomNo.setText(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo());
+
+        roomNo.setText(Integer.toString(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
 
         return convertView;
     }
