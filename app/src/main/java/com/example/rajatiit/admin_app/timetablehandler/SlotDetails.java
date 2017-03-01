@@ -14,6 +14,7 @@ public class SlotDetails {
     private String name;
 
     public SlotDetails() {
+        classrooms = new ArrayList<>();
     }
 
     public SlotDetails(String name) {
@@ -25,7 +26,7 @@ public class SlotDetails {
         return classrooms;
     }
 
-    public Classroom getClassroomDetail(Integer index){
+    public Classroom getClassroomDetail(int index){
         return classrooms.get(index);
     }
 
@@ -33,7 +34,7 @@ public class SlotDetails {
         classrooms.add(classroom);
     }
 
-    public int getTotalClassrooms() {
+    public int totalClassrooms() {
         return classrooms.size();
     }
 

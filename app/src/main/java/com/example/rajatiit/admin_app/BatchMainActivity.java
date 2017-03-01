@@ -1,6 +1,5 @@
 package com.example.rajatiit.admin_app;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,24 +21,18 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.rajatiit.admin_app.timetablehandler.ShowSlotsFragment;
-import com.example.rajatiit.admin_app.dataclasses.Institute;
-import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.firebase.client.Firebase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class BatchMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     public static final List<String> WeekDays = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY","THURSDAY","FRIDAY");
+
+    private SharedPreferences sp;
+
     private ViewPager viewPager;
 
     @Override
@@ -64,25 +57,9 @@ public class BatchMainActivity extends AppCompatActivity
 
         View view = getLayoutInflater().inflate(R.layout.main_nav_header, navigationView);
         TextView user = (TextView) view.findViewById(R.id.main_nav_header_UserName);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         user.setText(sp.getString(Login.NAME, "Noobie"));
-
-        final ProgressDialog progressDialog = ProgressDialog.show(this, null,
-                getResources().getString(R.string.UPDATING));
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getAllUsersData();
-                getInstituteData();
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    Log.e("here","hdakdakda");
-                }
-                progressDialog.dismiss();
-            }
-        }).start();
-
     }
 
     private void setViewPager(){
@@ -123,39 +100,6 @@ public class BatchMainActivity extends AppCompatActivity
         }
     }
 
-    private void getAllUsersData(){
-        DatabaseReference reference = Database.database.getReference(UserStorage.USER_STORAGE_REF);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                UserStorage userStorage = dataSnapshot.getValue(UserStorage.class);
-                Toast.makeText(getBaseContext(),"Getting Users Data",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getBaseContext(),"Error in connecting ",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void getInstituteData(){
-        DatabaseReference reference = Database.database.getReference(Institute.INSTITUTE_REF);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Institute institute = dataSnapshot.getValue(Institute.class);
-                Toast.makeText(getBaseContext(),"Getting Institute Data",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getBaseContext(),"Error in connecting ",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
@@ -168,7 +112,7 @@ public class BatchMainActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
 
-            return new ShowSlotsFragment();
+            return new BatchClassroomFragment();
         }
 
         @Override

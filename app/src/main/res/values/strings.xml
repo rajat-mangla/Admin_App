@@ -19,6 +19,7 @@
     <string name="ASSIGN_TEACHER">ASSIGN_TEACHER</string>
 
     <string name="UPDATING">UPDATING</string>
+    <string name="GETTING_DATA">GETTING DATA</string>
 
     <string name="ADD_DIALOG">ADD_DIALOG</string>
     <string name="EDIT_DIALOG">EDIT_DIALOG</string>

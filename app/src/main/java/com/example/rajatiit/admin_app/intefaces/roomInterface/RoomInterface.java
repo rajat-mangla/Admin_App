@@ -83,9 +83,9 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.viewItem:
+            /*case R.id.viewItem:
                 Toast.makeText(this,"View Details",Toast.LENGTH_SHORT).show();
-                return true;
+                return true;*/
 
             case R.id.editItem:
                 Toast.makeText(this,"Edit Details",Toast.LENGTH_SHORT).show();

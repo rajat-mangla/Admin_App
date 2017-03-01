@@ -11,10 +11,21 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
+import com.example.rajatiit.admin_app.dataclasses.users.TeacherDetail;
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class Login extends AppCompatActivity {
@@ -22,6 +33,9 @@ public class Login extends AppCompatActivity {
     public static final String TEACHER_LOGIN_CHECK = "TEACHER_LOGGED_IN";
     public static final String BATCH_LOGIN_CHECK = "BATCH_LOGGED_IN";
     public static final String NAME = "NAME";
+    public static final String USERNAME = "USERNAME";
+    public static final String PASSWORD = "PASSWORD";
+    public static final String TAG = "rajatiit.admin_app";
     String usernameS;
     String passwordS;
     private EditText username;
@@ -38,13 +52,15 @@ public class Login extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        getAllUsersData();
+
         setContentView(R.layout.activity_login);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         Button login = (Button) findViewById(R.id.login);
         intentLoginAdmin = new Intent(this, AdminMainActivity.class);
-        intentLoginTeacher = new Intent(this, TeacherMainActivity.class);
-        intentLoginBatch = new Intent(this, BatchMainActivity.class);
+        intentLoginTeacher = new Intent(this, Intermediate.class);
+        intentLoginBatch = new Intent(this, Intermediate.class);
 
         username.setOnClickListener(
                 new View.OnClickListener() {
@@ -60,22 +76,9 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (isNetworkAvailable()) {
-                            usernameS = username.getText().toString().trim().toLowerCase();
+                            usernameS = username.getText().toString();
                             passwordS = password.getText().toString();
 
-                            for (int i = 0; i < usernameS.length(); i++) {
-                                if (usernameS.charAt(i) == ' ') {
-                                    Toast.makeText(getBaseContext(), "Username cannot contain any space!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-
-                            for (int i = 0; i < passwordS.length(); i++) {
-                                if (passwordS.charAt(i) == ' ') {
-                                    Toast.makeText(getBaseContext(), "Password cannot contain any space!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
 
                             loginUser(usernameS, passwordS);
                         } else {
@@ -109,7 +112,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void loginUser(String username, String password) {
+    private void loginUser(final String username, final String password) {
         class LoginUser extends AsyncTask<String, Void, String> {
 
             ProgressDialog loading;
@@ -124,32 +127,38 @@ public class Login extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                if (userType == 0 && s.startsWith("admin")) {
+                if (userType == 0 && !s.startsWith("none")) {
                     Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean(ADMIN_LOGIN_CHECK, true);
                     editor.putString(NAME, s.substring(0,1).toUpperCase() + s.substring(1));
+                    editor.putString(USERNAME, username);
+                    editor.putString(PASSWORD, password);
                     editor.commit();
                     startActivity(intentLoginAdmin);
                     finish();
                 }
-                else if (userType == 1 && s.startsWith("teacher")) {
+                else if (userType == 1 && !s.startsWith("none")) {
                     Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean(TEACHER_LOGIN_CHECK, true);
                     editor.putString(NAME, s.substring(0,1).toUpperCase() + s.substring(1));
+                    editor.putString(USERNAME, username);
+                    editor.putString(PASSWORD, password);
                     editor.commit();
                     startActivity(intentLoginTeacher);
                     finish();
                 }
-                else if (userType == 2 && s.startsWith("batch")) {
+                else if (userType == 2 && !s.startsWith("none")) {
                     Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean(BATCH_LOGIN_CHECK, true);
                     editor.putString(NAME, s.substring(0,1).toUpperCase() + s.substring(1));
+                    editor.putString(USERNAME, username);
+                    editor.putString(PASSWORD, password);
                     editor.commit();
                     startActivity(intentLoginBatch);
                     finish();
@@ -165,11 +174,11 @@ public class Login extends AppCompatActivity {
                 if(username.equals("admin") && password.equals("admin")){
                     return "admin";
                 }
-                else if(username.equals("teacher") && password.equals("teacher")){
-                    return "teacher";
+                else if(checkTeacher()){
+                    return usernameS;
                 }
-                else if(username.equals("batch") && password.equals("batch")){
-                    return "batch";
+                else if(checkBatch()){
+                    return usernameS;
                 } else {
                     return "none";
                 }
@@ -178,5 +187,44 @@ public class Login extends AppCompatActivity {
 
         LoginUser lu = new LoginUser();
         lu.execute(username, password);
+    }
+
+    private boolean checkBatch(){
+        ArrayList<BatchDetail> batchDetails = new UserStorage().getBatchDetails();
+        int len = batchDetails.size();
+        for (int i=0;i<len;i++){
+            if (usernameS.equals(batchDetails.get(i).getUserName()) && passwordS.equals(batchDetails.get(i).getPassword())){
+                return true;
+            }
+        }
+        return false;
+     }
+
+    private boolean checkTeacher(){
+        ArrayList<TeacherDetail> teacherDetails = new UserStorage().getTeacherDetails();
+        int len = teacherDetails.size();
+        for (int i=0;i<len;i++){
+            if (usernameS.equals(teacherDetails.get(i).getFirstName()) && passwordS.equals(teacherDetails.get(i).getPassword())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void getAllUsersData(){
+        DatabaseReference reference = Database.database.getReference(UserStorage.USER_STORAGE_REF);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserStorage userStorage = dataSnapshot.getValue(UserStorage.class);
+
+                Toast.makeText(getBaseContext(),"Getting Users Data",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getBaseContext(),"Error in connecting ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

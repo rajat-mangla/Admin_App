@@ -20,16 +20,18 @@
             android:name=".BatchMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".Intermediate" />
         <activity android:name=".intefaces.teacherInterface.TeacherInterface" />
         <activity android:name=".intefaces.batchInterface.BatchInterface" />
         <activity android:name=".intefaces.classroomInterface.ClassroomInterface" />
         <activity android:name=".intefaces.classroomInterface.AssignTeacherOrBatch" />
         <activity android:name=".intefaces.roomInterface.RoomInterface" />
         <activity
-            android:name=".timetablehandler.ShowIndividualSlotActivity"
+            android:name=".AdminFragment.ShowIndividualSlotActivity"
             android:theme="@style/Base.Theme.AppCompat.Dialog" />
         <activity android:name=".Login" />
-        <activity android:name=".Start">
+        <activity android:name=".Start"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

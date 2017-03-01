@@ -24,7 +24,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rajatiit.admin_app.timetablehandler.ShowSlotsFragment;
+import com.example.rajatiit.admin_app.AdminFragment.AdminFridayFragment;
+import com.example.rajatiit.admin_app.AdminFragment.AdminMondayFragment;
+import com.example.rajatiit.admin_app.AdminFragment.AdminThursdayFragment;
+import com.example.rajatiit.admin_app.AdminFragment.AdminTuesdayFragment;
+import com.example.rajatiit.admin_app.AdminFragment.AdminWednesdayFragment;
 import com.example.rajatiit.admin_app.timetablehandler.TimeTable;
 import com.example.rajatiit.admin_app.dataclasses.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
@@ -58,7 +62,7 @@ public class AdminMainActivity extends AppCompatActivity
             Getting Data From DataBase
          */
         final ProgressDialog progressDialog = ProgressDialog.show(this, null,
-                getResources().getString(R.string.UPDATING));
+                getResources().getString(R.string.GETTING_DATA));
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +147,7 @@ public class AdminMainActivity extends AppCompatActivity
                         Database.sendTimeTable(timeTable);
 
                         try {
-                            Thread.sleep(3000);
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             Log.e("here","hdakdakda");
                         }
@@ -229,8 +233,6 @@ public class AdminMainActivity extends AppCompatActivity
 
             }
         });
-
-
     }
 
 
@@ -246,8 +248,20 @@ public class AdminMainActivity extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-
-            return new ShowSlotsFragment();
+            switch (position){
+                case 1:
+                    return new AdminMondayFragment();
+                case 2:
+                    return new AdminTuesdayFragment();
+                case 3:
+                    return new AdminWednesdayFragment();
+                case 4:
+                    return new AdminThursdayFragment();
+                case 5:
+                    return new AdminFridayFragment();
+                default:
+                    return new AdminMondayFragment();
+            }
         }
 
         @Override

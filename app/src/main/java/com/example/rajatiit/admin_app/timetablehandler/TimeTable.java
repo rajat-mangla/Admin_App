@@ -62,14 +62,14 @@ public class TimeTable {
             Collections.sort(totalSlots, new Comparator<SlotDetails>() {
                 @Override
                 public int compare(SlotDetails o1, SlotDetails o2) {
-                    return o1.getTotalClassrooms() - o2.getTotalClassrooms();
+                    return o1.totalClassrooms() - o2.totalClassrooms();
                 }
             });
         }
     }
 
     public boolean isFeasible(int groupIndex, int slotIndex) {
-        for (int existingGroupIndex = 0; existingGroupIndex < totalSlots.get(slotIndex).getTotalClassrooms(); existingGroupIndex++) {
+        for (int existingGroupIndex = 0; existingGroupIndex < totalSlots.get(slotIndex).totalClassrooms(); existingGroupIndex++) {
 
             // checking if batch is same
             if (totalSlots.get(slotIndex).getClassroomDetail(existingGroupIndex).getBatchId() == Institute.getClassroomDetail(groupIndex).getBatchId()) {
@@ -90,7 +90,7 @@ public class TimeTable {
 
             boolean roomOccupied[] = new boolean[Institute.totalNoOfRooms()];
 
-            for (int classroomIndex = 0; classroomIndex < totalSlots.get(slotIndex).getTotalClassrooms(); classroomIndex++) {
+            for (int classroomIndex = 0; classroomIndex < totalSlots.get(slotIndex).totalClassrooms(); classroomIndex++) {
                 if (totalSlots.get(slotIndex).getClassroomDetail(classroomIndex).getCourseDetail().isProjectorRequired()) {
                     for (int roomIndex = 0; roomIndex < Institute.totalNoOfRooms(); roomIndex++) {
                         if (Institute.getRoomDetail(roomIndex).getProjector() && !roomOccupied[roomIndex]) {
