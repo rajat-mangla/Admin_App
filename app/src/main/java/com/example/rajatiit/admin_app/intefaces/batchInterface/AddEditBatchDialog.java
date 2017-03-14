@@ -147,6 +147,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                     if (isEditView){
                         getDetails();
                         dismiss();
+                        batchDetail.setUserName(batchDetail.getYear()+batchDetail.getDepartmentName());
                         batchDetailsPasser.passEditDialogDetail(batchDetail);
                     }
                     else {
@@ -154,7 +155,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                         batchDetail = new BatchDetail();
                         batchDetail.setDepartmentName(departmentName);
                         batchDetail.setYear(batchYear);
-                        batchDetail.setUserName(batchYear+" "+departmentName);
+                        batchDetail.setUserName(batchYear+departmentName);
                         getDetails();
                         dismiss();
                         batchDetailsPasser.passAddDialogDetail(batchDetail);

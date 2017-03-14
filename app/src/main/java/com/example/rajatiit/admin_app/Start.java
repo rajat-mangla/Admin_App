@@ -26,7 +26,7 @@ public class Start extends AppCompatActivity {
             public void run() {
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 if (sp.getBoolean(Login.ADMIN_LOGIN_CHECK, false)) {
-                    Intent intent = new Intent(Start.this, AdminMainActivity.class);
+                    Intent intent = new Intent(Start.this, Intermediate.class);
                     startActivity(intent);
                     finish();
                 } else if (sp.getBoolean(Login.TEACHER_LOGIN_CHECK, false)) {

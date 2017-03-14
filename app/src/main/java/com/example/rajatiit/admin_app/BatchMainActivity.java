@@ -111,7 +111,6 @@ public class BatchMainActivity extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-
             return new BatchClassroomFragment();
         }
 

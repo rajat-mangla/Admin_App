@@ -51,6 +51,8 @@ public class AdminMainActivity extends AppCompatActivity
     public static final List<String> WeekDays = Arrays.asList("MONDAY", "TUESDAY", "WEDNESDAY","THURSDAY","FRIDAY");
     private ViewPager viewPager;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,27 +60,20 @@ public class AdminMainActivity extends AppCompatActivity
         Firebase.setAndroidContext(this);
 
 
-        /*
+       /* *//*
             Getting Data From DataBase
-         */
-        final ProgressDialog progressDialog = ProgressDialog.show(this, null,
-                getResources().getString(R.string.GETTING_DATA));
+         *//*
+        progressDialog = ProgressDialog.show(this,
+                getResources().getString(R.string.GETTING_DATA),"Please Wait");
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 getAllUsersData();
                 getInstituteData();
                 getTimeTable();
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    Log.e("here","hdakdakda");
-                }
-                progressDialog.dismiss();
             }
         }).start();
-
+*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar_content_toolbar);
         setSupportActionBar(toolbar);
@@ -147,9 +142,9 @@ public class AdminMainActivity extends AppCompatActivity
                         Database.sendTimeTable(timeTable);
 
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
-                            Log.e("here","hdakdakda");
+                            Log.e("here","error in sleep");
                         }
                         progressDialog.dismiss();
                     }
@@ -226,8 +221,14 @@ public class AdminMainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 TimeTable timeTable = dataSnapshot.getValue(TimeTable.class);
                 Toast.makeText(getBaseContext(),"Getting Time Table",Toast.LENGTH_SHORT).show();
-            }
 
+                /*try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    Log.e("here","hdakdakda");
+                }*/
+                progressDialog.dismiss();
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

@@ -46,6 +46,14 @@ public class TimeTable {
             totalSlots.add(new SlotDetails("Slot E"));
             totalSlots.add(new SlotDetails("Slot F"));
         }
+        else {
+            totalSlots.set(0,new SlotDetails("Slot A"));
+            totalSlots.set(1,new SlotDetails("Slot B"));
+            totalSlots.set(2,new SlotDetails("Slot C"));
+            totalSlots.set(3,new SlotDetails("Slot D"));
+            totalSlots.set(4,new SlotDetails("Slot E"));
+            totalSlots.set(5,new SlotDetails("Slot F"));
+        }
 
         for (int groupIndex = 0; groupIndex < Institute.totalNoOfClassrooms(); groupIndex++) {
 

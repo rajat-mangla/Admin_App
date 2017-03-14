@@ -18,6 +18,7 @@ public class TeacherDetail implements Serializable{
 
     public TeacherDetail(){
         classroomIds = new ArrayList<>();
+        teacherId = -1;
     }
 
     public int getTeacherId() {

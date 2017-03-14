@@ -48,9 +48,13 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        try {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.hide();
+        }
+        catch (NullPointerException e){
+            Log.e("In Login Activity","No Action Bar Found");
+        }
 
         getAllUsersData();
 
@@ -58,7 +62,7 @@ public class Login extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         Button login = (Button) findViewById(R.id.login);
-        intentLoginAdmin = new Intent(this, AdminMainActivity.class);
+        intentLoginAdmin = new Intent(this, Intermediate.class);
         intentLoginTeacher = new Intent(this, Intermediate.class);
         intentLoginBatch = new Intent(this, Intermediate.class);
 
@@ -217,10 +221,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserStorage userStorage = dataSnapshot.getValue(UserStorage.class);
-
                 Toast.makeText(getBaseContext(),"Getting Users Data",Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(getBaseContext(),"Error in connecting ",Toast.LENGTH_SHORT).show();

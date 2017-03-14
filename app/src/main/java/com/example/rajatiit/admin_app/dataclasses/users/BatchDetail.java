@@ -18,6 +18,7 @@ public class BatchDetail implements Serializable{
 
     public BatchDetail(){
         classroomIds = new ArrayList<>();
+        batchId = -1;
     }
 
     public int getBatchId() {
