@@ -2,7 +2,7 @@ package com.example.rajatiit.admin_app.timetablehandler;
 
 import android.util.Log;
 
-import com.example.rajatiit.admin_app.dataclasses.Institute;
+import com.example.rajatiit.admin_app.dataclasses.insti.Institute;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;

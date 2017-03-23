@@ -5,7 +5,7 @@
     android:id="@+id/activity_teacher_interface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rajatiit.admin_app.intefaces.teacherInterface.TeacherInterface">
+    tools:context=".activities.intefaces.teacherInterface.TeacherInterface">
 
 
     <ListView

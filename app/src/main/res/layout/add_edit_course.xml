@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
-        tools:context="com.example.rajatiit.admin_app.intefaces.classroomInterface.AssignTeacherOrBatch">
+        tools:context=".activities.intefaces.classroomInterface.AssignTeacherOrBatch">
 
         <LinearLayout
             android:orientation="horizontal"

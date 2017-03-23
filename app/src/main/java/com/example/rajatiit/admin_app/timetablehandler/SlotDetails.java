@@ -1,6 +1,6 @@
 package com.example.rajatiit.admin_app.timetablehandler;
 
-import com.example.rajatiit.admin_app.dataclasses.Classroom;
+import com.example.rajatiit.admin_app.dataclasses.insti.Classroom;
 
 import java.util.ArrayList;
 

@@ -11,23 +11,23 @@
         android:supportsRtl="true"
         android:theme="@style/CustomizedAppTheme">
         <activity
-            android:name=".AdminMainActivity"
+            android:name=".activities.userActivities.adminActivity.AdminMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".TeacherMainActivity"
+            android:name=".activities.userActivities.teacheractivity.TeacherMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BatchMainActivity"
+            android:name=".activities.userActivities.batchActivity.BatchMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".Intermediate" />
-        <activity android:name=".intefaces.teacherInterface.TeacherInterface" />
-        <activity android:name=".intefaces.batchInterface.BatchInterface" />
-        <activity android:name=".intefaces.classroomInterface.ClassroomInterface" />
-        <activity android:name=".intefaces.classroomInterface.AssignTeacherOrBatch" />
-        <activity android:name=".intefaces.roomInterface.RoomInterface" />
+        <activity android:name=".activities.intefaces.teacherInterface.TeacherInterface" />
+        <activity android:name=".activities.intefaces.batchInterface.BatchInterface" />
+        <activity android:name=".activities.intefaces.classroomInterface.ClassroomInterface" />
+        <activity android:name=".activities.intefaces.classroomInterface.AssignTeacherOrBatch" />
+        <activity android:name=".activities.intefaces.roomInterface.RoomInterface" />
         <activity
-            android:name=".AdminFragment.ShowIndividualSlotActivity"
+            android:name=".activities.userActivities.adminActivity.AdminFragment.ShowIndividualSlotActivity"
             android:theme="@style/Base.Theme.AppCompat.Dialog" />
         <activity android:name=".Login" />
         <activity android:name=".Start"
