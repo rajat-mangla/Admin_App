@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.BatchDetail;
 import com.example.rajatiit.admin_app.activities.intefaces.SpinnerHandler;
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 /**
  * Created by rajat on 22/2/17.
@@ -151,19 +152,38 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                         batchDetailsPasser.passEditDialogDetail(batchDetail);
                     }
                     else {
-                        // storing the details entered by User for add dialog
-                        batchDetail = new BatchDetail();
-                        batchDetail.setDepartmentName(departmentName);
-                        batchDetail.setYear(batchYear);
-                        batchDetail.setUserName(batchYear+departmentName);
-                        getDetails();
-                        dismiss();
-                        batchDetailsPasser.passAddDialogDetail(batchDetail);
+                        if (Ifexists(batchYear,departmentName)){
+                            Toast.makeText(getActivity(),"Batch already Exists",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            // storing the details entered by User for add dialog
+                            batchDetail = new BatchDetail();
+                            batchDetail.setDepartmentName(departmentName);
+                            batchDetail.setYear(batchYear);
+                            batchDetail.setUserName(batchYear+departmentName);
+                            getDetails();
+                            dismiss();
+                            batchDetailsPasser.passAddDialogDetail(batchDetail);
+                        }
                     }
                 }
             }
         });
     }
+
+
+    // method to check if the batch exists already ...
+    private boolean Ifexists(String year,String name){
+        int len = UserStorage.noOfBatches();
+        String userName = year+name;
+        for (int i=0;i<len;i++){
+            if (userName.equals(UserStorage.getBatchDetail(i).getUserName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     // method to handle all the errors ...
     private boolean handleErrors() {

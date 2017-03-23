@@ -12,6 +12,7 @@ public class RoomDetail implements Serializable{
     private boolean isProjector;
 
     public RoomDetail() {
+        roomNo = -1;
     }
 
     public boolean getProjector() {

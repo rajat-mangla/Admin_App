@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
+import com.example.rajatiit.admin_app.dataclasses.insti.Institute;
 import com.example.rajatiit.admin_app.dataclasses.insti.RoomDetail;
 import com.example.rajatiit.admin_app.activities.intefaces.SpinnerHandler;
 
@@ -61,7 +62,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
     // method to create ADD_DIALOG BUILDER
     private Dialog addDialogBuilder(AlertDialog.Builder builder) {
         builder.setView(view)
-                .setTitle("Add Batch")
+                .setTitle("Add Room")
                 .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -83,7 +84,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
     // Builder For Edit Dialog
     private Dialog editDialogBuilder(AlertDialog.Builder builder) {
         builder.setView(view)
-                .setTitle("Edit Batch")
+                .setTitle("Edit Room")
                 .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -96,7 +97,7 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
                         Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
-        // setting the spinners for the add dialog
+        // setting the spinners for the Edit dialog
         setSpinners();
         roomDetail = (RoomDetail) getArguments().getSerializable(Integer.toString(R.string.ROOM_DATA));
         showDetails();
@@ -138,16 +139,24 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
                 if (handleErrors()) {
                     roomDetailsPasser = (RoomDetailsPasser) getActivity();
                     if (isEditView){
-                        getDetails();
-                        dismiss();
-                        roomDetailsPasser.passEditDialogDetail(roomDetail);
+                        if (getDetails()){
+                            dismiss();
+                            roomDetailsPasser.passEditDialogDetail(roomDetail);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"Room No already exists",Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else {
                         // storing the details entered by User for add dialog
                         roomDetail = new RoomDetail();
-                        getDetails();
-                        dismiss();
-                        roomDetailsPasser.passAddDialogDetail(roomDetail);
+                        if (getDetails()){
+                            dismiss();
+                            roomDetailsPasser.passAddDialogDetail(roomDetail);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"Room No already exists",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -167,12 +176,36 @@ public class AddEditRoomDialog extends DialogFragment implements AdapterView.OnI
 
 
     // GETTING all the details from the dialog front end ...
-    private void getDetails() {
+    private boolean getDetails() {
         EditText roomNo = (EditText) view.findViewById(R.id.add_edit_room_roomNo);
         CheckBox isProjector = (CheckBox)view.findViewById(R.id.add_edit_room_isprojector);
-        roomDetail.setRoomNo(Integer.parseInt(roomNo.getEditableText().toString()));
+        int iroomNo = Integer.parseInt(roomNo.getEditableText().toString());
+
+        // means its for add dialog
+        // we have to check whether room already exists
+        if (roomDetail.getRoomNo() == -1){
+            int len = Institute.totalNoOfRooms();
+            for (int i=0;i<len;i++){
+                if (iroomNo == Institute.getRoomDetail(i).getRoomNo()){
+                    return false;
+                }
+            }
+        }
+        // its a edit dialog
+        else {
+            if (roomDetail.getRoomNo() != iroomNo){
+                int len = Institute.totalNoOfRooms();
+                for (int i=0;i<len;i++){
+                    if (iroomNo == Institute.getRoomDetail(i).getRoomNo()){
+                        return false;
+                    }
+                }
+            }
+        }
+        roomDetail.setRoomNo(iroomNo);
         roomDetail.setCapacity(roomCapacity);
         roomDetail.setProjector(isProjector.isChecked());
+        return true;
     }
 
 

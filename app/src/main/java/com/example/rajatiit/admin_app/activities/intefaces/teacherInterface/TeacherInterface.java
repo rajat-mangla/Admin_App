@@ -28,7 +28,7 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
     CustomTeacherListAdapter customTeacherListAdapter;
 
     UserStorage userStorage;
-    // TODO : SOLVE THE CONFLICT WITH THIS
+    // TeDO : SOLVE THE CONFLICT WITH THIS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
         setContentView(R.layout.activity_display_data_interface);
 
         userStorage = new UserStorage();
-        // TODO: WORK WITH THIS USING REALTIME DATABASE
+        // teDO: WORK WITH THIS USING REALTIME DATABASE
 
 
         //  ListView for Teachers
@@ -159,7 +159,6 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
 
         UserStorage.addTeacherDetail(teacherDetail);
 
-        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR TEACHER
         Database.sendTeacherInfo(teacherDetail);
 
         customTeacherListAdapter.notifyDataSetChanged();
@@ -168,9 +167,6 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
 
     @Override
     public void passEditDialogDetail(TeacherDetail teacherDetail,String teacherUniqueCode) {
-        // TODO Use unique key to update data in other Classes
-
-        // TODO : PLEASE UPDATE DATA IN DATABASE FOR A PARTICULAR TEACHER
         Database.sendTeacherInfo(teacherDetail);
 
         customTeacherListAdapter.notifyDataSetChanged();

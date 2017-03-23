@@ -43,7 +43,7 @@ public class Start extends AppCompatActivity {
                     finish();
                 }
             }
-        }, 2000);
+        }, 1500);
 
 
 

@@ -3,6 +3,7 @@ package com.example.rajatiit.admin_app.activities.intefaces.teacherInterface;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.UiAutomation;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.users.TeacherDetail;
 import com.example.rajatiit.admin_app.activities.intefaces.SpinnerHandler;
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 /**
  * Created by rajat on 17/2/17.
@@ -157,23 +159,48 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                         // getting details
                         getDetails();
                         teacherDetail.generateUniqueCode();
-
-                        dismiss();
-                        detailsPasser.passEditDialogDetail(teacherDetail,uniqueIdentifier);
+                        if (!teacherDetail.getUniqueCode().equals(uniqueIdentifier)){
+                            if (ifExists()){
+                                Toast.makeText(getActivity(),"Teacher Already Exists",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                dismiss();
+                                detailsPasser.passEditDialogDetail(teacherDetail, uniqueIdentifier);
+                            }
+                        }
+                        else{
+                            dismiss();
+                            detailsPasser.passEditDialogDetail(teacherDetail, uniqueIdentifier);
+                        }
                     }
                     else {
                         teacherDetail = new TeacherDetail();
                         getDetails();
                         teacherDetail.setDepartmentName(departmentName);
                         teacherDetail.generateUniqueCode();
-
-                        dismiss();
-                        detailsPasser.passAddDialogDetail(teacherDetail);
+                        if (ifExists()){
+                            Toast.makeText(getActivity(),"Teacher Already Exists",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            dismiss();
+                            detailsPasser.passAddDialogDetail(teacherDetail);
+                        }
                     }
                 }
             }
         });
 
+    }
+
+    // method to check if teacher already exists
+    private boolean ifExists(){
+        int len = UserStorage.noOfTeachers();
+        for (int i=0;i<len;i++){
+            if (teacherDetail.getUniqueCode().equals(UserStorage.getTeacherDetail(i).getUniqueCode())){
+                return true;
+            }
+        }
+        return false;
     }
 
     // Handles all the errors Related to adding information
