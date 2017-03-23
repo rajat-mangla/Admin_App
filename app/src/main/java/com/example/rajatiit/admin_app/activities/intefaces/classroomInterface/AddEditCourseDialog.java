@@ -250,6 +250,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         CheckBox projectorRequired = (CheckBox) view.findViewById(R.id.add_edit_course_projectorRequired);
 
         if (isEditView) {
+
             handleIds();
         } else {
             classroom = new Classroom();

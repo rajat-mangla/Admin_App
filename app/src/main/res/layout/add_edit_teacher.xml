@@ -113,14 +113,27 @@
             android:text="Password"
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
-        <EditText
-            android:id="@+id/add_edit_teacher_password"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.27"
-            android:ems="10"
-            android:inputType="numberPassword"
-            android:hint="123456789" />
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/add_edit_teacher_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.27"
+                android:ems="10"
+                android:inputType="numberPassword"
+                android:hint="123456789" />
+
+            <CheckBox
+                android:text="show password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_edit_teacher_showpassword"
+                android:layout_weight="0.27" />
+        </LinearLayout>
 
     </LinearLayout>
 

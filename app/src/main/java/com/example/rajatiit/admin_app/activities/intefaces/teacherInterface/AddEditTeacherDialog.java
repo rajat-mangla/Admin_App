@@ -6,10 +6,13 @@ import android.app.DialogFragment;
 import android.app.UiAutomation;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,6 +58,21 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         view = layoutInflater.inflate(R.layout.add_edit_teacher,null);
+
+        // checkbox to show password
+        CheckBox showPassword = (CheckBox) view.findViewById(R.id.add_edit_teacher_showpassword);
+        showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                EditText editText = (EditText) view.findViewById(R.id.add_edit_teacher_password);
+                if (isChecked){
+                    editText.setTransformationMethod(null);
+                }
+                else {
+                    editText.setTransformationMethod(new PasswordTransformationMethod());
+                }
+            }
+        });
 
         if (getFragmentManager().findFragmentByTag(Integer.toString(R.string.ADD_DIALOG))!=null){
             isEditView=false;

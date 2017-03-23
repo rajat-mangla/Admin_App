@@ -120,14 +120,30 @@
             android:gravity="right|center_vertical"
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
-        <EditText
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberPassword"
-            android:ems="10"
-            android:id="@+id/add_edit_batch_password"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="9.21">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:ems="10"
+                android:id="@+id/add_edit_batch_password"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp" />
+
+            <CheckBox
+                android:text="show password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_edit_batch_showpassword"
+                android:layout_weight="1"
+                android:checked="false" />
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
