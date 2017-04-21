@@ -20,7 +20,8 @@ import java.util.List;
 
 public class CustomSlotsListViewAdapter extends ArrayAdapter<SlotDetails>{
 
-    private List<String> TimeSlot = Arrays.asList("08:00 AM", "09:00 AM", "10:00 AM","11:00 AM","01:00 PM","02:00 AM");
+    private List<String> TimeSlot = Arrays.asList("08:00 AM - 09:00 AM", "09:00 AM - 10:00 AM", "10:00 AM - 11:00 AM"
+            ,"11:00 AM - 12:00 AM","01:00 PM - 02:00 AM","02:00 AM - 03:00 AM");
 
     public CustomSlotsListViewAdapter(Context context, int resource, List<SlotDetails> objects) {
         super(context, resource, objects);

@@ -47,6 +47,9 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         institute = new Institute();
 
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
+
         customCourseListAdapter = new CustomCourseListAdapter(getBaseContext(),
                 R.layout.activity_display_data_interface, institute.getClassrooms());
         listView.setAdapter(customCourseListAdapter);

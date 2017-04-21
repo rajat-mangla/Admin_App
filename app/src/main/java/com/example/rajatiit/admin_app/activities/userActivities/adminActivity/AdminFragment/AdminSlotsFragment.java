@@ -27,16 +27,18 @@ public class AdminSlotsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_display_data_interface, container, false);
-        ListView listview = (ListView) view.findViewById(R.id.displayDataList);
+        ListView listView = (ListView) view.findViewById(R.id.displayDataList);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
 
         CustomSlotsListViewAdapter customSlotsListViewAdapter = new CustomSlotsListViewAdapter(getContext(),
                 R.layout.activity_display_data_interface,new TimeTable().getTotalSlots());
-        listview.setAdapter(customSlotsListViewAdapter);
+        listView.setAdapter(customSlotsListViewAdapter);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.addDetail);
         floatingActionButton.setVisibility(View.GONE);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(),ShowIndividualSlotActivity.class);
