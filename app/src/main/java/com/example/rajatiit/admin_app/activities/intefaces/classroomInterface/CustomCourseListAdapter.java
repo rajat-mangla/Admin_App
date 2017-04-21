@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.insti.Classroom;
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 import java.util.List;
 
@@ -34,6 +35,17 @@ public class CustomCourseListAdapter extends ArrayAdapter<Classroom> {
         TextView courseId = (TextView) convertView.findViewById(R.id.display_course_courseId);
         courseName.setText(getItem(position).getCourseDetail().getName());
         courseId.setText(getItem(position).getCourseDetail().getId());
+
+
+        String teacher = UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName();
+        teacher = teacher + " "+ UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getLastName();
+
+        TextView teacherName = (TextView) convertView.findViewById(R.id.display_course_teacherName);
+        TextView batchName = (TextView) convertView.findViewById(R.id.display_course_batchName);
+
+        teacherName.setText(teacher);
+        batchName.setText(UserStorage.getBatchDetail(getItem(position).getBatchId()).getUserName());
+
         return convertView;
     }
 }

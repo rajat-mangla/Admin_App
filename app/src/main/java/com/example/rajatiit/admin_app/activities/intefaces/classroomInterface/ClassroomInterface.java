@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -50,7 +51,7 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
                 R.layout.activity_display_data_interface, institute.getClassrooms());
         listView.setAdapter(customCourseListAdapter);
 
-        // For Listview Long CLick Listener
+        // For ListView Long CLick Listener
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,6 +62,7 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
                 return true;
             }
         });
+
         // For Floating action button add details
         final FloatingActionButton addDetail = (FloatingActionButton) findViewById(R.id.addDetail);
         addDetail.setOnClickListener(new View.OnClickListener() {
