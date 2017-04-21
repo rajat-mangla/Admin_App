@@ -2,9 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <EditText
+            android:id="@+id/add_edit_teacher_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
+
+    <!--<LinearLayout
         android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +39,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <EditText
+            android:id="@+id/add_edit_teacher_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -29,11 +47,24 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:ems="10"
             android:hint="rajat"
-            android:inputType="textPersonName"
-            android:id="@+id/add_edit_teacher_firstname" />
-    </LinearLayout>
+            android:inputType="textPersonName" />
+    </LinearLayout>-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
-    <LinearLayout
+        <EditText
+            android:id="@+id/add_edit_teacher_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
+  <!--  <LinearLayout
         android:id="@+id/second"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +91,7 @@
             android:ems="10"
             android:hint="mangla"
             android:inputType="textPersonName" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,8 +127,22 @@
             android:gravity="center"
             android:padding="5dp" />
     </LinearLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:passwordToggleEnabled="true">
 
-    <LinearLayout
+        <EditText
+            android:id="@+id/add_edit_teacher_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="numberPassword" />
+    </android.support.design.widget.TextInputLayout>
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
@@ -114,9 +159,9 @@
             android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/add_edit_teacher_password"
@@ -124,20 +169,33 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.27"
                 android:ems="10"
-                android:inputType="numberPassword"
-                android:hint="123456789" />
+                android:hint="123456789"
+                android:inputType="numberPassword" />
 
             <CheckBox
-                android:text="show password"
+                android:id="@+id/add_edit_teacher_showpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_edit_teacher_showpassword"
-                android:layout_weight="0.27" />
+                android:layout_weight="0.27"
+                android:text="show password" />
         </LinearLayout>
+    </LinearLayout>-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:passwordToggleEnabled="true">
 
-    </LinearLayout>
-
-    <LinearLayout
+        <EditText
+            android:id="@+id/add_edit_teacher_confirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="numberPassword" />
+    </android.support.design.widget.TextInputLayout>
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
@@ -162,6 +220,6 @@
             android:ems="10"
             android:hint="password"
             android:inputType="numberPassword" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

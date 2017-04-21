@@ -36,9 +36,10 @@ public class Login extends AppCompatActivity {
     public static final String NAME = "NAME";
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
-    public static final String TAG = "rajatiit.admin_app";
-    String usernameS;
-    String passwordS;
+
+    private String usernameS;
+    private String passwordS;
+
     private EditText username;
     private EditText password;
     private Intent intentLoginAdmin;
@@ -49,14 +50,15 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
         try {
-            ActionBar actionBar = getSupportActionBar();
             actionBar.hide();
         }
         catch (NullPointerException e){
             Log.e("In Login Activity","No Action Bar Found");
         }
 
+        // getting all users data TO check the credentials
         getAllUsersData();
 
         setContentView(R.layout.activity_login);
@@ -87,7 +89,8 @@ public class Login extends AppCompatActivity {
 
                             loginUser(usernameS, passwordS);
                         } else {
-                            Toast.makeText(getBaseContext(), "No internet!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "No internet!",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -120,7 +123,8 @@ public class Login extends AppCompatActivity {
     private void loginUser(final String username, final String password) {
         class LoginUser extends AsyncTask<String, Void, String> {
 
-            ProgressDialog loading;
+            // Dialog that appears after Login button is pressed
+            private ProgressDialog loading;
 
             @Override
             protected void onPreExecute() {
@@ -132,43 +136,28 @@ public class Login extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                if (userType == 0 && !s.startsWith("none")) {
-                    Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
-                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putBoolean(ADMIN_LOGIN_CHECK, true);
-                    editor.putString(NAME, s.substring(0,1).toUpperCase() + s.substring(1));
-                    editor.putString(USERNAME, username);
-                    editor.putString(PASSWORD, password);
-                    editor.commit();
-                    startActivity(intentLoginAdmin);
-                    finish();
-                }
-                else if (userType == 1 && !s.startsWith("none")) {
-                    Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
-                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putBoolean(TEACHER_LOGIN_CHECK, true);
-                    editor.putString(NAME, s.substring(0,1).toUpperCase() + s.substring(1));
-                    editor.putString(USERNAME, username);
-                    editor.putString(PASSWORD, password);
-                    editor.commit();
-                    startActivity(intentLoginTeacher);
-                    finish();
-                }
-                else if (userType == 2 && !s.startsWith("none")) {
-                    Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
-                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putBoolean(BATCH_LOGIN_CHECK, true);
-                    editor.putString(NAME, s.substring(0,1).toUpperCase() + s.substring(1));
-                    editor.putString(USERNAME, username);
-                    editor.putString(PASSWORD, password);
-                    editor.commit();
-                    startActivity(intentLoginBatch);
-                    finish();
-                } else {
-                    Toast.makeText(getBaseContext(), "Username, Password and Type combination not found!", Toast.LENGTH_SHORT).show();
+                int caseId = Integer.parseInt(s);
+                switch (caseId){
+                    case 0 :
+                        Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
+                        startActivity(intentLoginAdmin);
+                        finish();
+                        break;
+                    case 1 :
+                        Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
+                        startActivity(intentLoginTeacher);
+                        finish();
+                        break;
+                    case 2 :
+                        Toast.makeText(getBaseContext(), "Success!", Toast.LENGTH_SHORT).show();
+                        startActivity(intentLoginBatch);
+                        finish();
+                        break;
+                    default:
+                        Toast.makeText(getBaseContext(),
+                                "Username, Password and Type combination not found!",
+                                Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
 
@@ -176,17 +165,55 @@ public class Login extends AppCompatActivity {
             protected String doInBackground(String... params) {
                 String username = params[0];
                 String password = params[1];
-                if(username.equals("admin") && password.equals("admin")){
-                    return "admin";
+
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = sp.edit();
+                String name = usernameS;
+
+                // IF ADMIN RADIO BUTTON IS SELECTED
+                if (userType == 0){
+                    if(username.equals("admin") && password.equals("admin")){
+
+                        editor.putBoolean(ADMIN_LOGIN_CHECK, true);
+                        editor.putString(NAME, name.substring(0,1).toUpperCase() + name.substring(1));
+                        editor.putString(USERNAME, username);
+                        editor.putString(PASSWORD, password);
+                        editor.apply();
+
+                        return "0";
+                    }
+                    else
+                        return "-1";
                 }
-                else if(checkTeacher()){
-                    return usernameS;
+                else if (userType == 1){
+                    if (checkTeacher()){
+
+                        editor.putBoolean(TEACHER_LOGIN_CHECK, true);
+                        editor.putString(NAME, name.substring(0,1).toUpperCase() + name.substring(1));
+                        editor.putString(USERNAME, username);
+                        editor.putString(PASSWORD, password);
+                        editor.apply();
+
+                        return "1";
+                    }
+                    else
+                        return "-1";
                 }
-                else if(checkBatch()){
-                    return usernameS;
-                } else {
-                    return "none";
+                else if (userType == 2){
+                    if (checkBatch()){
+
+                        editor.putBoolean(BATCH_LOGIN_CHECK, true);
+                        editor.putString(NAME, name.substring(0,1).toUpperCase() + name.substring(1));
+                        editor.putString(USERNAME, username);
+                        editor.putString(PASSWORD, password);
+                        editor.apply();
+                        return "2";
+                    }
+                    else
+                        return "-1";
                 }
+                else
+                    return "-1";
             }
         }
 
@@ -198,7 +225,8 @@ public class Login extends AppCompatActivity {
         ArrayList<BatchDetail> batchDetails = new UserStorage().getBatchDetails();
         int len = batchDetails.size();
         for (int i=0;i<len;i++){
-            if (usernameS.equals(batchDetails.get(i).getUserName()) && passwordS.equals(batchDetails.get(i).getPassword())){
+            if (usernameS.equals(batchDetails.get(i).getUserName()) &&
+                    passwordS.equals(batchDetails.get(i).getPassword())){
                 return true;
             }
         }
@@ -209,7 +237,8 @@ public class Login extends AppCompatActivity {
         ArrayList<TeacherDetail> teacherDetails = new UserStorage().getTeacherDetails();
         int len = teacherDetails.size();
         for (int i=0;i<len;i++){
-            if (usernameS.equals(teacherDetails.get(i).getFirstName()) && passwordS.equals(teacherDetails.get(i).getPassword())){
+            if (usernameS.equals(teacherDetails.get(i).getFirstName()) &&
+                    passwordS.equals(teacherDetails.get(i).getPassword())){
                 return true;
             }
         }

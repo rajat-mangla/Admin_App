@@ -60,7 +60,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
         view = inflater.inflate(R.layout.add_edit_batch, null);
 
         // checkbox to show password
-        CheckBox showPassword = (CheckBox) view.findViewById(R.id.add_edit_batch_showpassword);
+       /* CheckBox showPassword = (CheckBox) view.findViewById(R.id.add_edit_batch_showpassword);
         showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -72,7 +72,7 @@ public class AddEditBatchDialog extends DialogFragment implements AdapterView.On
                     editText.setTransformationMethod(new PasswordTransformationMethod());
                 }
             }
-        });
+        });*/
 
         if (getFragmentManager().findFragmentByTag(Integer.toString(R.string.ADD_DIALOG))!=null){
             isEditView=false;

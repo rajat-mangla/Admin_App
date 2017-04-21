@@ -18,7 +18,8 @@ import java.util.List;
 
 
 public class CustomTeacherClassroomAdapter extends ArrayAdapter<Classroom>{
-    private List<String> TimeSlot = Arrays.asList("08:00 AM", "09:00 AM", "10:00 AM","11:00 AM","01:00 PM","02:00 AM");
+    private List<String> TimeSlot = Arrays.asList("08:00 AM - 09:00 AM", "09:00 AM - 10:00 AM", "10:00 AM - 11:00 AM"
+            ,"11:00 AM - 12:00 AM","01:00 PM - 02:00 AM","02:00 AM - 03:00 AM");
 
     public CustomTeacherClassroomAdapter(Context context, int resource, List<Classroom> objects) {
         super(context, resource, objects);
@@ -31,19 +32,30 @@ public class CustomTeacherClassroomAdapter extends ArrayAdapter<Classroom>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.show_custom_classroom, null);
         }
-        TextView timeDisplay = (TextView) convertView.findViewById(R.id.show_custom_slot_time);
+        TextView timeDisplay = (TextView) convertView.findViewById(R.id.show_custom_classrom_time);
         timeDisplay.setText(TimeSlot.get(position));
 
+
+        TextView batch = (TextView) convertView.findViewById(R.id.show_custom_classrom_teacherorbatch);
+        TextView course = (TextView) convertView.findViewById(R.id.show_custom_classrom_course);
+        TextView room = (TextView) convertView.findViewById(R.id.show_custom_classrom_room);
+
         if(getItem(position).getRoomId() == -1){
-            TextView batch = (TextView) convertView.findViewById(R.id.show_custom_batch);
-            batch.setText("No class");
+
+            course.setText("No class");
+            room.setVisibility(View.GONE);
+            batch.setVisibility(View.GONE);
+
         } else {
-            TextView course = (TextView) convertView.findViewById(R.id.show_custom_course);
+            course.setVisibility(View.VISIBLE);
             course.setText(getItem(position).getCourseDetail().getName());
-            TextView batch = (TextView) convertView.findViewById(R.id.show_custom_batch);
+
+            batch.setVisibility(View.VISIBLE);
             batch.setText(UserStorage.getBatchDetail(getItem(position).getBatchId()).getUserName());
-            TextView room = (TextView) convertView.findViewById(R.id.show_custom_room);
-            room.setText(Integer.toString(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
+
+            room.setVisibility(View.VISIBLE);
+            room.setText(String.valueOf(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
+
         }
 
         return convertView;

@@ -11,4 +11,5 @@
     <color name="colorGreen">#00b294</color>
     <color name="colorPurple">#9945FF</color>
     <color name="colorPurpleVariant">#5545FF</color>
+    <color name="textColorError">#FF8A0B</color>
 </resources>

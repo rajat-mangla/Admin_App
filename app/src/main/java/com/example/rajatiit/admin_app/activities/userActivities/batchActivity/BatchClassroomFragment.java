@@ -51,15 +51,19 @@ public class BatchClassroomFragment extends Fragment {
         String userName = sp.getString(Login.USERNAME,"Daku");
         String password = sp.getString(Login.PASSWORD,"DAku");
 
-        ArrayList<BatchDetail> batchDetails = new UserStorage().getBatchDetails();
         int totalBatches = UserStorage.noOfBatches();
 
         for (int i=0;i<totalBatches;i++) {
-            if (userName.equals(batchDetails.get(i).getUserName()) && password.equals(batchDetails.get(i).getPassword())) {
-                batchDetail = batchDetails.get(i);
+
+            String batchUserName = UserStorage.getBatchDetail(i).getUserName();
+            String batchPassword = UserStorage.getBatchDetail(i).getPassword();
+
+            if (userName.equals(batchUserName) && password.equals(batchPassword)) {
+                batchDetail = UserStorage.getBatchDetail(i);
                 break;
             }
         }
+
         int batchId = batchDetail.getBatchId();
 
         ArrayList<SlotDetails> slotDetails = new TimeTable().getTotalSlots();
@@ -68,7 +72,10 @@ public class BatchClassroomFragment extends Fragment {
         for (int i=0;i<totalSlots;i++){
             int len1 = slotDetails.get(i).totalClassrooms();
             for (int j=0;j<len1;j++){
-                if (batchId == slotDetails.get(i).getClassroomDetail(j).getBatchId()) {
+
+                int tempBatchId = slotDetails.get(i).getClassroomDetail(j).getBatchId();
+
+                if (batchId == tempBatchId) {
                     classrooms.add(slotDetails.get(i).getClassroomDetail(j));
                     break;
                 }

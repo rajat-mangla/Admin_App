@@ -4,7 +4,22 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp">
 
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Room No."
+            android:id="@+id/add_edit_room_roomNo"
+            android:inputType="numberSigned"
+            android:ems="10"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--<LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +43,7 @@
             android:layout_weight="1"
             android:layout_margin="3dp" />
     </LinearLayout>
-
+-->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

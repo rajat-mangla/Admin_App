@@ -27,6 +27,7 @@ public class Database {
         DatabaseReference reference = database.getReference(UserStorage.USER_STORAGE_REF);
         reference.setValue(userStorage);
     }
+
     public static void updateInstitute(Institute institute){
         DatabaseReference reference = database.getReference(Institute.INSTITUTE_REF);
         reference.setValue(institute);

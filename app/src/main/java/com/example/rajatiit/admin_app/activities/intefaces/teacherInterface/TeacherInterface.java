@@ -138,6 +138,8 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
 
             UserStorage.deleteTeacherDetail(teacherPosition);
 
+
+
             // updating in database also
             Database.deleteTeacherInfo();
             customTeacherListAdapter.notifyDataSetChanged();

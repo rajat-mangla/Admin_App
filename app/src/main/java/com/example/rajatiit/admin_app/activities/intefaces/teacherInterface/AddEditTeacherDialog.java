@@ -25,6 +25,7 @@ import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 
 /**
  * Created by rajat on 17/2/17.
+ *
  */
 
 public class AddEditTeacherDialog extends DialogFragment implements AdapterView.OnItemSelectedListener{
@@ -59,7 +60,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         view = layoutInflater.inflate(R.layout.add_edit_teacher,null);
 
-        // checkbox to show password
+       /* // checkbox to show password
         CheckBox showPassword = (CheckBox) view.findViewById(R.id.add_edit_teacher_showpassword);
         showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -72,7 +73,7 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                     editText.setTransformationMethod(new PasswordTransformationMethod());
                 }
             }
-        });
+        });*/
 
         if (getFragmentManager().findFragmentByTag(Integer.toString(R.string.ADD_DIALOG))!=null){
             isEditView=false;
@@ -226,12 +227,17 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
         EditText firstNameText = (EditText) view.findViewById(R.id.add_edit_teacher_firstname);
         EditText lastNameText = (EditText) view.findViewById(R.id.add_edit_teacher_lastname);
         EditText passwordText = (EditText) view.findViewById(R.id.add_edit_teacher_password);
-        if (editTextEmpty(firstNameText) || editTextEmpty(lastNameText) || editTextEmpty(passwordText)){
-            // ToDo : Handle Remaining Errors
+        EditText confirmPasswordText = (EditText) view.findViewById(R.id.add_edit_teacher_confirmPassword);
+        if (editTextEmpty(firstNameText) || editTextEmpty(lastNameText) || editTextEmpty(passwordText)
+                || editTextEmpty(confirmPasswordText)){
+            // ToDo : Handle Remaining Error
             return true;
         }
         else {
-            return false;
+            if (passwordText.getText().toString().equals(confirmPasswordText.getText().toString())){
+                return false;
+            }
+            return true;
         }
     }
 
@@ -255,8 +261,8 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     private void setDepartmentSpinner(){
         Spinner departmentSpinner = (Spinner) view.findViewById(R.id.add_edit_teacher_SelectDepartment);
         departmentSpinner.setOnItemSelectedListener(this);
-        SpinnerHandler departmentSpiner = new SpinnerHandler();
-        departmentSpiner.setDepartmentSpinner(getActivity(),departmentSpinner);
+
+        SpinnerHandler.setDepartmentSpinner(getActivity(),departmentSpinner);
     }
 
     @Override

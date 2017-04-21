@@ -1,5 +1,7 @@
 package com.example.rajatiit.admin_app.dataclasses.users;
 
+import com.example.rajatiit.admin_app.dataclasses.Database;
+import com.example.rajatiit.admin_app.dataclasses.insti.Institute;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
@@ -37,6 +39,23 @@ public class UserStorage {
 
     public static void deleteTeacherDetail(int teacherPosition){
         teacherDetails.remove(teacherPosition);
+
+        // IMPORTANT PART IN REMOVING THE TEACHER TO HANDLE THE TEACHER ID'S BELOW THE TEACHER DELETED
+
+        for (int i=teacherPosition;i<teacherDetails.size();i++){
+
+            teacherDetails.get(i).setTeacherId(i);
+
+            // Variable to get total no of classrooms for a particular Teacher
+            int tempLen = teacherDetails.get(i).getClassroomIds().size();
+
+            if (tempLen > 0){
+                for (int j=0 ; j<tempLen ; j++){
+                    Institute.getClassroomDetail(j).setTeacherId(i);
+                }
+            }
+        }
+        Database.updateInstitute(new Institute());
     }
 
     public static TeacherDetail getTeacherDetail(int index){
@@ -57,6 +76,23 @@ public class UserStorage {
 
     public static void deleteBatchDetail(int batchPosition){
         batchDetails.remove(batchPosition);
+
+        // IMPORTANT PART IN REMOVING THE TEACHER TO HANDLE THE TEACHER ID'S BELOW THE TEACHER DELETED
+
+        for (int i=batchPosition;i<batchDetails.size();i++){
+
+            batchDetails.get(i).setBatchId(i);
+
+            // Variable to get total no of classrooms for a particular Teacher
+            int tempLen = batchDetails.get(i).getClassroomIds().size();
+
+            if (tempLen > 0){
+                for (int j=0 ; j<tempLen ; j++){
+                    Institute.getClassroomDetail(j).setBatchId(i);
+                }
+            }
+        }
+        Database.updateInstitute(new Institute());
     }
 
     public static int noOfBatches(){

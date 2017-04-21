@@ -18,7 +18,8 @@ import java.util.List;
 
 
 public class CustomBatchClassroomAdapter extends ArrayAdapter<Classroom>{
-    private List<String> TimeSlot = Arrays.asList("08:00 AM", "09:00 AM", "10:00 AM","11:00 AM","01:00 PM","02:00 AM");
+    private List<String> TimeSlot = Arrays.asList("08:00 AM - 09:00 AM", "09:00 AM - 10:00 AM", "10:00 AM - 11:00 AM"
+            ,"11:00 AM - 12:00 AM","01:00 PM - 02:00 AM","02:00 AM - 03:00 AM");
 
     public CustomBatchClassroomAdapter(Context context, int resource, List<Classroom> objects) {
         super(context, resource, objects);
@@ -27,6 +28,7 @@ public class CustomBatchClassroomAdapter extends ArrayAdapter<Classroom>{
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.show_custom_classroom, null);
@@ -34,18 +36,19 @@ public class CustomBatchClassroomAdapter extends ArrayAdapter<Classroom>{
         TextView timeDisplay = (TextView) convertView.findViewById(R.id.show_custom_slot_time);
         timeDisplay.setText(TimeSlot.get(position));
 
-        if(getItem(position).getRoomId() == -1){
-            TextView teacher = (TextView) convertView.findViewById(R.id.show_custom_teacher);
-            teacher.setText("No class");
-        } else {
-            TextView course = (TextView) convertView.findViewById(R.id.show_custom_course);
-            course.setText(getItem(position).getCourseDetail().getName());
-            TextView teacher = (TextView) convertView.findViewById(R.id.show_custom_teacher);
-            teacher.setText(UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName());
-            TextView room = (TextView) convertView.findViewById(R.id.show_custom_room);
-            room.setText(Integer.toString(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
-        }
+        TextView teacher = (TextView) convertView.findViewById(R.id.show_custom_classrom_teacherorbatch);
+        TextView course = (TextView) convertView.findViewById(R.id.show_custom_classrom_course);
+        TextView room = (TextView) convertView.findViewById(R.id.show_custom_classrom_room);
 
+
+        if(getItem(position).getRoomId() == -1){
+            teacher.setText("No class");
+        }
+        else {
+            course.setText(getItem(position).getCourseDetail().getName());
+            teacher.setText(UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName());
+            room.setText(String.valueOf(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
+        }
         return convertView;
     }
 }

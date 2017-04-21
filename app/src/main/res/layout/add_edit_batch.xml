@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -78,6 +79,23 @@
             android:layout_marginLeft="2dp" />
     </LinearLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="No. of Students"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/add_edit_batch_batchCapacity"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+<!--
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -102,8 +120,27 @@
             android:id="@+id/add_edit_batch_batchCapacity"
             android:layout_weight="1"
             android:layout_marginLeft="5dp" />
+    </LinearLayout>-->
 
-    </LinearLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="numberPassword"
+            android:ems="10"
+            android:id="@+id/add_edit_batch_password"
+
+            />
+
+    </android.support.design.widget.TextInputLayout>
+<!--
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -144,8 +181,28 @@
                 android:checked="false" />
         </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
+    </LinearLayout>-->
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:passwordToggleEnabled="true"
+
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:ems="10"
+            android:id="@+id/add_edit_batch_confirmPassword"
+
+            android:inputType="numberPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+<!--    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -169,5 +226,5 @@
             android:id="@+id/add_edit_batch_confirmPassword"
             android:layout_weight="1"
             android:layout_marginLeft="5dp" />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

@@ -45,30 +45,44 @@ public class TeacherClassroomFragment extends Fragment {
     private ArrayList<Classroom> generateClassroomList(){
         ArrayList<Classroom> classrooms = new ArrayList<>();
 
-        ArrayList<TeacherDetail> teacherDetails = new UserStorage().getTeacherDetails();
         TeacherDetail teacherDetail = new TeacherDetail();
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         String userName = sp.getString(Login.USERNAME,"Daku");
         String password = sp.getString(Login.PASSWORD,"DAku");
+
         int totalTeachers = UserStorage.noOfTeachers();
+
         for (int i=0;i<totalTeachers;i++){
-            if (userName.equals(teacherDetails.get(i).getFirstName()) && password.equals(teacherDetails.get(i).getPassword())){
-                teacherDetail = teacherDetails.get(i);
+
+            String teacherFirstName = UserStorage.getTeacherDetail(i).getFirstName();
+            String teacherPassword = UserStorage.getTeacherDetail(i).getPassword();
+
+            if (userName.equals(teacherFirstName) && password.equals(teacherPassword)){
+                teacherDetail = UserStorage.getTeacherDetail(i);
                 break;
             }
         }
+
         int teacherId = teacherDetail.getTeacherId();
         ArrayList<SlotDetails> slotDetails = new TimeTable().getTotalSlots();
         int totalSlots = slotDetails.size();
+
+        // Iterating through SLOTS
         for (int i=0;i<totalSlots;i++){
             int slotClassrooms = slotDetails.get(i).totalClassrooms();
+
+            // For Each Slot Iterating through Total Classrooms in that Slot
             for (int j=0;j<slotClassrooms;j++){
-                if (teacherId == slotDetails.get(i).getClassroomDetail(j).getTeacherId()) {
+
+                int tempTeacherId = slotDetails.get(i).getClassroomDetail(j).getTeacherId();
+
+                if (teacherId == tempTeacherId) {
                     classrooms.add(slotDetails.get(i).getClassroomDetail(j));
                     break;
                 }
             }
+
             if (classrooms.size() != i+1){
                 classrooms.add(new Classroom());
             }
