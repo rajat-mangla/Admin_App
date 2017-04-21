@@ -120,9 +120,9 @@ public class AdminMainActivity extends AppCompatActivity
                 intent = new Intent(this,RoomInterface.class);
                 startActivity(intent);
                 break;
-            case R.id.activity_main_drawer_about :
+            /*case R.id.activity_main_drawer_about :
                 Toast.makeText(this,"IN PROGRESS",Toast.LENGTH_SHORT).show();
-                break;
+                break;*/
 
             case R.id.generate_time_table :
                 final ProgressDialog progressDialog = ProgressDialog.show(this, null, "Generating");

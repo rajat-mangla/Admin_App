@@ -26,16 +26,19 @@
         android:title="Generate Time Table"
         android:icon="@android:drawable/ic_menu_recent_history" />
 
-    <group android:checkableBehavior="none"
+    <!--<group android:checkableBehavior="none"
         android:id="@+id/menu_bottom">
         <item
             android:id="@+id/activity_main_drawer_about"
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="About" />
-    </group>
+    </group>-->
 
+    <group android:checkableBehavior="none"
+        android:id="@+id/menu_bottom">
     <item
         android:id="@+id/logout"
         android:title="Logout" />
+    </group>
 
 </menu>

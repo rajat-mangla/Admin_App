@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.rajatiit.admin_app.R;
 import com.example.rajatiit.admin_app.dataclasses.insti.Classroom;
+import com.example.rajatiit.admin_app.dataclasses.insti.Institute;
 import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.example.rajatiit.admin_app.activities.intefaces.SpinnerHandler;
 
@@ -163,16 +164,26 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (areErrorsHandled()) {
-                    detailsPasser = (classroomDetailpasser) getActivity();
-                    getEnteredDetails();
-                    if (isEditView){
-                        detailsPasser.passEditDialogDetails(classroom);
-                    }else {
-                        detailsPasser.passAddDialogDetails(classroom);
 
+                // Checking For Error Handling
+                if (areErrorsHandled()) {
+                    if (checkSameCourse()){
+                        Toast.makeText(getActivity(), "Course With The Same Name Already Exists",
+                                Toast.LENGTH_SHORT).show();
                     }
-                    dismiss();
+                    else {
+                        detailsPasser = (classroomDetailpasser) getActivity();
+                        getEnteredDetails();
+                        if (isEditView){
+                            detailsPasser.passEditDialogDetails(classroom);
+                        }else {
+                            detailsPasser.passAddDialogDetails(classroom);
+                        }
+                        dismiss();
+                    }
+                }
+                else {
+                    Toast.makeText(getActivity(), "Enter Full Details", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -186,7 +197,8 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AssignTeacherOrBatch.class);
                 if (isEditView) {
-                    intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME), classroom.getCourseDetail().getDepartmentName());
+                    intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME), classroom.getCourseDetail()
+                            .getDepartmentName());
                 } else {
                     intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME),
                             getArguments().getCharSequence(Integer.toString(R.string.DEPARTMENT_NAME)));
@@ -203,7 +215,8 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AssignTeacherOrBatch.class);
                 if (isEditView) {
-                    intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME), classroom.getCourseDetail().getDepartmentName());
+                    intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME), classroom.getCourseDetail()
+                            .getDepartmentName());
                 } else {
                     intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME),
                             getArguments().getCharSequence(Integer.toString(R.string.DEPARTMENT_NAME)));
@@ -237,11 +250,24 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     private boolean areErrorsHandled() {
         EditText courseNameText = (EditText) view.findViewById(R.id.add_edit_course_courseName);
         if (teacherId == -1 || batchId == -1 || courseNameText.getText().toString().equals("")) {
-            Toast.makeText(getActivity(), "Enter Full Details", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
+
+    private boolean checkSameCourse(){
+        EditText tcourseName = (EditText) view.findViewById(R.id.add_edit_course_courseName);
+        String courseName = tcourseName.getEditableText().toString().trim();
+
+        int totalClassrooms = Institute.totalNoOfClassrooms();
+        for (int i= 0; i<totalClassrooms ; i++){
+            if (courseName.equals(Institute.getClassroomDetail(i).getCourseDetail().getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     // getting the entered details from the layout and storing in the object classroom ..
     private void getEnteredDetails() {
@@ -250,13 +276,12 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         CheckBox projectorRequired = (CheckBox) view.findViewById(R.id.add_edit_course_projectorRequired);
 
         if (isEditView) {
-
             handleIds();
         } else {
             classroom = new Classroom();
         }
         classroom.getCourseDetail().setDepartmentName(courseDepartmentName.getText().toString());
-        classroom.getCourseDetail().setName(courseName.getText().toString());
+        classroom.getCourseDetail().setName(courseName.getText().toString().trim());
         classroom.getCourseDetail().setNumLectures(numOfLectures);
         classroom.setTeacherId(teacherId);
         classroom.setBatchId(batchId);

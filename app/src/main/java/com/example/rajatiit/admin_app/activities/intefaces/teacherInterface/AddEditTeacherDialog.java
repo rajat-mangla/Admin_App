@@ -141,7 +141,9 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     }
 
 
-    // Method to show existing details in for a teacher In  @Edit Dialog
+    /*
+        Method to show existing details in for a teacher In  @Edit Dialog
+     */
     private void showDetails(){
         EditText firstNameText = (EditText) view.findViewById(R.id.add_edit_teacher_firstname);
         EditText lastNameText = (EditText) view.findViewById(R.id.add_edit_teacher_lastname);
@@ -175,14 +177,17 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                     detailsPasser = (TeacherDetailsPasser) getActivity();
                     if (isEditView){
                         String uniqueIdentifier = teacherDetail.getUniqueCode();
+
                         // getting details
                         getDetails();
+
                         teacherDetail.generateUniqueCode();
                         if (!teacherDetail.getUniqueCode().equals(uniqueIdentifier)){
                             if (ifExists()){
                                 Toast.makeText(getActivity(),"Teacher Already Exists",Toast.LENGTH_SHORT).show();
                             }
                             else {
+                                // TODO : HANDLE ERRORS DUE TO FIRST NAME
                                 dismiss();
                                 detailsPasser.passEditDialogDetail(teacherDetail, uniqueIdentifier);
                             }
@@ -201,8 +206,14 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
                             Toast.makeText(getActivity(),"Teacher Already Exists",Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            dismiss();
-                            detailsPasser.passAddDialogDetail(teacherDetail);
+                            if (checkSameTeacher()){
+                                Toast.makeText(getActivity(),"Teacher With the same name already exists",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                dismiss();
+                                detailsPasser.passAddDialogDetail(teacherDetail);
+                            }
                         }
                     }
                 }
@@ -211,7 +222,9 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
 
     }
 
-    // method to check if teacher already exists
+    /*
+        method to check if teacher already exists
+     */
     private boolean ifExists(){
         int len = UserStorage.noOfTeachers();
         for (int i=0;i<len;i++){
@@ -244,6 +257,19 @@ public class AddEditTeacherDialog extends DialogFragment implements AdapterView.
     // METHODD to check empty edit_texts
     private boolean editTextEmpty(EditText editText){
         return editText.getEditableText().toString().equals("");
+    }
+
+    private boolean checkSameTeacher(){
+        EditText firstNameText = (EditText) view.findViewById(R.id.add_edit_teacher_firstname);
+        String teacherName = firstNameText.getEditableText().toString();
+
+        int totalTeachers = UserStorage.noOfTeachers();
+        for (int i=0;i<totalTeachers;i++){
+            if (teacherName.equals(UserStorage.getTeacherDetail(i).getFirstName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     // Method to add the Teacher Details TO A Teacher object from a Dialog

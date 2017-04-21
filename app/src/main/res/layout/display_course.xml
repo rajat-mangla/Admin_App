@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="12dp"
         app:cardElevation="8dp">
 
         <LinearLayout
@@ -60,14 +60,15 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:padding="10dp"
+                    android:padding="7dp"
                     android:text="Teacher :"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     />
@@ -78,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
-                    android:padding="10dp"
+                    android:padding="7dp"
                     android:text="Chiranjoy Chattopadhay"
                     android:textAppearance="@style/TextAppearance.AppCompat" />
             </LinearLayout>
@@ -86,14 +87,16 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:padding="10dp"
+                    android:padding="7dp"
                     android:text="Batch :"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     />
@@ -104,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
-                    android:padding="10dp"
+                    android:padding="7dp"
                     android:text="First Year CSE"
                     android:textAppearance="@style/TextAppearance.AppCompat" />
             </LinearLayout>

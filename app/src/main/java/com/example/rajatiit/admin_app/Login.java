@@ -155,7 +155,7 @@ public class Login extends AppCompatActivity {
                         break;
                     default:
                         Toast.makeText(getBaseContext(),
-                                "Username, Password and Type combination not found!",
+                                "Invalid Credentials",
                                 Toast.LENGTH_SHORT).show();
                         break;
                 }

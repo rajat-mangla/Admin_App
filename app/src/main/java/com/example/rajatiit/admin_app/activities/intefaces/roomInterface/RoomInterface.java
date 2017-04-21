@@ -34,6 +34,9 @@ public class RoomInterface extends AppCompatActivity implements AddEditRoomDialo
 
         // displaying the listview ...
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
+
         customRoomListAdapter = new CustomRoomListAdapter
                 (getBaseContext(),R.layout.activity_display_data_interface, new Institute().getRoomDetails());
         listView.setAdapter(customRoomListAdapter);

@@ -15,6 +15,7 @@ import com.example.rajatiit.admin_app.timetablehandler.TimeTable;
 
 /**
  * Created by rajat on 20-01-2017.
+ *
  */
 
 /*
@@ -25,6 +26,8 @@ public class AdminSlotsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+
+
 
         View view = inflater.inflate(R.layout.activity_display_data_interface, container, false);
         ListView listView = (ListView) view.findViewById(R.id.displayDataList);
@@ -41,9 +44,13 @@ public class AdminSlotsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
                 Intent intent = new Intent(getActivity(),ShowIndividualSlotActivity.class);
                 intent.putExtra("SLOT_INDEX",position);
                 getActivity().startActivity(intent);
+
+
             }
         });
         return view;
