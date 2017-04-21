@@ -42,6 +42,9 @@ public class BatchInterface extends AppCompatActivity implements AddEditBatchDia
 
         // displaying the listview ...
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
+
         customBatchListAdapter = new CustomBatchListAdapter
                 (getBaseContext(),R.layout.activity_display_data_interface,userStorage.getBatchDetails());
         listView.setAdapter(customBatchListAdapter);

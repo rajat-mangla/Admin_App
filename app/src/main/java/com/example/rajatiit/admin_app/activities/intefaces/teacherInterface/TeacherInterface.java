@@ -43,7 +43,12 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
 
         //  ListView for Teachers
         final ListView listView = (ListView) findViewById(R.id.displayDataList);
-        customTeacherListAdapter = new CustomTeacherListAdapter(getBaseContext(),R.layout.activity_display_data_interface, userStorage.getTeacherDetails());
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
+
+        // Setting the adapter for the listView
+        customTeacherListAdapter = new CustomTeacherListAdapter(getBaseContext()
+                ,R.layout.activity_display_data_interface, userStorage.getTeacherDetails());
         listView.setAdapter(customTeacherListAdapter);
 
         // Handling Floating Add Button
@@ -55,6 +60,9 @@ public class TeacherInterface extends AppCompatActivity implements AddEditTeache
                 addDialog.show(getFragmentManager(),Integer.toString(R.string.ADD_DIALOG));
             }
         });
+
+
+
 
         // Adding Context Menu On Item Long Click Listener
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

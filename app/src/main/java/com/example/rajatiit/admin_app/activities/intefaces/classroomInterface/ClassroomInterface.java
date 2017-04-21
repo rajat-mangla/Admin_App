@@ -189,8 +189,7 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
         }
         Institute.deleteClassroomDetail(classroomId);
 
-        Database.sendTeacherInfo(UserStorage.getTeacherDetail(teacherId));
-        Database.sendBatchInfo(UserStorage.getBatchDetail(batchId));
+        Database.updateUsers(new UserStorage());
         Database.deleteClassroomInfo();
 
         runOnUiThread(new Runnable() {

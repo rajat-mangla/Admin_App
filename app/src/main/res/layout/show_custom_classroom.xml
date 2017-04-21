@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:gravity="center_vertical|start"
     android:orientation="vertical">
@@ -47,7 +47,11 @@
                     android:textStyle="bold|italic"
                     android:textAlignment="center" />
             </LinearLayout>
-
+            <View
+                android:background="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginBottom="5dp"/>
             <TextView
                 android:id="@+id/show_custom_classrom_course"
                 android:layout_width="match_parent"

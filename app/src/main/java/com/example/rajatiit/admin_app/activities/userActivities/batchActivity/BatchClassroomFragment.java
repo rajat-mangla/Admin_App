@@ -32,12 +32,14 @@ public class BatchClassroomFragment extends Fragment {
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.addDetail);
         floatingActionButton.setVisibility(View.GONE);
 
-        ListView listview = (ListView) view.findViewById(R.id.displayDataList);
+        ListView listView = (ListView) view.findViewById(R.id.displayDataList);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
 
         CustomBatchClassroomAdapter customBatchClassroomAdapter = new CustomBatchClassroomAdapter(getContext(),
                 R.layout.activity_display_data_interface, generateClassroomList());
 
-        listview.setAdapter(customBatchClassroomAdapter);
+        listView.setAdapter(customBatchClassroomAdapter);
 
         return view;
     }

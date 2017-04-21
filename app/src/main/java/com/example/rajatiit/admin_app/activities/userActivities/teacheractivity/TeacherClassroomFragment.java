@@ -32,12 +32,15 @@ public class TeacherClassroomFragment extends Fragment {
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.addDetail);
         floatingActionButton.setVisibility(View.GONE);
 
-        ListView listview = (ListView) view.findViewById(R.id.displayDataList);
+        ListView listView = (ListView) view.findViewById(R.id.displayDataList);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
+
 
         CustomTeacherClassroomAdapter customTeacherClassroomAdapter = new CustomTeacherClassroomAdapter(getContext(),
                 R.layout.activity_display_data_interface, generateClassroomList());
 
-        listview.setAdapter(customTeacherClassroomAdapter);
+        listView.setAdapter(customTeacherClassroomAdapter);
 
         return view;
     }

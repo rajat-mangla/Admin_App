@@ -1,12 +1,14 @@
 package com.example.rajatiit.admin_app.dataclasses.insti;
 
 
+import com.example.rajatiit.admin_app.dataclasses.users.UserStorage;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
 
 /**
  * Created by RajatIIT on 10-02-2017.
+ * 
  */
 
 
@@ -69,6 +71,42 @@ public class Institute {
 
     public static void deleteClassroomDetail(int classroomPosition){
         classrooms.remove(classroomPosition);
+        int size = classrooms.size();
+
+        for (int itClassroom = classroomPosition ; itClassroom < size ; itClassroom++){
+
+            // Handle for Teachers and Batch Positions
+            int teacherPosition = classrooms.get(itClassroom).getTeacherId();
+            int batchPosition = classrooms.get(itClassroom).getBatchId();
+
+            int previousId = classrooms.get(itClassroom).getClassroomId();
+
+            // Assign New Id to Classroom
+            classrooms.get(itClassroom).setClassroomId(itClassroom);
+
+
+            // Handle Id's For the Teacher
+            {
+                ArrayList<Integer> classroomIds = UserStorage.getTeacherDetail(teacherPosition).getClassroomIds();
+                for (int itTeacher = 0; itTeacher < classroomIds.size(); itTeacher++) {
+                    if (previousId == classroomIds.get(itTeacher)) {
+                        UserStorage.getTeacherDetail(teacherPosition).getClassroomIds().remove(itTeacher);
+                        UserStorage.getTeacherDetail(teacherPosition).getClassroomIds().add(itTeacher,itClassroom);
+                    }
+                }
+            }
+
+            // Handle Id's For the Batch
+            {
+                ArrayList<Integer> classroomIds = UserStorage.getBatchDetail(batchPosition).getClassroomIds();
+                for (int itBatch = 0; itBatch < classroomIds.size(); itBatch++) {
+                    if (previousId == classroomIds.get(itBatch)) {
+                        UserStorage.getBatchDetail(batchPosition).getClassroomIds().remove(itBatch);
+                        UserStorage.getBatchDetail(batchPosition).getClassroomIds().add(itBatch,itClassroom);
+                    }
+                }
+            }
+        }
     }
 
     public static int totalNoOfClassrooms(){return classrooms.size();}
