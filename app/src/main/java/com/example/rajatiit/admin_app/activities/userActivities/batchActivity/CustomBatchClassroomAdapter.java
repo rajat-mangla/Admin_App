@@ -33,7 +33,7 @@ public class CustomBatchClassroomAdapter extends ArrayAdapter<Classroom>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.show_custom_classroom, null);
         }
-        TextView timeDisplay = (TextView) convertView.findViewById(R.id.show_custom_slot_time);
+        TextView timeDisplay = (TextView) convertView.findViewById(R.id.show_custom_classrom_time);
         timeDisplay.setText(TimeSlot.get(position));
 
         TextView teacher = (TextView) convertView.findViewById(R.id.show_custom_classrom_teacherorbatch);
@@ -42,9 +42,16 @@ public class CustomBatchClassroomAdapter extends ArrayAdapter<Classroom>{
 
 
         if(getItem(position).getRoomId() == -1){
-            teacher.setText("No class");
+
+            course.setText("No class");
+            room.setVisibility(View.GONE);
+            teacher.setVisibility(View.GONE);
         }
         else {
+
+            String teacherName = UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName();
+            teacherName = teacherName + " " + UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getLastName();
+
             course.setText(getItem(position).getCourseDetail().getName());
             teacher.setText(UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName());
             room.setText(String.valueOf(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
