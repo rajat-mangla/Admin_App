@@ -116,7 +116,11 @@ public class ClassroomInterface extends AppCompatActivity implements AddEditCour
                 //shows EDIT Dialog
                 DialogFragment editDialog = new AddEditCourseDialog();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Integer.toString(R.string.CLASSROOM_DATA), institute.getClassrooms().get(classroomId));
+
+                // bundle.putSerializable(Integer.toString(R.string.CLASSROOM_DATA), institute.getClassrooms().get(classroomId));
+
+                bundle.putInt(Integer.toString(R.string.CLASSROOM_DATA), classroomId);
+
 
                 editDialog.setArguments(bundle);
                 editDialog.show(getFragmentManager(), Integer.toString(R.string.EDIT_DIALOG));

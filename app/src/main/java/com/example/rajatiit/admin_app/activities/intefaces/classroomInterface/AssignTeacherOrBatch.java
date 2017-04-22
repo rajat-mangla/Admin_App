@@ -104,6 +104,7 @@ public class AssignTeacherOrBatch extends AppCompatActivity {
                                 }
                                 else {
                                     BatchDetail batchDetail = (BatchDetail) parent.getItemAtPosition(position);
+
                                     if (batchDetail.getClassroomIds().size()==6){
                                         Toast.makeText(getBaseContext(),"Reached Maximum Courses",Toast.LENGTH_SHORT).show();
                                     }

@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 /**
  * Created by rajat on 23/2/17.
+ *
+ *
  */
 
 /*
@@ -43,7 +45,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     private Classroom classroom;
 
     // REQUEST CODE TO IDENTIFY IF IT'S A ASSIGN TEACHER OR BATCH CALLBACK FOR  onActivityResult  METHOD
-    private final Integer ASSIGN_TEACHER_REQUESTCODE = 2;
+    private final Integer ASSIGN_TEACHER_REQUEST_CODE = 2;
 
     // To get the no. of lectures ...
     private Integer numOfLectures;
@@ -117,7 +119,13 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                         Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
-        classroom = (Classroom) getArguments().getSerializable(Integer.toString(R.string.CLASSROOM_DATA));
+
+        int classId = getArguments().getInt(Integer.toString(R.string.CLASSROOM_DATA));
+        /*
+        classroom = (Classroom) getArguments().getSerializable(Integer.toString(R.string.CLASSROOM_DATA));*/
+
+        classroom = Institute.getClassroomDetail(classId);
+
         teacherId = classroom.getTeacherId();
         batchId = classroom.getBatchId();
         showDetails();
@@ -190,8 +198,10 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
     }
 
     ///   Method called when assign teacher or batch are clicked ....
+
     private void assignButtonClicked() {
         Button assignTeacherButton = (Button) view.findViewById(R.id.add_edit_course_assignTeacher);
+
         assignTeacherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,9 +213,11 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                     intent.putExtra(Integer.toString(R.string.DEPARTMENT_NAME),
                             getArguments().getCharSequence(Integer.toString(R.string.DEPARTMENT_NAME)));
                 }
+
                 // to identify assign teacher button clicked
+
                 intent.putExtra(Integer.toString(R.string.ASSIGN_TEACHER), true);
-                startActivityForResult(intent, ASSIGN_TEACHER_REQUESTCODE);
+                startActivityForResult(intent, ASSIGN_TEACHER_REQUEST_CODE);
             }
         });
 
@@ -222,7 +234,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
                             getArguments().getCharSequence(Integer.toString(R.string.DEPARTMENT_NAME)));
                 }
                 intent.putExtra(Integer.toString(R.string.ASSIGN_TEACHER), false);
-                startActivityForResult(intent, ASSIGN_TEACHER_REQUESTCODE-2);
+                startActivityForResult(intent, ASSIGN_TEACHER_REQUEST_CODE-2);
             }
         });
     }
@@ -233,7 +245,7 @@ public class AddEditCourseDialog extends DialogFragment implements AdapterView.O
         if (resultCode == Activity.RESULT_OK) {
             // Assign teacher button clicked
             Log.i("checking the app : ","the result code" + Integer.toString(requestCode));
-            if (requestCode == ASSIGN_TEACHER_REQUESTCODE) {
+            if (requestCode == ASSIGN_TEACHER_REQUEST_CODE) {
                 teacherId = data.getExtras().getInt(Integer.toString(R.string.TEACHER_ID));
                 showTeacherName(teacherId);
             }
