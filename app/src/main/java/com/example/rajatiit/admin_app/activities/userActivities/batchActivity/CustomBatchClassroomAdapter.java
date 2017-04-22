@@ -52,8 +52,13 @@ public class CustomBatchClassroomAdapter extends ArrayAdapter<Classroom>{
             String teacherName = UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getFirstName();
             teacherName = teacherName + " " + UserStorage.getTeacherDetail(getItem(position).getTeacherId()).getLastName();
 
+            course.setVisibility(View.VISIBLE);
             course.setText(getItem(position).getCourseDetail().getName());
+
+            teacher.setVisibility(View.VISIBLE);
             teacher.setText(teacherName);
+
+            room.setVisibility(View.VISIBLE);
             room.setText(String.valueOf(Institute.getRoomDetail(getItem(position).getRoomId()).getRoomNo()));
         }
         return convertView;
